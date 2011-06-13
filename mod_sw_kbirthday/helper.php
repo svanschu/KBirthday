@@ -65,66 +65,50 @@ class ModSWKbirthdayHelper
 		if($this->integration == 'auto')
 			$this->integration	= KunenaIntegration::detectIntegration ( 'profile' , true );
 		$db		= JFactory::getDBO();
+        $query  = $db->getQuery(true);
+        $query->select('b.username');
+        $query->select('b.name');
+        $query->select('b.id AS userid');
+        $jomsocial = '';
+		if($this->integration === 'jomsocial'){
+            $birthdate  = 'value';
+            $fromtable  = '#__community_fields_values';
+            $jomsocial  = ' AND a.field_id = 3 ';
+            $userid     = 'user_id';
+		}elseif($this->integration === 'communitybuilder'){
+			//get the list of user birthdays
+			$cbfield	= $this->params->get('swkbcbfield', 'cb_birthday');
+			$birthdate 	= $db->getEscaped($cbfield);
+            $fromtable  = '#__comprofiler';
+            $userid     = 'id';
+		}else{
+            $birthdate  = 'birthdate';
+            $fromtable  = '#__kunena_users';
+            $userid     = 'userid';
+		}
+        $query->select('YEAR(a.'.$birthdate.') AS year');
+        $query->select('MONTH(a.'.$birthdate.') AS month');
+        $query->select('DAYOFMONTH(a.'.$birthdate.') AS day');
+        $query->select('DATEDIFF(DATE(a.'.$birthdate.') +
+    				    INTERVAL(YEAR(CURDATE()) - YEAR(a.'.$birthdate.') + (RIGHT(CURDATE(),5)>RIGHT(DATE(a.'.$birthdate.'),5)))
+					    YEAR, CURDATE()) AS till');
+        if ($this->params->get('displayage'))
+            $query->select('(YEAR(CURDATE()) - YEAR(a.'.$birthdate.') + (DAYOFYEAR(CURDATE())>DAYOFYEAR(a.'.$birthdate.'))) AS age');
+        $query->from($fromtable.' AS a');
+        $query->innerJoin('#__users AS b ON a.'.$userid.' = b.id'.$jomsocial);
+        $query->where('(DAYOFYEAR(a.'.$birthdate.')>='.$db->getEscaped($from));
+    	if($from>$to || $this->btimeline >= 365){
+            $query->where('DAYOFYEAR(a.'.$birthdate.')<=366) OR (DAYOFYEAR(a.'.$birthdate.')>=0');
+            $query->where('DAYOFYEAR(a.'.$birthdate.')<='.$db->getEscaped($to).')');
+		}else{
+            $query->where('DAYOFYEAR(a.'.$birthdate.')<='.$db->getEscaped($to).')');
+		}
+        $query->order('till');
         if($this->username == 0)
             $order = 'name';
         else
             $order = 'username';
-		if($this->integration === 'jomsocial'){
-			$query = "SELECT b.username, b.name, b.id AS userid, YEAR(a.value) AS year,
-					MONTH(a.value) AS month,DAYOFMONTH(a.value) AS day,
-						DATEDIFF(DATE(a.value) +
-						    INTERVAL(YEAR(CURDATE()) - YEAR(a.value) + (RIGHT(CURDATE(),5)>RIGHT(DATE(a.value),5)))
-						    YEAR, CURDATE()) AS till";
-            if ($this->params->get('displayage'))
-                $query .= ",(YEAR(CURDATE()) - YEAR(a.value) + (DAYOFYEAR(CURDATE())>DAYOFYEAR(a.value))) AS age";
-			$query .= " FROM #__community_fields_values AS a
-					INNER JOIN #__users AS b
-					ON a.user_id = b.id AND a.field_id = 3
-					WHERE ( DAYOFYEAR(a.value)>={$from} AND DAYOFYEAR(a.value)<=";
-			if($from>$to || $this->btimeline >= 365){
-				$query .= "366) OR ( DAYOFYEAR(a.value)>=0 AND DAYOFYEAR(a.value)<={$to})";
-			}else{
-				$query .= "{$to})";
-			}
-		}elseif($this->integration === 'communitybuilder'){
-			//get the list of user birthdays
-			$cbfield	= $this->params->get('swkbcbfield', 'cb_birthday');
-			$cb 	= $db->getEscaped($cbfield);
-			$query	= "SELECT b.username, b.name, b.id AS userid, YEAR(a.{$cb}) AS year,
-						MONTH(a.{$cb}) AS month,DAYOFMONTH(a.{$cb}) AS day,
-						DATEDIFF(a.{$cb} +
-						    INTERVAL(YEAR(CURDATE()) - YEAR(a.{$cb}) + (RIGHT(CURDATE(),5)>RIGHT(a.{$cb},5)))
-						    YEAR, CURDATE()) AS till";
-            if ($this->params->get('displayage'))
-                $query .= ",(YEAR(CURDATE()) - YEAR(a.{$cb}) + (DAYOFYEAR(CURDATE())>DAYOFYEAR(a.{$cb}))) AS age";
-            $query .= "	FROM #__comprofiler AS a
-						INNER JOIN #__users AS b
-						ON a.id = b.id
-						WHERE (DAYOFYEAR(a.{$cb})>={$from} AND DAYOFYEAR(a.{$cb})<=";
-			if($from>$to || $this->btimeline >= 365){
-				$query .= "366) OR (DAYOFYEAR(a.{$cb})>=0 AND DAYOFYEAR(a.{$cb})<={$to})";
-			}else{
-				$query .= "{$to})";
-			}
-		}else{
-			$query	= "SELECT b.username, b.name, b.id AS userid, YEAR(a.birthdate) AS year,
-						MONTH(a.birthdate) AS month,DAYOFMONTH(a.birthdate) AS day,
-						DATEDIFF(a.birthdate +
-						    INTERVAL(YEAR(CURDATE()) - YEAR(a.birthdate) + (RIGHT(CURDATE(),5)>RIGHT(a.birthdate,5)))
-						    YEAR, CURDATE()) AS till";
-            if ($this->params->get('displayage'))
-                $query .= ",(YEAR(CURDATE()) - YEAR(a.birthdate) + (DAYOFYEAR(CURDATE())>DAYOFYEAR(a.birthdate))) AS age";
-            $query.= " FROM #__kunena_users AS a
-						INNER JOIN #__users AS b
-						ON a.userid = b.id
-						WHERE (DAYOFYEAR(a.birthdate)>={$from} AND DAYOFYEAR(a.birthdate)<=";
-			if($from>$to || $this->btimeline >= 365){
-				$query .= "366) OR (DAYOFYEAR(a.birthdate)>=0 AND DAYOFYEAR(a.birthdate)<={$to})";
-			}else{
-				$query .= "{$to})";
-			}
-		}
-		$query .= " ORDER BY till,".$db->getEscaped($order);
+        $query->order($db->getEscaped($order));
 		$db->setQuery($query, 0, $this->params->get('limit') );
 		$res	= $db->loadAssocList();
 		if($db->getErrorMsg()){ 
@@ -350,7 +334,7 @@ class ModSWKbirthdayHelper
                     self::addDate($v);
 			    else
                     $v['date'] = '';
-				$list[$k]['link']		= JText::sprintf('SW_KBIRTHDAY_HAVEBIRTHDAYIN', $v['link'], $v['daystring'], $v['age'], $v['date'] );
+				$list[$k]['link']		= JText::sprintf('SW_KBIRTHDAY_HAVEBIRTHDAYIN', $v['link'], $v['day_string'], $v['age'], $v['date'] );
 			}
 		}
 		return $list;

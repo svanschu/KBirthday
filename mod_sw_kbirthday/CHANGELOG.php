@@ -28,6 +28,9 @@ Legend:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Kunena Birthday Modul 1.7.3-DEV
+14-June-2011
+^ changed sql query to new J1.6 style
+
 13-June-2011
 ^ optimize sql query
 ^ moved limit back into setQuery()
