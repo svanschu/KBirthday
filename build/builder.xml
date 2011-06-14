@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="mod_sw_kbirthday_J16" default="build">
+    <!-- Set the directory where the packages should be saved. Relative to the build dir -->
+    <property name="builddir" value="./../../packages/mod_sw_kbirthday_J16" override="true" />
+    <!-- Declare Project src files -->
+    <property name="src" value="./.." override="true" />
+    <property name="module" value="${src}" />
+
+    <fileset dir="${module}" id="module">
+        <include name="**" />
+    </fileset>
+
+    <target name="build" depends="prepare, copy">
+        <zip destfile="${builddir}/mod_sw_kbirthday_J16.zip">
+            <fileset dir="${builddir}/tmp">
+                <include name="**" />
+            </fileset>
+        </zip>
+        <delete dir="${builddir}/tmp" />
+        <echo msg="Zip ALL OK!" />
+    </target>
+
+    <target name="prepare">
+        <mkdir dir="${builddir}/tmp/module" />
+        <echo msg="Create temp folder OK!" />
+    </target>
+
+    <target name="copy">
+        <!-- copy the module -->
+        <copy todir="${builddir}/tmp/module">
+            <fileset refid="module" />
+        </copy>
+        <echo msg="Copy was successfull" />
+    </target>
+</project>
