@@ -2,13 +2,13 @@
 	<!-- $Id$ -->
 <extension type="module" version="1.6.0" client="site" method="upgrade">
 	<name>mod_sw_kbirthday</name>
-	<creationDate>@swversiondate@</creationDate>
-	<build>@swversionbuild@</build>
+	<creationDate>sw.build.date</creationDate>
 	<author>Schultschik Websolution</author>
 	<copyright>GNU/GPL License</copyright>
 	<authorEmail>sven@schultschik.de</authorEmail>
 	<authorUrl>www.schultschik.de</authorUrl>
-	<version>1.7.2.J1.6_beta</version>
+	<version>sw.build.version</version>
+    <build>sw.build.number</build>
 	<description>SW_KBIRTHDAY_DESC</description>
 	<files>
 		<filename module="mod_sw_kbirthday">mod_sw_kbirthday.php</filename>

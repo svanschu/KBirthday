@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="mod_sw_kbirthday_J16" default="build">
+<!--
+    Override variables:
+    - Version number -Dbuild.version=0.0.0
+    All paths starts at the build folder
+    - Build dir -Dbuilddir=./../../packages/swsetgroup
+    - Sourcefiles -Dsrc=./..
+
+    - extension name without file postfix
+        -Dsrc.name=name
+-->
+<project default="build">
+     <!-- Version number of build -->
+    <property name="build.version" value="0.0.0" override="true" />
+    <!-- Set the build number -->
+    <!-- attention you need this additional Task to use the taskdef above
+        https://github.com/lorddarkangel/phing-buildnumber-task
+    -->
+    <taskdef name="buildnumber" classname="phing.tasks.ext.BuildnumberTask" />
+    <buildnumber file="build.txt" property="build.number" />
+    <!-- get the date for build -->
+    <tstamp prefix="build.date" />
     <!-- Set the directory where the packages should be saved. Relative to the build dir -->
-    <property name="builddir" value="./../../packages/mod_sw_kbirthday_J16" override="true" />
+    <property name="builddir" value="./../../packages/${src.name}" override="true" />
     <!-- Declare Project src files -->
     <property name="src" value="./.." override="true" />
     <property name="module" value="${src}" />
+    <property name="src.name" value="" override="true" />
 
     <fileset dir="${module}" id="module">
         <include name="**" />
     </fileset>
 
     <target name="build" depends="prepare, copy">
-        <zip destfile="${builddir}/mod_sw_kbirthday_J16.zip">
+        <zip destfile="${builddir}/${src.name}_${build.version}_b${build.number}_${build.date.DSTAMP}.zip">
             <fileset dir="${builddir}/tmp">
                 <include name="**" />
             </fileset>
@@ -31,5 +52,18 @@
             <fileset refid="module" />
         </copy>
         <echo msg="Copy was successfull" />
+        <!-- insert version, build number and date into the xml files -->
+        <reflexive>
+            <fileset dir="${builddir}/tmp/">
+                <include name="**/${src.name}.xml" />
+            </fileset>
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="sw\.build\.version" replace="${build.version}" />
+                    <regexp pattern="sw\.build\.number" replace="${build.number}" />
+                    <regexp pattern="sw\.build\.date" replace="${build.date.DSTAMP}" />
+                </replaceregexp>
+            </filterchain>
+        </reflexive>
     </target>
 </project>

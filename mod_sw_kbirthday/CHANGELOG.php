@@ -27,7 +27,7 @@ Legend:
 ! -> Note
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Kunena Birthday Modul 1.7.3-DEV
+Kunena Birthday Modul 1.7.3-J16-DEV
 14-June-2011
 ^ changed sql query to new J1.6 style
 
