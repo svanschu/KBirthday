@@ -59,13 +59,13 @@
 					<option value="profil">SW_KBIRTHDAY_PROFIL</option>
 					<option value="forum">SW_KBIRTHDAY_FORUMPOST</option>
 				</field>
-				<field name="spacer" type="spacer" hr="true" />
+				<!--field name="spacer" type="spacer" hr="true" />
 				<field name="timefrom" type="list" label="SW_KBIRTHDAY_TIMEFROM"
 					description="SW_KBIRTHDAY_TIMEFROM_DESC" default="website">
 					<option value="website">SW_KBIRTHDAY_WEBSITE</option>
 					<option value="gmt">SW_KBIRTHDAY_GMT</option>
 					<option value="user">SW_KBIRTHDAY_USER</option>
-				</field>
+				</field -->
 			</fieldset>
 			<fieldset name="SW_KBIRTHDAY_FORUMPOST">
 				<field type="text" default="2" name="bcatid"

@@ -32,7 +32,7 @@
     </fileset>
 
     <target name="build" depends="prepare, copy">
-        <zip destfile="${builddir}/${src.name}_${build.version}_b${build.number}_${build.date.DSTAMP}.zip">
+        <zip destfile="${builddir}/${src.name}_v${build.version}_b${build.number}_${build.date.DSTAMP}.zip">
             <fileset dir="${builddir}/tmp">
                 <include name="**" />
             </fileset>

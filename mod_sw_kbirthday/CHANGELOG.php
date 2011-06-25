@@ -28,6 +28,12 @@ Legend:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Kunena Birthday Modul 1.7.3-J16-DEV
+25-June-2011
+# from to till date had one day to less
+# using new JDate in the right way
+^ deprecated function getValue -> get
+- Time from option
+
 14-June-2011
 ^ changed sql query to new J1.6 style
 
