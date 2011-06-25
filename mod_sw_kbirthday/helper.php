@@ -111,7 +111,7 @@ class ModSWKbirthdayHelper
 					unset($res[$k]);
 				}else{
 					$res[$k]['birthdate'] = new JDate( mktime(0,0,0,$v['month'],$v['day'],$v['year']), $this->soffset );
-					$res[$k]['leapcorrection'] = $res[$k]['birthdate']->format('z', true);
+					$res[$k]['leapcorrection'] = $res[$k]['birthdate']->format('z', true)+1;
 					$useryear = $res[$k]['birthdate']->format('Y', true);
 					//we have NOT a leap year?
 					if( ($todayyear % 400) != 0 || !( ( $todayyear % 4 ) == 0 && ( $todayyear % 100 ) != 0) ){
@@ -120,7 +120,7 @@ class ModSWKbirthdayHelper
 							//if we haven't leap year and birthdate was in leapyear we have to cut yday after february
 							if($res[$k]['birthdate']->format('m', true) > 2){
 								$res[$k]['leapcorrection'] -= 1;
-								if( $this->timeo->format('z', true) > $res[$k]['leapcorrection'] ) unset($res[$k]);
+								if( ($this->timeo->format('z', true)+1) > $res[$k]['leapcorrection'] ) unset($res[$k]);
 							}
 							//was birthday on 29 february? then show it on 1 march
 							if($v['month'] == 2 && $v['day'] == 29){
@@ -155,7 +155,7 @@ class ModSWKbirthdayHelper
 				$user['link'] = CKunenaLink::GetProfileLink($user['userid']);
 				break;
 			case 'forum':
-				if( $user['leapcorrection'] == $this->timeo->format('z', true)){
+				if ($user['leapcorrection'] == ($this->timeo->format('z', true)+1)) {
 					$subject = self::getSubject($username);
 					$db		= JFactory::getDBO();
 					$query	= "SELECT id,catid,subject,time as year FROM #__kunena_messages WHERE subject='{$subject}'";
