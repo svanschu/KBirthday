@@ -17,7 +17,7 @@
         https://github.com/lorddarkangel/phing-buildnumber-task
     -->
     <taskdef name="buildnumber" classname="phing.tasks.ext.BuildnumberTask" />
-    <buildnumber file="build.txt" property="build.number" />
+    <version file="build.txt" property="build.number" quantity="1" increase="1"/>
     <!-- get the date for build -->
     <tstamp prefix="build.date" />
     <!-- Set the directory where the packages should be saved. Relative to the build dir -->

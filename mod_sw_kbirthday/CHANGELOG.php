@@ -28,6 +28,10 @@ Legend:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Kunena Birthday Modul 1.7.3-J16-DEV
+
+28-Juli-2011
++ added es-ES, fr-FR, hu-HU, it-IT, nl-NL, pl-PL, pt-BR, ru-RU, sr-RS, sr-YU
+
 25-June-2011
 # added PHP Version check
 
