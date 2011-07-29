@@ -19,4 +19,22 @@
       <section></section>
       <targetplatform name="joomla" version="1.6" />
    </update>
+   <update>
+      <name>Kunena Birthday Module</name>
+      <description>Kunena Birthday Module</description>
+      <element>mod_sw_kbirthday</element>
+      <type>module</type>
+      <version>1.7.3.J1.6</version>
+      <infourl title="Kunena Birthday Module URL">http://www.schultschik.de/download/mod_sw_kbirthday</infourl>
+      <downloads>
+         <downloadurl type="full" format="zip">http://update.schultschik.de/mod_sw_kbirthday/mod_sw_kbirthday_v1.7.3-J16_b11_20110729.zip</downloadurl>
+      </downloads>
+      <tags>
+         <tag></tag>
+      </tags>
+      <maintainer>Schultschik Websolution</maintainer>
+      <maintainerurl>http://www.schultschik.de</maintainerurl>
+      <section></section>
+      <targetplatform name="joomla" version="1.6" />
+   </update>
 </updates>
