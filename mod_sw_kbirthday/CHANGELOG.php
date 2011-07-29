@@ -27,7 +27,13 @@ Legend:
 ! -> Note
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Kunena Birthday Modul 1.7.3-J16-DEV
+Kunena Birthday Modul 1.7.3-J16
+
+29-Juli-2011
+^ update old update.xml so 1.7.2 can update
++ added the languages to install xml
+# fixed builder
+^ changed update URL to ARS
 
 28-Juli-2011
 + added es-ES, fr-FR, hu-HU, it-IT, nl-NL, pl-PL, pt-BR, ru-RU, sr-RS, sr-YU

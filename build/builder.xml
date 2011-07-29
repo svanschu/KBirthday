@@ -30,6 +30,7 @@
 
     <fileset dir="${module}" id="module">
         <include name="**" />
+        <exclude name="mod_sw_kbirthday_update.xml" />
     </fileset>
 
     <target name="build" depends="prepare, copy">
