@@ -17,14 +17,15 @@
         https://github.com/lorddarkangel/phing-buildnumber-task
     -->
     <taskdef name="buildnumber" classname="phing.tasks.ext.BuildnumberTask" />
-    <version file="build.txt" property="build.number" quantity="1" increase="1"/>
+    <buildnumber file="build.txt" property="build.number" />
+    <!--version file="build.txt" property="build.number" quantity="1" increase="1"/-->
     <!-- get the date for build -->
     <tstamp prefix="build.date" />
     <!-- Set the directory where the packages should be saved. Relative to the build dir -->
     <property name="builddir" value="./../../packages/${src.name}" override="true" />
     <!-- Declare Project src files -->
     <property name="src" value="./.." override="true" />
-    <property name="module" value="${src}" />
+    <property name="module" value="${src}/mod_sw_kbirthday" />
     <property name="src.name" value="" override="true" />
 
     <fileset dir="${module}" id="module">
@@ -33,7 +34,7 @@
 
     <target name="build" depends="prepare, copy">
         <zip destfile="${builddir}/${src.name}_v${build.version}_b${build.number}_${build.date.DSTAMP}.zip">
-            <fileset dir="${builddir}/tmp">
+            <fileset dir="${builddir}/tmp/module">
                 <include name="**" />
             </fileset>
         </zip>
