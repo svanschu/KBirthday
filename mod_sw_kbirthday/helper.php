@@ -32,7 +32,6 @@ class ModSWKbirthdayHelper
         $this->username     = $k_config->username;
 		$this->params		= $params;
 		//get the date today
-		$timefrom	= $params->get('timefrom');
 		$config	= JFactory::getConfig();
         $this->soffset = $config->get('offset');
 		$this->timeo		= new JDate('now', $this->soffset);

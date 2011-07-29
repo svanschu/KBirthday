@@ -30,6 +30,7 @@ Legend:
 Kunena Birthday Modul 1.7.3-J16
 
 29-Juli-2011
+^ removed obsolete timefrom
 ^ update old update.xml so 1.7.2 can update
 + added the languages to install xml
 # fixed builder
