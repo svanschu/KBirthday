@@ -112,4 +112,4 @@
 		<!-- Note: No spaces or linebreaks allowed between the server tags -->
 		<server type="extension" priority="1" name="Schultschik Websolution Update Site"><![CDATA[http://www.schultschik.de/index.php?option=com_ars&view=update&task=all&format=xml]]></server>
 	</updateservers>
-</extension>s
+</extension>
