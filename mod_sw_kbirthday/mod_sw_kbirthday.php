@@ -12,7 +12,7 @@
 
 defined( '_JEXEC' ) or die();
 
-require_once (dirname(__FILE__).DS.'helper.php');
+require_once (dirname(__FILE__).'/helper/'.strtolower($params->get('connection')).'php');
 // Kunena detection and version check
 $minKunenaVersion = '1.6.0';
 $minPHPVersion = '5.3.0';
@@ -26,7 +26,8 @@ if (!class_exists ( 'Kunena' ) || !version_compare( Kunena::version (), $minKune
     $res = JText::sprintf('SW_KBIRTHDAY_MIN_PHP', $minPHPVersion);
 }else{
 	//get the birthday list with connection links
-	$bday = new ModSWKbirthdayHelper($params);
+    $class = "ModSWKbirthdayHelper{$params->get('connection')}(\$params)";
+	$bday = new $class;
 	$res = $bday->getUserBirthday();
 }
 
