@@ -71,6 +71,8 @@
                     <option value="Profil">SW_KBIRTHDAY_PROFIL</option>
                     <option value="Forum">SW_KBIRTHDAY_FORUMPOST</option>
                 </field>
+                <field type="text" name="hideuser" default=""
+                       label="SW_KBIRTHDAY_HIDEUSER" description="SW_KBIRTHDAY_HIDEUSER_DESC" />
             </fieldset>
             <fieldset name="SW_KBIRTHDAY_FORUMPOST">
                 <field type="text" default="2" name="bcatid"

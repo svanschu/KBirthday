@@ -253,23 +253,38 @@ abstract class ModSWKbirthdayHelper
         $list = self::getBirthdayUser();
         $dage = $this->params->get('displayage');
         $ddate = $this->params->get('displaydate');
+        $users = explode(',', $this->params->get('hideuser'));
+        $users = $users ? $users : array();
         if (!empty($list)) {
             foreach ($list as $k => $v) {
-                $this->addDaysTill($v);
-                $this->getUserLink($v);
-                //Should we display the age?
-                if ($dage)
-                    $v['age'] = JText::sprintf('SW_KBIRTHDAY_ADD_AGE', $v['age']);
-                else
-                    $v['age'] = '';
-                //Should we display the date?
-                if ($ddate)
-                    self::addDate($v);
-                else
-                    $v['date'] = '';
-                $list[$k]['link'] = JText::sprintf('SW_KBIRTHDAY_HAVEBIRTHDAYIN', $v['link'], $v['day_string'], $v['age'], $v['date']);
+                if ($this->hideUser($v, $users) === true) {
+                    unset($list[$k]);
+                } else {
+                    $this->addDaysTill($v);
+                    $this->getUserLink($v);
+                    //Should we display the age?
+                    if ($dage)
+                        $v['age'] = JText::sprintf('SW_KBIRTHDAY_ADD_AGE', $v['age']);
+                    else
+                        $v['age'] = '';
+                    //Should we display the date?
+                    if ($ddate)
+                        self::addDate($v);
+                    else
+                        $v['date'] = '';
+                    $list[$k]['link'] = JText::sprintf('SW_KBIRTHDAY_HAVEBIRTHDAYIN', $v['link'], $v['day_string'], $v['age'], $v['date']);
+                }
             }
         }
         return $list;
+    }
+
+    private function hideUser($user, $users){
+        foreach ($users as $uid) {
+            if ($uid == $user['userid']) {
+                return true;
+            };
+        }
+        return false;
     }
 }
