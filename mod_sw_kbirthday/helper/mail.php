@@ -12,11 +12,11 @@
 
 defined('_JEXEC') or die();
 
-class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
+class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
 {
     /**
      * adds the link for the connect param
-     * @since 1.7.3
+     * @since 1.8.0
      * @param  $user pass-by-reference
      * @return void
      */

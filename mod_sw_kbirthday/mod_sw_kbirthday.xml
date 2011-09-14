@@ -70,6 +70,7 @@
                     <option value="Default">SW_KBIRTHDAY_NONE</option>
                     <option value="Profil">SW_KBIRTHDAY_PROFIL</option>
                     <option value="Forum">SW_KBIRTHDAY_FORUMPOST</option>
+                    <option value="Mail">SW_KBIRTHDAY_MAIL</option>
                 </field>
                 <field type="text" name="hideuser" default=""
                        label="SW_KBIRTHDAY_HIDEUSER" description="SW_KBIRTHDAY_HIDEUSER_DESC" />
