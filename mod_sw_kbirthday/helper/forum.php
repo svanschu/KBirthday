@@ -20,11 +20,11 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
      * @param  $user pass-by-reference
      * @return void
      */
-    private function getUserLink(& $user)
+    public function getUserLink(& $user)
     {
         $username = KunenaFactory::getUser($user['userid'])->getName();
         if ($user['leapcorrection'] == ($this->timeo->format('z', true) + 1)) {
-            $subject = getSubject($username);
+            $subject = self::getSubject($username);
             $db = JFactory::getDBO();
             $query = "SELECT id,catid,subject,time as year FROM #__kunena_messages WHERE subject='{$subject}'";
             $db->setQuery($query, 0, 1);
@@ -46,7 +46,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                 //What ID get our thread?
                 $messid = (int)$db->insertID();
                 //Insert the thread message into DB
-                $message = getMessage($username);
+                $message = self::getMessage($username);
                 $query = "INSERT INTO #__kunena_messages_text (mesid,message)
                     VALUES({$messid},'{$message}')";
                 $db->setQuery($query);

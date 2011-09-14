@@ -20,7 +20,7 @@ class ModSWKbirthdayHelperDefault extends ModSWKbirthdayHelper
      * @param  $user pass-by-reference
      * @return void
      */
-    private function getUserLink(& $user)
+    public function getUserLink(& $user)
     {
         $user['link'] = KunenaFactory::getUser($user['userid'])->getName();
     }

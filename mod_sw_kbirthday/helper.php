@@ -111,7 +111,7 @@ abstract class ModSWKbirthdayHelper
                 if ($v['year'] == 1 || empty($v['year'])) {
                     unset($res[$k]);
                 } else {
-                    $res[$k]['birthdate'] = new JDate(mktime(0, 0, 0, $v['month'], $v['day'], $v['year']), $this->soffset);
+                    $res[$k]['birthdate'] = new JDate($v['year'].'-'.$v['month'].'-'.$v['day'], $this->soffset);
                     $res[$k]['leapcorrection'] = $res[$k]['birthdate']->format('z', true) + 1;
                     $useryear = $res[$k]['birthdate']->format('Y', true);
                     //we have NOT a leap year?
@@ -156,7 +156,7 @@ abstract class ModSWKbirthdayHelper
       * @since 1.7.0
       * @return string subject
       */
-    private function getSubject($username)
+    protected function getSubject($username)
     {
         if ($this->params->get('activatelanguage') == 'yes') {
             $lang = $this->params->get('subjectlanguage');
@@ -172,7 +172,7 @@ abstract class ModSWKbirthdayHelper
         return $subject;
     }
 
-    private function getMessage($username)
+    protected function getMessage($username)
     {
         if ($this->params->get('activatelanguage') == 'yes') {
             $lang = $this->params->get('messagelanguage');
@@ -252,17 +252,19 @@ abstract class ModSWKbirthdayHelper
     function getUserBirthday()
     {
         $list = self::getBirthdayUser();
+        $dage = $this->params->get('displayage');
+        $ddate = $this->params->get('displaydate');
         if (!empty($list)) {
             foreach ($list as $k => $v) {
                 $this->addDaysTill($v);
                 $this->getUserLink($v);
                 //Should we display the age?
-                if ($this->params->get('displayage'))
+                if ($dage)
                     $v['age'] = JText::sprintf('SW_KBIRTHDAY_ADD_AGE', $v['age']);
                 else
                     $v['age'] = '';
                 //Should we display the date?
-                if ($this->params->get('displaydate'))
+                if ($ddate)
                     self::addDate($v);
                 else
                     $v['date'] = '';

@@ -66,7 +66,7 @@
 				<field name="connection" type="list"
 					description="SW_KBIRTHDAY_CONNECTION_DESC SW_KBIRTHDAY_CONNECTION_NOTE"
 					label="SW_KBIRTHDAY_CONNECTION" default="1">
-					<option value="None">SW_KBIRTHDAY_NONE</option>
+					<option value="Default">SW_KBIRTHDAY_NONE</option>
 					<option value="Profil">SW_KBIRTHDAY_PROFIL</option>
 					<option value="Forum">SW_KBIRTHDAY_FORUMPOST</option>
 				</field>
