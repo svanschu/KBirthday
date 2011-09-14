@@ -41,8 +41,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                 $query = "INSERT INTO #__kunena_messages (catid,name,userid,email,subject,time, ip)
 		    		VALUES({$catid},'{$botname}',{$botid}, '','{$subject}', {$time}, '')";
                 $db->setQuery($query);
-                $db->query();
-                if ($db->getErrorMsg()) KunenaError::checkDatabaseError();
+                if (!$db->query()) KunenaError::checkDatabaseError();
                 //What ID get our thread?
                 $messid = (int)$db->insertID();
                 //Insert the thread message into DB
@@ -50,14 +49,12 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                 $query = "INSERT INTO #__kunena_messages_text (mesid,message)
                     VALUES({$messid},'{$message}')";
                 $db->setQuery($query);
-                $db->query();
-                if ($db->getErrorMsg()) KunenaError::checkDatabaseError();
+                if (!$db->query()) KunenaError::checkDatabaseError();
                 //We know the thread ID so we can update the parent thread id with it's own ID because we know it's
                 //the first post
                 $query = "UPDATE #__kunena_messages SET thread={$messid} WHERE id={$messid}";
                 $db->setQuery($query);
-                $db->query();
-                if ($db->getErrorMsg()) KunenaError::checkDatabaseError();
+                if (!$db->query()) KunenaError::checkDatabaseError();
                 // now increase the #s in categories
                 CKunenaTools::modifyCategoryStats($messid, 0, $time, $catid);
                 $user['link'] = CKunenaLink::GetViewLink('view', $messid, $catid, '', $username);

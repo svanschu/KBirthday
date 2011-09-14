@@ -65,7 +65,7 @@ abstract class ModSWKbirthdayHelper
         } elseif ($this->integration === 'communitybuilder') {
             //get the list of user birthdays
             $cbfield = $this->params->get('swkbcbfield', 'cb_birthday');
-            $birthdate = $db->getEscaped($cbfield);
+            $birthdate = $db->escape($cbfield);
             $fromtable = '#__comprofiler';
             $userid = 'id';
         } else {
@@ -83,26 +83,25 @@ abstract class ModSWKbirthdayHelper
             $query->select('(YEAR(CURDATE()) - YEAR(a.' . $birthdate . ') + (DAYOFYEAR(CURDATE())>DAYOFYEAR(a.' . $birthdate . '))) AS age');
         $query->from($fromtable . ' AS a');
         $query->innerJoin('#__users AS b ON a.' . $userid . ' = b.id' . $jomsocial);
-        $query->where('(DAYOFYEAR(a.' . $birthdate . ')>=' . $db->getEscaped($from));
+        $query->where('(DAYOFYEAR(a.' . $birthdate . ')>=' . $db->escape($from));
         if ($from > $to || $this->btimeline >= 365) {
             $query->where('DAYOFYEAR(a.' . $birthdate . ')<=366) OR (DAYOFYEAR(a.' . $birthdate . ')>=0');
-            $query->where('DAYOFYEAR(a.' . $birthdate . ')<=' . $db->getEscaped($to) . ')');
+            $query->where('DAYOFYEAR(a.' . $birthdate . ')<=' . $db->escape($to) . ')');
         } else {
-            $query->where('DAYOFYEAR(a.' . $birthdate . ')<=' . $db->getEscaped($to) . ')');
+            $query->where('DAYOFYEAR(a.' . $birthdate . ')<=' . $db->escape($to) . ')');
         }
         $query->order('till');
         if ($this->username == 0)
             $order = 'name';
         else
             $order = 'username';
-        $query->order($db->getEscaped($order));
+        $query->order($db->escape($order));
         $db->setQuery($query, 0, $this->params->get('limit'));
         $res = $db->loadAssocList();
-        //die();
-        if ($db->getErrorMsg()) {
+        if (!$res) {
             KunenaError::checkDatabaseError();
             if ($this->integration === 'communitybuilder')
-                $this->app->enqueueMessage(JText::_('SW_KBIRTHDAY_NOCBFIELD_IF'), 'error');
+                throw new DatabaseException(JText::_('SW_KBIRTHDAY_NOCBFIELD_IF'));
         }
         if (!empty($res)) {
             //setting up the right birthdate
@@ -167,7 +166,7 @@ abstract class ModSWKbirthdayHelper
             $subject = self::getWantedLangString($lang, 'SW_KBIRTHDAY_SUBJECT', $username);
         } else {
             $conf = JFactory::getConfig();
-            $subject = self::getWantedLangString($conf->getValue('config.language'), 'SW_KBIRTHDAY_SUBJECT', $username);
+            $subject = self::getWantedLangString($conf->get('language'), 'SW_KBIRTHDAY_SUBJECT', $username);
         }
         return $subject;
     }
@@ -188,7 +187,7 @@ abstract class ModSWKbirthdayHelper
             $message = implode('\n\n', $marray);
         } else {
             $conf = JFactory::getConfig();
-            $message = self::getWantedLangString($conf->getValue('config.language'), 'SW_KBIRTHDAY_MESSAGE', $username);
+            $message = self::getWantedLangString($conf->get('language'), 'SW_KBIRTHDAY_MESSAGE', $username);
         }
         return $message;
     }
