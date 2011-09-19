@@ -47,6 +47,11 @@
                        label="SW_KBIRTHDAY_TEMPLATE" description="SW_KBIRTHDAY_TEMPLATE_DESC"
                        directory="modules/mod_sw_kbirthday/tmpl" filter="\.php" stripext="TRUE"
                        hide_default="TRUE" hide_none="TRUE"/>
+                <field type="radio" name="displayavatar" default="0"
+                       label="SW_KBIRTHDAY_DISPLAY_AVATAR" description="SW_KBIRTHDAY_DISPLAY_AVATAR_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
                 <field name="nextxdays" type="text" default="10"
                        description="SW_KBIRTHDAY_NEXTXDAYS_DESC" label="SW_KBIRTHDAY_NEXTXDAYS"/>
                 <field name="limit" type="text" label="SW_KBIRTHDAY_LIMIT"

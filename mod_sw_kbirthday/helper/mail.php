@@ -22,52 +22,49 @@ class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
      */
     public function getUserLink(& $user)
     {
-        $username = KunenaFactory::getUser($user['userid'])->getName();
+        //Did the user already get an e-mail?
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $query->select('uid');
+        $query->select('YEAR(date) AS year');
+        $query->from('#__sw_kbirthday');
+        $query->where('uid='.$db->escape($user['userid']));
+        $db->setQuery($query);
+        $res = $db->loadAssoc();
+
         if ($user['leapcorrection'] == ($this->timeo->format('z', true) + 1)) {
-            $subject = self::getSubject($username);
-            $db = JFactory::getDBO();
-            $query = "SELECT id,catid,subject,time as year FROM #__kunena_messages WHERE subject='{$subject}'";
-            $db->setQuery($query, 0, 1);
-            $post = $db->loadAssoc();
-            if ($db->getErrorMsg()) KunenaError::checkDatabaseError();
-            $catid = $this->params->get('bcatid');
-            $postyear = new JDate($post['year'], $this->soffset);
-            if (empty($post) && !empty($catid) ||
-            !empty($post) && !empty($catid) && $postyear->format('Y', true) < $this->timeo->format('Y', true)) {
-                $botname = $this->params->get('swkbbotname', JText::_('SW_KBIRTHDAY_FORUMPOST_BOTNAME_DEF'));
-                $botid = $this->params->get('swkbotid');
-                $time = CKunenaTimeformat::internalTime();
-                //Insert the birthday thread into DB
-                $query = "INSERT INTO #__kunena_messages (catid,name,userid,email,subject,time, ip)
-		    		VALUES({$catid},'{$botname}',{$botid}, '','{$subject}', {$time}, '')";
+            if ($res && ($res['year'] != $this->timeo->format('Y', true))) {
+                $query = $db->getQuery(true);
+                $query->delete('#__sw_kbirthday');
+                $query->where('uid='.$db->escape($user['userid']));
                 $db->setQuery($query);
-                if (!$db->query()) KunenaError::checkDatabaseError();
-                //What ID get our thread?
-                $messid = (int)$db->insertID();
-                //Insert the thread message into DB
-                $message = self::getMessage($username);
-                $query = "INSERT INTO #__kunena_messages_text (mesid,message)
-                    VALUES({$messid},'{$message}')";
-                $db->setQuery($query);
-                if (!$db->query()) KunenaError::checkDatabaseError();
-                //We know the thread ID so we can update the parent thread id with it's own ID because we know it's
-                //the first post
-                $query = "UPDATE #__kunena_messages SET thread={$messid} WHERE id={$messid}";
-                $db->setQuery($query);
-                if (!$db->query()) KunenaError::checkDatabaseError();
-                // now increase the #s in categories
-                CKunenaTools::modifyCategoryStats($messid, 0, $time, $catid);
-                $user['link'] = CKunenaLink::GetViewLink('view', $messid, $catid, '', $username);
-                $uri = JFactory::getURI();
-                if ($uri->getVar('option') == 'com_kunena') {
-                    $app = & JFactory::getApplication();
-                    $app->redirect($uri->toString());
-                }
-            } elseif (!empty($post)) {
-                $user['link'] = CKunenaLink::GetViewLink('view', $post['id'], $post['catid'], '', $username);
+                $db->query();
+                unset($res);
             }
-        } else {
-            $user['link'] = CKunenaLink::GetProfileLink($user['userid']);
+            if (!$res) {
+                $username   = KunenaFactory::getUser($user['userid'])->getName();
+                $subject    = self::getSubject($username);
+                $message    = self::getMessage($username);
+                $config     = JFactory::getConfig();
+                //Prepare mail
+                jimport('joomla.mail.mail');
+                $mail = JMail::getInstance()
+                        ->addRecipient($user['email'])
+                        ->setSubject($subject)
+                        ->setBody($message)
+                        ->setSender($config->get('mailfrom'));
+                $return = $mail->send();
+                if ($return !== true) {
+                    JLog::add(JText::_('MOD_SW_KBIRTHDAY_SEND_MAIL_FAILED'), JLog::ERROR);
+                } else {
+                    $query = $db->getQuery(true)
+                            ->insert('#__sw_kbirthday')
+                            ->set('uid='.$db->escape($user['userid']));
+                    $db->setQuery($query)
+                        ->query();
+                }
+            }
         }
+        $user['link'] = CKunenaLink::GetProfileLink($user['userid']);
     }
 }

@@ -15,8 +15,10 @@ if(is_array($res)){
 ?>
 <ul class="swkb<?php echo $params->get('moduleclass_sfx', '') ?>">
 <?php foreach ($res as $v){
-	
-	echo '<li>'.$v['link'].'</li>';
+    $str = '<li>';
+    if (isset($v['avatar']))
+        $str .= $v['avatar'];
+    echo $str.$v['link'].'</li>';
 }
 ?>
 </ul>

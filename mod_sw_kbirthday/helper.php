@@ -56,6 +56,7 @@ abstract class ModSWKbirthdayHelper
         $query->select('b.username');
         $query->select('b.name');
         $query->select('b.id AS userid');
+        $query->select('b.email');
         $jomsocial = '';
         if ($this->integration === 'jomsocial') {
             $birthdate = 'value';
@@ -148,7 +149,11 @@ abstract class ModSWKbirthdayHelper
      * @param  $user pass-by-reference
      * @return void
      */
-    abstract function getUserLink(& $user);
+    public abstract function getUserLink(& $user);
+
+    protected function getAvatar($user){
+        return KunenaFactory::getUser($user)->getAvatarLink();
+    }
 
     /*
       * Get the subject of/for the forum post
@@ -253,6 +258,7 @@ abstract class ModSWKbirthdayHelper
         $list = self::getBirthdayUser();
         $dage = $this->params->get('displayage');
         $ddate = $this->params->get('displaydate');
+        $avatar = $this->params->get('displayavatar');
         $users = explode(',', $this->params->get('hideuser'));
         $users = $users ? $users : array();
         if (!empty($list)) {
@@ -262,6 +268,9 @@ abstract class ModSWKbirthdayHelper
                 } else {
                     $this->addDaysTill($v);
                     $this->getUserLink($v);
+                    //Show Avatar?
+                    if ($avatar)
+                        $list[$k]['avatar'] = $this->getAvatar($v['userid']);
                     //Should we display the age?
                     if ($dage)
                         $v['age'] = JText::sprintf('SW_KBIRTHDAY_ADD_AGE', $v['age']);
