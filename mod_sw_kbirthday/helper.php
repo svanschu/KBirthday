@@ -38,7 +38,11 @@ abstract class ModSWKbirthdayHelper
         $this->timeo = new JDate('now', $this->soffset);
         $this->btimeline = $params->get('nextxdays');
         $this->datemaxo = new JDate('now', $this->soffset);
-        $this->datemaxo->add(new DateInterval('P' . $this->btimeline . 'D'));
+        if (phpversion() < '5.3.0'){
+            $this->datemaxo->modify('+'.$this->btimeline.' day');
+        } else {
+            $this->datemaxo->add(new DateInterval('P' . $this->btimeline . 'D'));
+        }
     }
 
     /*
@@ -125,7 +129,11 @@ abstract class ModSWKbirthdayHelper
                             }
                             //was birthday on 29 february? then show it on 1 march
                             if ($v['month'] == 2 && $v['day'] == 29) {
-                                $res[$k]['birthdate'] = $res[$k]['birthdate']->add(new DateInterval('P1D'));
+                                if (phpversion() < '5.3.0'){
+                                    $res[$k]['birthdate'] = $res[$k]['birthdate']->modify('+1 day');
+                                } else {
+                                    $res[$k]['birthdate'] = $res[$k]['birthdate']->add(new DateInterval('P1D'));
+                                }
                             }
                         }
                     } else { //We have a leap year

@@ -23,8 +23,8 @@ if (!class_exists ( 'Kunena' ) || !version_compare( Kunena::version (), $minKune
 }elseif (! Kunena::enabled ()) {
 	// Kunena 1.6 is not online, DO NOT use Kunena!
 	$res = JText::_('SW_KBIRTHDAY_NOT_ENABLED');
-}elseif (phpversion() < $minPHPVersion) {
-    $res = JText::sprintf('SW_KBIRTHDAY_MIN_PHP', $minPHPVersion);
+/*}elseif (phpversion() < $minPHPVersion) {
+    $res = JText::sprintf('SW_KBIRTHDAY_MIN_PHP', $minPHPVersion);*/
 }else{
 	//get the birthday list with connection links
     $class = "ModSWKbirthdayHelper{$params->get('connection')}";
