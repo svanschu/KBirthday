@@ -36,7 +36,10 @@ abstract class ModSWKbirthdayHelper
 		}*/
         $this->app = JFactory::getApplication();
         $k_config = KunenaFactory::getConfig();
-        $this->integration = $k_config->integration_profile;
+		if( class_exists( 'Kunena') && version_compare( Kunena::version (), '2.0.0' , '<' ) )
+        	$this->integration = $k_config->integration_profile;
+		else
+			$this->integration = $params->get('k20integration');
         $this->username = $k_config->username;
         $this->params = $params;
         //get the date today
@@ -52,6 +55,12 @@ abstract class ModSWKbirthdayHelper
         }
     }
 
+	function loadHelper($params) {
+		//get the birthday list with connection links
+		$class = "ModSWKbirthdayHelper{$params->get('connection')}";
+		$bday = new $class($params);
+		return $bday->getUserBirthday();
+	}
     /*
       * @since 1.6.0
       * @return list of users
@@ -60,8 +69,9 @@ abstract class ModSWKbirthdayHelper
     {
         $from = $this->timeo->format('z', true) + 1;
         $to = $this->datemaxo->format('z', true) + 1;
-        if ($this->integration == 'auto')
-            $this->integration = KunenaIntegration::detectIntegration('profile', true);
+        if ($this->integration == 'auto' &&
+				(class_exists( 'Kunena') && version_compare( Kunena::version (), '2.0.0' , '<' ) ) )
+			$this->integration = KunenaIntegration::detectIntegration('profile', true);
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
         $query->select('b.username');

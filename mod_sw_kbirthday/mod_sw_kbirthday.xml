@@ -110,6 +110,14 @@
                 <field type="text" name="messagelanguage" default="en-GB"
                        label="SW_KBIRTHDAY_LANGUAGE_MESSAGE" description="SW_KBIRTHDAY_LANGUAGE_MESSAGE_DESC"/>
             </fieldset>
+			<fieldset name="SW_KBIRTHDAY_K20INTEGRATION">
+				<field name="k20integration" type="list" description="SW_KBIRTHDAY_K20INTEGRATION_DESC"
+						label="SW_KBIRTHDAY_K20INTEGRATION" default="forum">
+					<option value="forum">SW_KBIRTHDAY_K20INTEGRATION_FORUM</option>
+					<option value="jomsocial">SW_KBIRTHDAY_K20INTEGRATION_JS</option>
+					<option value="communitybuilder">SW_KBIRTHDAY_K20INTEGRATION_CB</option>
+				</field>
+			</fieldset>
         </fields>
     </config>
     <updateservers>
