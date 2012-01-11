@@ -12,13 +12,6 @@
 
 defined('_JEXEC') or die();
 
-require_once (JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_kunena' . DS . 'libraries' . DS . 'api.php');
-require_once (JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_kunena' . DS . 'libraries' . DS . 'integration' . DS . 'integration.php');
-require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'class.kunena.php');
-require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'lib' . DS . 'kunena.link.class.php');
-require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'lib' . DS . 'kunena.config.class.php');
-require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'lib' . DS . 'kunena.timeformat.class.php');
-
 abstract class ModSWKbirthdayHelper
 {
     /*
@@ -27,6 +20,20 @@ abstract class ModSWKbirthdayHelper
       */
     function __construct($params)
     {
+		//TODO test if without this K 1.6 work
+		/*if( class_exists( 'Kunena') && version_compare( Kunena::version (), '2.0.0' , '<' ) ) {
+			require_once (JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_kunena' . DS .
+				'libraries' . DS . 'api.php');
+			require_once (JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_kunena' . DS .
+				'libraries' . DS . 'integration' . DS . 'integration.php');
+			require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'class.kunena.php');
+			require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'lib' . DS .
+				'kunena.link.class.php');
+			require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'lib' . DS .
+				'kunena.config.class.php');
+			require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'lib' . DS .
+				'kunena.timeformat.class.php');
+		}*/
         $this->app = JFactory::getApplication();
         $k_config = KunenaFactory::getConfig();
         $this->integration = $k_config->integration_profile;
