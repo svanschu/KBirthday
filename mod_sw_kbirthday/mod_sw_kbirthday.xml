@@ -113,9 +113,9 @@
 			<fieldset name="SW_KBIRTHDAY_K20INTEGRATION">
 				<field name="k20integration" type="list" description="SW_KBIRTHDAY_K20INTEGRATION_DESC"
 						label="SW_KBIRTHDAY_K20INTEGRATION" default="forum">
-					<option value="forum">SW_KBIRTHDAY_K20INTEGRATION_FORUM</option>
-					<option value="jomsocial">SW_KBIRTHDAY_K20INTEGRATION_JS</option>
-					<option value="communitybuilder">SW_KBIRTHDAY_K20INTEGRATION_CB</option>
+					<option value="forum">Kunena</option>
+					<option value="jomsocial">JomSocial</option>
+					<option value="communitybuilder">Community Builder</option>
 				</field>
 			</fieldset>
         </fields>
