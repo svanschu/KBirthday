@@ -177,7 +177,13 @@ abstract class ModSWKbirthdayHelper
     public abstract function getUserLink(& $user);
 
     protected function getAvatar($user){
-        return KunenaFactory::getUser($user)->getAvatarLink();
+		if (class_exists( 'Kunena') ) {
+			return KunenaFactory::getUser($user)->getAvatarLink();
+		}elseif (class_exists( 'KunenaForum') ) {
+			return KunenaFactory::getUser($user)->getAvatarImage();
+		}else {
+			return ;
+		}
     }
 
     /*
