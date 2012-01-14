@@ -7,7 +7,7 @@ When you choose forum thread, it will automatically create a forum thread when a
 It works also with JS and CB. You can not use the module without Kunena!
 
 Minimum Requirement:
-PHP 5.3
+PHP 5.2
 Joomla 1.6.0
 Kunena 1.6.0
 
