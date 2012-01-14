@@ -19,6 +19,7 @@
     </files>
     <media destination="mod_sw_kbirthday">
         <filename>img/birthday.png</filename>
+		<filename>img/birthday16x16.png</filename>
     </media>
     <languages folder="language">
         <language tag="de-DE">de-DE/de-DE.mod_sw_kbirthday.ini</language>
@@ -63,16 +64,29 @@
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
+				<field name="graphicdatebegin" type="spacer" hr="true"/>
                 <field type="radio" name="displaydate" default="0"
                        label="SW_KBIRTHDAY_DISPLAY_DATE" description="SW_KBIRTHDAY_DISPLAY_DATE_DESC">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
+				<field type="list" name="graphicdate" label="SW_KBIRTHDAY_GRAPHICDATE"
+					   description="SW_KBIRTHDAY_GRAPHICDATE_DESC" default="text">
+					<option value="graphic">SW_KBIRTHDAY_GRAPHICDATE_GRAPHIC</option>
+					<option value="text">SW_KBIRTHDAY_GRAPHICDATE_TEXT</option>
+				</field>
                 <field type="text" name="dateform" default="d.m.Y"
                        label="SW_KBIRTHDAY_DATEFORMAT" description="SW_KBIRTHDAY_DATEFORMAT_DESC"/>
+				<field name="graphicdateend" type="spacer" hr="true"/>
+				<field type="radio" name="todaygraphic" default="text" label="SW_KBIRTHDAY_TODAYGRAPHIC"
+					   description="SW_KBIRTHDAY_TODAYGRAPHIC_DESC">
+					<option value="graphic">SW_KBIRTHDAY_GRAPHICDATE_GRAPHIC</option>
+					<option value="text">SW_KBIRTHDAY_GRAPHICDATE_TEXT</option>
+				</field>
+				<field name="graphicgiftboxend" type="spacer" hr="true"/>
                 <field name="connection" type="list"
                        description="SW_KBIRTHDAY_CONNECTION_DESC SW_KBIRTHDAY_CONNECTION_NOTE"
-                       label="SW_KBIRTHDAY_CONNECTION" default="1">
+                       label="SW_KBIRTHDAY_CONNECTION" default="Default">
                     <option value="Default">SW_KBIRTHDAY_NONE</option>
                     <option value="Profil">SW_KBIRTHDAY_PROFIL</option>
                     <option value="Forum">SW_KBIRTHDAY_FORUMPOST</option>

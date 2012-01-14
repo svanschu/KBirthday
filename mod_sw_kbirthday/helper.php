@@ -35,6 +35,7 @@ abstract class ModSWKbirthdayHelper
 				'kunena.timeformat.class.php');
 		}*/
         $this->app = JFactory::getApplication();
+		$this->uri =& JURI::getInstance();
         $k_config = KunenaFactory::getConfig();
 		if( class_exists( 'Kunena') && version_compare( Kunena::version (), '2.0.0' , '<' ) )
         	$this->integration = $k_config->integration_profile;
@@ -176,7 +177,7 @@ abstract class ModSWKbirthdayHelper
      */
     public abstract function getUserLink(& $user);
 
-    protected function getAvatar($user){
+    protected function getAvatar($user) {
 		if (class_exists( 'Kunena') ) {
 			return KunenaFactory::getUser($user)->getAvatarLink();
 		}elseif (class_exists( 'KunenaForum') ) {
@@ -185,6 +186,15 @@ abstract class ModSWKbirthdayHelper
 			return ;
 		}
     }
+
+	protected function getGraphicDate ($date) {
+		$ret = '<p class="swkb_calendar">'
+			. $date->format( 'j' )
+			. ' <em>'
+			. $date->format( 'M' )
+			. '</em></p>';
+		return $ret;
+	}
 
     /*
       * Get the subject of/for the forum post
@@ -271,9 +281,19 @@ abstract class ModSWKbirthdayHelper
      */
     private function addDaysTill(& $tillstring)
     {
-        if (empty($tillstring['till']) || $tillstring['till'] == 0)
-            $tillstring['day_string'] = JText::_('SW_KBIRTHDAY_TODAY');
-        elseif ($tillstring['till'] == 1)
+        if (empty($tillstring['till']) || $tillstring['till'] == 0) {
+			if ( $this->params->get('todaygraphic') === 'graphic') {
+				$doc = & JFactory::getDocument();
+				$style = '.swkb_today{
+					background: url("'.$this->uri->base().'/media/mod_sw_kbirthday/img/birthday16x16.png") no-repeat center top transparent scroll;
+					height: 16px;
+					width: 16px;
+					display: inline-block;}';
+				$doc->addStyleDeclaration( $style );
+				$tillstring['day_string'] = '<span class="swkb_today"> </span> ';
+			}else
+				$tillstring['day_string'] = JText::_('SW_KBIRTHDAY_TODAY');
+		}elseif ($tillstring['till'] == 1)
             $tillstring['day_string'] = JText::sprintf('SW_KBIRTHDAY_DAY', $tillstring['till']);
         else
             $tillstring['day_string'] = JText::sprintf('SW_KBIRTHDAY_DAYS', $tillstring['till']);
@@ -291,6 +311,14 @@ abstract class ModSWKbirthdayHelper
         $ddate = $this->params->get('displaydate');
         $avatar = $this->params->get('displayavatar');
         $users = explode(',', $this->params->get('hideuser'));
+		$graphicdate = $this->params->get('graphicdate');
+		if ( $graphicdate === 'graphic') {
+			$doc = & JFactory::getDocument();
+			$doc->addStyleSheet( $this->uri->base().'/modules/mod_sw_kbirthday/css/calendar.css' );
+		}
+		$tgraphic = '';
+		if ( $this->params->get('todaygraphic') === 'graphic')
+			$tgraphic = '_GRAPHIC';
         $users = $users ? $users : array();
         if (!empty($list)) {
             foreach ($list as $k => $v) {
@@ -308,11 +336,12 @@ abstract class ModSWKbirthdayHelper
                     else
                         $v['age'] = '';
                     //Should we display the date?
-                    if ($ddate)
+					$v['date'] = $graphic = '';
+                    if ($ddate && $graphicdate === 'text')
                         self::addDate($v);
-                    else
-                        $v['date'] = '';
-                    $list[$k]['link'] = JText::sprintf('SW_KBIRTHDAY_HAVEBIRTHDAYIN', $v['link'], $v['day_string'], $v['age'], $v['date']);
+					elseif ($ddate && $graphicdate === 'graphic')
+						$graphic = self::getGraphicDate($v['birthdate']);
+                    $list[$k]['link'] = $graphic . '<span>' . JText::sprintf('SW_KBIRTHDAY_HAVEBIRTHDAYIN'.$tgraphic, $v['link'], $v['day_string'], $v['age'], $v['date']) . '</span>';
                 }
             }
         }
