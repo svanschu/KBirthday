@@ -36,28 +36,69 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
             !empty($post) && !empty($catid) && $postyear->format('Y', true) < $this->timeo->format('Y', true)) {
                 $botname = $this->params->get('swkbbotname', JText::_('SW_KBIRTHDAY_FORUMPOST_BOTNAME_DEF'));
                 $botid = $this->params->get('swkbotid');
-                $time = CKunenaTimeformat::internalTime();
-                //Insert the birthday thread into DB
-                $query = "INSERT INTO #__kunena_messages (catid,name,userid,email,subject,time, ip)
-		    		VALUES({$catid},'{$botname}',{$botid}, '','{$subject}', {$time}, '')";
-                $db->setQuery($query);
-                if (!$db->query()) KunenaError::checkDatabaseError();
-                //What ID get our thread?
-                $messid = (int)$db->insertID();
-                //Insert the thread message into DB
-                $message = self::getMessage($username);
-                $query = "INSERT INTO #__kunena_messages_text (mesid,message)
-                    VALUES({$messid},'{$message}')";
-                $db->setQuery($query);
-                if (!$db->query()) KunenaError::checkDatabaseError();
-                //We know the thread ID so we can update the parent thread id with it's own ID because we know it's
-                //the first post
-                $query = "UPDATE #__kunena_messages SET thread={$messid} WHERE id={$messid}";
-                $db->setQuery($query);
-                if (!$db->query()) KunenaError::checkDatabaseError();
-                // now increase the #s in categories
-                CKunenaTools::modifyCategoryStats($messid, 0, $time, $catid);
-                $user['link'] = CKunenaLink::GetViewLink('view', $messid, $catid, '', $username);
+				$message = self::getMessage($username);
+				if (class_exists('Kunena')) {
+                	$time = CKunenaTimeformat::internalTime();
+					//Insert the birthday thread into DB
+					$query = "INSERT INTO #__kunena_messages (catid,name,userid,email,subject,time, ip)
+						VALUES({$catid},'{$botname}',{$botid}, '','{$subject}', {$time}, '')";
+					$db->setQuery($query);
+					if (!$db->query()) KunenaError::checkDatabaseError();
+					//What ID get our thread?
+					$messid = (int)$db->insertID();
+					//Insert the thread message into DB
+					$query = "INSERT INTO #__kunena_messages_text (mesid,message)
+						VALUES({$messid},'{$message}')";
+					$db->setQuery($query);
+					if (!$db->query()) KunenaError::checkDatabaseError();
+					//We know the thread ID so we can update the parent thread id with it's own ID because we know it's
+					//the first post
+					$query = "UPDATE #__kunena_messages SET thread={$messid} WHERE id={$messid}";
+					$db->setQuery($query);
+					if (!$db->query()) KunenaError::checkDatabaseError();
+					// now increase the #s in categories
+					CKunenaTools::modifyCategoryStats($messid, 0, $time, $catid);
+                	$user['link'] = CKunenaLink::GetViewLink('view', $messid, $catid, '', $username);
+				} else {
+					$fields = array(
+						'category_id' => (int)$catid,
+						'name' => $botname,
+						'email' => null,
+						'subject' => $subject,
+						'message' => $message,
+						'icon_id' => 0,
+						'anonymous' => 0,
+						'tags' => null,
+						'mytags' => null,
+						'subscribe' => 0,);
+					$categ = KunenaForumCategory::getInstance( (int)$catid );
+					//$categ->setProperties( array( 'id' => $catid ) );
+					list( $topic, $message) = $categ->newTopic( $fields , $botid);
+					//print_r($categ);die();
+					$app = JFactory::getApplication ();
+					if ( !$categ->exists() ) {
+						$app->enqueueMessage ( $categ->getError(), 'error' );
+						die();
+					}
+					// If requested: Make message to be anonymous
+					if ($fields['anonymous'] && $message->getCategory()->allow_anonymous) {
+						$message->makeAnonymous();
+					}
+					//save message
+
+					//echo '<pre>'.print_r($message).'</pre>'; die();
+					//print_r($message); die();
+					$success = $message->save ();
+					if (! $success) {
+						$app->enqueueMessage ( $message->getError (), 'error' );
+						$app->setUserState('com_kunena.postfields', $fields);
+						//$this->redirectBack ();
+					}
+					// Display possible warnings (upload failed etc)
+					foreach ( $message->getErrors () as $warning ) {
+						$app->enqueueMessage ( $warning, 'notice' );
+					}
+				}
                 $uri = JFactory::getURI();
                 if ($uri->getVar('option') == 'com_kunena') {
                     $app = & JFactory::getApplication();
@@ -67,7 +108,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                 $user['link'] = CKunenaLink::GetViewLink('view', $post['id'], $post['catid'], '', $username);
             }
         } else {
-            $user['link'] = CKunenaLink::GetProfileLink($user['userid']);
+            //$user['link'] = CKunenaLink::GetProfileLink($user['userid']);
         }
     }
 }
