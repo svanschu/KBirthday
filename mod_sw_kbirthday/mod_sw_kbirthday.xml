@@ -39,6 +39,16 @@
         <language tag="sr-RS">sr-RS/sr-RS.mod_sw_kbirthday.ini</language>
         <language tag="sr-YU">sr-YU/sr-YU.mod_sw_kbirthday.ini</language>
     </languages>
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">install.sql</file>
+	</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">uninstall.sql</file>
+		</sql>
+	</uninstall>
     <config>
         <fields name="params">
             <fieldset name="basic">
