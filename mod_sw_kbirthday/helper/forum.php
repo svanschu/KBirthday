@@ -35,7 +35,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
             if (empty($post) && !empty($catid) ||
             !empty($post) && !empty($catid) && $postyear->format('Y', true) < $this->timeo->format('Y', true)) {
                 $botname = $this->params->get('swkbbotname', JText::_('SW_KBIRTHDAY_FORUMPOST_BOTNAME_DEF'));
-                $botid = $this->params->get('swkbotid');
+				$botid = $this->params->get('swkbotid');
 				$message = self::getMessage($username);
 				if (class_exists('Kunena')) {
                 	$time = CKunenaTimeformat::internalTime();
@@ -60,34 +60,31 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 					CKunenaTools::modifyCategoryStats($messid, 0, $time, $catid);
                 	$user['link'] = CKunenaLink::GetViewLink('view', $messid, $catid, '', $username);
 				} else {
+					$_user = KunenaUserHelper::get($botid);
 					$fields = array(
 						'category_id' => (int)$catid,
-						'name' => $botname,
+						'name' => $_user->getName(''),
 						'email' => null,
 						'subject' => $subject,
 						'message' => $message,
 						'icon_id' => 0,
-						'anonymous' => 0,
 						'tags' => null,
 						'mytags' => null,
 						'subscribe' => 0,);
-					$categ = KunenaForumCategory::getInstance( (int)$catid );
-					//$categ->setProperties( array( 'id' => $catid ) );
-					list( $topic, $message) = $categ->newTopic( $fields , $botid);
-					//print_r($categ);die();
+					$category = KunenaForumCategoryHelper::get( (int)$catid );
 					$app = JFactory::getApplication ();
-					if ( !$categ->exists() ) {
-						$app->enqueueMessage ( $categ->getError(), 'error' );
-						die();
+					//TODO log in the bot user
+					if (!$category->exists()) {
+						$app->setUserState('com_kunena.postfields', $fields);
+						$app->enqueueMessage ( $category->getError(), 'notice' );
 					}
-					// If requested: Make message to be anonymous
-					if ($fields['anonymous'] && $message->getCategory()->allow_anonymous) {
-						$message->makeAnonymous();
+					if (!$category->authorise('topic.create', $_user)) {
+						$app->setUserState('com_kunena.postfields', $fields);
+						$app->enqueueMessage ( $category->getError(), 'notice' );
+						//$this->redirectBack ();
 					}
+					list( $topic, $message) = $category->newTopic( $fields , $_user);
 					//save message
-
-					//echo '<pre>'.print_r($message).'</pre>'; die();
-					//print_r($message); die();
 					$success = $message->save ();
 					if (! $success) {
 						$app->enqueueMessage ( $message->getError (), 'error' );
@@ -105,7 +102,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                     $app->redirect($uri->toString());
                 }
             } elseif (!empty($post)) {
-                $user['link'] = CKunenaLink::GetViewLink('view', $post['id'], $post['catid'], '', $username);
+                //$user['link'] = CKunenaLink::GetViewLink('view', $post['id'], $post['catid'], '', $username);
             }
         } else {
             //$user['link'] = CKunenaLink::GetProfileLink($user['userid']);
