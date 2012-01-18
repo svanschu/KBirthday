@@ -39,5 +39,4 @@ if (!class_exists ( 'Kunena' ) || !version_compare( Kunena::version (), $minKune
 }
 
 if(empty($res)) $res = JText::_('SW_KBIRTHDAY_NOUPCOMING');
-$tmpl = $params->get('tmpl');
-require(JModuleHelper::getLayoutPath('mod_sw_kbirthday', $tmpl));
+require(JModuleHelper::getLayoutPath('mod_sw_kbirthday', $params->get('tmpl', 'default')));

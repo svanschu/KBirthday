@@ -13,7 +13,7 @@
 defined( '_JEXEC' ) or die();
 if(is_array($res)){
 ?>
-<ul class="swkb<?php echo $params->get('moduleclass_sfx', '') ?>">
+<ul class="swkb<?php echo htmlspecialchars( $params->get('moduleclass_sfx', '') ) ?>">
 <?php foreach ($res as $v){
     $str = '<li>';
     if (isset($v['avatar']))

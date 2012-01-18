@@ -19,7 +19,7 @@ $style = '#Kunena div.sw_kbirthday td.kcol-first{width:1%;}
 				width: 32px;}';
 $doc->addStyleDeclaration($style);
 ?>
-<div class="kblock sw_kbirthday <?php echo $params->get('moduleclass_sfx', '') ?>">
+<div class="kblock sw_kbirthday <?php echo htmlspecialchars( $params->get('moduleclass_sfx', '') ) ?>">
 	<div class="kheader">
 		<span class="ktoggler">
 			<a class="ktoggler close" title="<?php echo JText::_('COM_KUNENA_TOGGLER_COLLAPSE') ?>" rel="sw_kbirthday"></a>
