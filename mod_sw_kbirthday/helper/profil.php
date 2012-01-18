@@ -22,6 +22,10 @@ class ModSWKbirthdayHelperProfil extends ModSWKbirthdayHelper
      */
     public function getUserLink(& $user)
     {
-        $user['link'] = CKunenaLink::GetProfileLink($user['userid']);
+		if ( class_exists( 'Kunena') )
+			$user['link'] = CKunenaLink::GetProfileLink($user['userid']);
+		else {
+			$user['link'] = KunenaUserHelper::get( $user['userid'] )->getLink( $username );
+		}
     }
 }
