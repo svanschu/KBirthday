@@ -26,7 +26,11 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
         if ($user['leapcorrection'] == ($this->timeo->format('z', true) + 1)) {
             $subject = self::getSubject($username);
             $db = JFactory::getDBO();
-            $query = "SELECT id,catid,subject,time as year FROM #__kunena_messages WHERE subject='{$subject}'";
+			if ( class_exists ( 'Kunena' ) ) {
+            	$query = "SELECT id,catid,subject,time as year FROM #__kunena_messages WHERE subject='{$subject}'";
+			} else {
+				$query = "SELECT id,category_id as catid,subject,first_post_time as year FROM #__kunena_topics WHERE subject='{$subject}'";
+			}
             $db->setQuery($query, 0, 1);
             $post = $db->loadAssoc();
             if ($db->getErrorMsg()) KunenaError::checkDatabaseError();
@@ -59,6 +63,11 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 					// now increase the #s in categories
 					CKunenaTools::modifyCategoryStats($messid, 0, $time, $catid);
                 	$user['link'] = CKunenaLink::GetViewLink('view', $messid, $catid, '', $username);
+					$uri = JFactory::getURI();
+					if ($uri->getVar('option') == 'com_kunena') {
+						$app = & JFactory::getApplication();
+						$app->redirect($uri->toString());
+					}
 				} else {
 					$_user = KunenaUserHelper::get($botid);
 					$fields = array(
@@ -73,7 +82,6 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 						'subscribe' => 0,);
 					$category = KunenaForumCategoryHelper::get( (int)$catid );
 					$app = JFactory::getApplication ();
-					//TODO log in the bot user
 					if (!$category->exists()) {
 						$app->setUserState('com_kunena.postfields', $fields);
 						$app->enqueueMessage ( $category->getError(), 'notice' );
@@ -95,17 +103,23 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 					foreach ( $message->getErrors () as $warning ) {
 						$app->enqueueMessage ( $warning, 'notice' );
 					}
+					//TODO alt tag
+					$user['link'] = '<a href="'. $message->getUrl( $catid, true) .'">'. $username . '</a>';
 				}
-                $uri = JFactory::getURI();
-                if ($uri->getVar('option') == 'com_kunena') {
-                    $app = & JFactory::getApplication();
-                    $app->redirect($uri->toString());
-                }
             } elseif (!empty($post)) {
-                //$user['link'] = CKunenaLink::GetViewLink('view', $post['id'], $post['catid'], '', $username);
+				if ( class_exists( 'Kunena') )
+                	$user['link'] = CKunenaLink::GetViewLink('view', $post['id'], $post['catid'], '', $username);
+				else {
+					//TODO alt tag
+					$user['link'] = '<a href="'. KunenaForumTopicHelper::get( $post['id'] )->getUrl( $post['catid'], true, 'view') .'">'. $username . '</a>';
+				}
             }
         } else {
-            //$user['link'] = CKunenaLink::GetProfileLink($user['userid']);
+            if ( class_exists( 'Kunena') )
+				$user['link'] = CKunenaLink::GetProfileLink($user['userid']);
+			else {
+				$user['link'] = KunenaUserHelper::get( $user['userid'] )->getLink( $username );
+			}
         }
     }
 }
