@@ -12,13 +12,6 @@
 <project default="build">
      <!-- Version number of build -->
     <property name="build.version" value="0.0.0" override="true" />
-    <!-- Set the build number -->
-    <!-- attention you need this additional Task to use the taskdef above
-        https://github.com/lorddarkangel/phing-buildnumber-task
-    -->
-    <taskdef name="buildnumber" classname="phing.tasks.ext.BuildnumberTask" />
-    <buildnumber file="build.txt" property="build.number" />
-    <!--version file="build.txt" property="build.number" quantity="1" increase="1"/-->
     <!-- get the date for build -->
     <tstamp prefix="build.date" />
     <!-- Set the directory where the packages should be saved. Relative to the build dir -->
@@ -34,7 +27,7 @@
     </fileset>
 
     <target name="build" depends="prepare, copy">
-        <zip destfile="${builddir}/${src.name}_v${build.version}_b${build.number}_${build.date.DSTAMP}.zip">
+        <zip destfile="${builddir}/${src.name}_v${build.version}_b${build.date.DSTAMP}.zip">
             <fileset dir="${builddir}/tmp/module">
                 <include name="**" />
             </fileset>
@@ -54,7 +47,7 @@
             <fileset refid="module" />
         </copy>
         <echo msg="Copy was successfull" />
-        <!-- insert version, build number and date into the xml files -->
+        <!-- insert version, date into the xml files -->
         <reflexive>
             <fileset dir="${builddir}/tmp/">
                 <include name="**/${src.name}.xml" />
@@ -62,7 +55,6 @@
             <filterchain>
                 <replaceregexp>
                     <regexp pattern="sw\.build\.version" replace="${build.version}" />
-                    <regexp pattern="sw\.build\.number" replace="${build.number}" />
                     <regexp pattern="sw\.build\.date" replace="${build.date.DSTAMP}" />
                 </replaceregexp>
             </filterchain>

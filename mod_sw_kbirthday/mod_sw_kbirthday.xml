@@ -7,7 +7,6 @@
 	<authorEmail>sven@schultschik.de</authorEmail>
 	<authorUrl>www.schultschik.de</authorUrl>
 	<version>sw.build.version</version>
-	<build>sw.build.number</build>
 	<description>SW_KBIRTHDAY_DESC</description>
 	<files>
 		<filename module="mod_sw_kbirthday">mod_sw_kbirthday.php</filename>
