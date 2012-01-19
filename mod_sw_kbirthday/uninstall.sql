@@ -4,4 +4,4 @@
 -- @license GNU General Public License version 2 or later
 -- @link http://www.schultschik.de
 
-DROP TABLE pz5vo_sw_kbirthday;
+DROP TABLE #__sw_kbirthday;

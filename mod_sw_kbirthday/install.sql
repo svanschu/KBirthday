@@ -5,7 +5,7 @@
 -- @link http://www.schultschik.de
 
 
-CREATE TABLE IF NOT EXISTS `pz5vo_sw_kbirthday` (
+CREATE TABLE IF NOT EXISTS `#__sw_kbirthday` (
   `uid` int(11) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   KEY `uid` (`uid`)

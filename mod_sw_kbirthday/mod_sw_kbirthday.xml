@@ -10,6 +10,8 @@
 	<description>SW_KBIRTHDAY_DESC</description>
 	<files>
 		<filename module="mod_sw_kbirthday">mod_sw_kbirthday.php</filename>
+		<filename>install.sql</filename>
+		<filename>uninstall.sql</filename>
 		<filename>helper.php</filename>
 		<filename>index.html</filename>
 		<folder>helper</folder>
