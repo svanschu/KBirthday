@@ -27,7 +27,7 @@
     </fileset>
 
     <target name="build" depends="prepare, copy">
-        <zip destfile="${builddir}/${src.name}_v${build.version}_b${build.date.DSTAMP}.zip">
+        <zip destfile="${builddir}/${src.name}_v${build.version}_${build.date.DSTAMP}.zip">
             <fileset dir="${builddir}/tmp/module">
                 <include name="**" />
             </fileset>
