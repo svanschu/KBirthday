@@ -14,6 +14,7 @@
 		<filename>uninstall.sql</filename>
 		<filename>helper.php</filename>
 		<filename>index.html</filename>
+		<folder>css</folder>
 		<folder>helper</folder>
 		<folder>img</folder>
 		<folder>tmpl</folder>
