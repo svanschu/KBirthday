@@ -12,14 +12,14 @@ defined('_JEXEC') or die();
 
 class ModSWKbirthdayHelperDefault extends ModSWKbirthdayHelper
 {
-    /**
-     * adds the link for the connect param
-     * @since 1.7.3
-     * @param  $user pass-by-reference
-     * @return void
-     */
-    public function getUserLink(& $user)
-    {
-        $user['link'] = KunenaFactory::getUser($user['userid'])->getName();
-    }
+	/**
+	 * adds the link for the connect param
+	 * @since 1.7.3
+	 * @param  $user pass-by-reference
+	 * @return void
+	 */
+	public function getUserLink(& $user)
+	{
+		$user['link'] = KunenaFactory::getUser($user['userid'])->getName();
+	}
 }
