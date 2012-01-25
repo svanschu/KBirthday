@@ -105,7 +105,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 					$user['link'] = '<a href="'. $message->getUrl( $catid, true) .'">'. $username . '</a>';
 				}
             } elseif (!empty($post)) {
-				if ( class_exists( 'Kunena') )
+				if ( class_exists( 'CKunenaLink') )
                 	$user['link'] = CKunenaLink::GetViewLink('view', $post['id'], $post['catid'], '', $username);
 				else {
 					//TODO alt tag
@@ -113,7 +113,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 				}
             }
         } else {
-            if ( class_exists( 'Kunena') )
+            if ( class_exists( 'CKunenaLink') )
 				$user['link'] = CKunenaLink::GetProfileLink($user['userid']);
 			else {
 				$user['link'] = KunenaUserHelper::get( $user['userid'] )->getLink( $username );
