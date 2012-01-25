@@ -18,8 +18,7 @@ abstract class ModSWKbirthdayHelper
       */
     function __construct($params)
     {
-		//TODO test if without this K 1.6 work
-		/*if( class_exists( 'Kunena') && version_compare( Kunena::version (), '2.0.0' , '<' ) ) {
+		if( class_exists( 'Kunena') && version_compare( Kunena::version (), '2.0.0' , '<' ) ) {
 			require_once (JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_kunena' . DS .
 				'libraries' . DS . 'api.php');
 			require_once (JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_kunena' . DS .
@@ -31,7 +30,7 @@ abstract class ModSWKbirthdayHelper
 				'kunena.config.class.php');
 			require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'lib' . DS .
 				'kunena.timeformat.class.php');
-		}*/
+		}
         $this->app = JFactory::getApplication();
 		$this->uri =& JURI::getInstance();
         $k_config = KunenaFactory::getConfig();
