@@ -30,8 +30,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 				$query = "SELECT id,category_id as catid,subject,first_post_time as year FROM #__kunena_topics WHERE subject='{$subject}'";
 			}
             $db->setQuery($query, 0, 1);
-            $post = $db->loadAssoc();
-            if ($db->getErrorMsg()) KunenaError::checkDatabaseError();
+			$post = $db->loadAssoc();
             $catid = $this->params->get('bcatid');
             $postyear = new JDate($post['year'], $this->soffset);
             if (empty($post) && !empty($catid) ||
@@ -106,7 +105,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 					$user['link'] = '<a href="'. $message->getUrl( $catid, true) .'">'. $username . '</a>';
 				}
             } elseif (!empty($post)) {
-				if ( class_exists( 'CKunenaLink') )
+				if ( class_exists( 'Kunena') )
                 	$user['link'] = CKunenaLink::GetViewLink('view', $post['id'], $post['catid'], '', $username);
 				else {
 					//TODO alt tag
@@ -114,7 +113,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 				}
             }
         } else {
-            if ( class_exists( 'CKunenaLink') )
+            if ( class_exists( 'Kunena') )
 				$user['link'] = CKunenaLink::GetProfileLink($user['userid']);
 			else {
 				$user['link'] = KunenaUserHelper::get( $user['userid'] )->getLink( $username );
