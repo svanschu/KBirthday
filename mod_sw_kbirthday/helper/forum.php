@@ -22,8 +22,8 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
     {
         $username = KunenaFactory::getUser($user['userid'])->getName();
         if ($user['leapcorrection'] == ($this->timeo->format('z', true) + 1)) {
-            $subject = self::getSubject($username);
-            $db = JFactory::getDBO();
+			$db = JFactory::getDBO();
+			$subject = $db->escape( self::getSubject($username) );
 			if ( class_exists ( 'Kunena' ) ) {
             	$query = "SELECT id,catid,subject,time as year FROM #__kunena_messages WHERE subject='{$subject}'";
 			} else {
@@ -36,9 +36,10 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
             $postyear = new JDate($post['year'], $this->soffset);
             if (empty($post) && !empty($catid) ||
             !empty($post) && !empty($catid) && $postyear->format('Y', true) < $this->timeo->format('Y', true)) {
-                $botname = $this->params->get('swkbbotname', JText::_('SW_KBIRTHDAY_FORUMPOST_BOTNAME_DEF'));
-				$botid = $this->params->get('swkbotid');
-				$message = self::getMessage($username);
+                $botname = $db->escape(
+					$this->params->get('swkbbotname', JText::_('SW_KBIRTHDAY_FORUMPOST_BOTNAME_DEF') ) );
+				$botid = $db->escape( $this->params->get('swkbotid') );
+				$message = $db->escape( self::getMessage($username));
 				if (class_exists('Kunena')) {
                 	$time = CKunenaTimeformat::internalTime();
 					//Insert the birthday thread into DB
