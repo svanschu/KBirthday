@@ -30,7 +30,7 @@ class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
 		$db->setQuery($query);
 		$res = $db->loadAssoc();
 
-		$_user = KunenaUserHelper::get($user['userid']);
+		$_user = KunenaFactory::getUser($user['userid']);
 		$username = $_user->getName();
 
 		if ($user['leapcorrection'] == ($this->timeo->format('z', true) + 1)) {
@@ -42,7 +42,7 @@ class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
 				$db->query();
 				unset($res);
 			}
-			if (!$res) {
+			if ( !isset($res) ) {
 				$subject = self::getSubject($username);
 				$message = self::getMessage($username);
 				$config = JFactory::getConfig();
