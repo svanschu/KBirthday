@@ -13,4 +13,7 @@ Kunena 1.6.0
 
 If you have suggestion please write me an e-mail or post into the thread I opened in the Forum on kunena.com.
 
+You want to support the development of the module?
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=svanschu&url=https://github.com/svanschu/mod_sw_kbirthday_J16&title=mod_sw_kbirthday_J16&language=&tags=github&category=software)
+
 See GIT history for changes!
