@@ -124,7 +124,7 @@ abstract class ModSWKbirthdayHelper
 		if (!$res) {
 			KunenaError::checkDatabaseError();
 			if ($this->integration === 'communitybuilder')
-				throw new DatabaseException(JText::_('SW_KBIRTHDAY_NOCBFIELD_IF'));
+				throw new JDatabaseException(JText::_('SW_KBIRTHDAY_NOCBFIELD_IF'));
 		}
 		if (!empty($res)) {
 			//setting up the right birthdate
