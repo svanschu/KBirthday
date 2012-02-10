@@ -120,11 +120,12 @@ abstract class ModSWKbirthdayHelper
 			$order = 'username';
 		$query->order($db->escape($order));
 		$db->setQuery($query, 0, $this->params->get('limit'));
-		$res = $db->loadAssocList();
-		if (!$res) {
+		try {
+			$res = $db->loadAssocList();
+		} catch (Exception $e) {
 			KunenaError::checkDatabaseError();
 			if ($this->integration === 'communitybuilder')
-				throw new JDatabaseException(JText::_('SW_KBIRTHDAY_NOCBFIELD_IF'));
+				JLog::add( JText::_('SW_KBIRTHDAY_NOCBFIELD_IF'), JLog::ERROR);
 		}
 		if (!empty($res)) {
 			//setting up the right birthdate
