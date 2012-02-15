@@ -24,22 +24,14 @@
 		<filename>img/birthday16x16.png</filename>
 	</media>
 	<languages folder="language">
+		<language tag="da-DK">da-DK/da-DK.mod_sw_kbirthday.ini</language>
+		<language tag="da-DK">da-DK/da-Dk.mod_sw_kbirthday.sys.ini</language>
 		<language tag="de-DE">de-DE/de-DE.mod_sw_kbirthday.ini</language>
 		<language tag="de-DE">de-DE/de-DE.mod_sw_kbirthday.sys.ini</language>
 		<language tag="en-GB">en-GB/en-GB.mod_sw_kbirthday.ini</language>
 		<language tag="en-GB">en-GB/en-GB.mod_sw_kbirthday.sys.ini</language>
-		<language tag="es-ES">es-ES/es-ES.mod_sw_kbirthday.ini</language>
-		<language tag="fr-FR">fr-FR/fr-FR.mod_sw_kbirthday.ini</language>
-		<language tag="hu-HU">hu-HU/hu-HU.mod_sw_kbirthday.ini</language>
-		<language tag="hu-HU">hu-HU/hu-HU.mod_sw_kbirthday.sys.ini</language>
-		<language tag="it-IT">it-IT/it-IT.mod_sw_kbirthday.ini</language>
 		<language tag="nl-NL">nl-NL/nl-NL.mod_sw_kbirthday.ini</language>
-		<language tag="pl-PL">pl-PL/pl-PL.mod_sw_kbirthday.ini</language>
-		<language tag="pt-BR">pt-BR/pt-BR.mod_sw_kbirthday.ini</language>
-		<language tag="pt-PT">pt-PT/pt-PT.mod_sw_kbirthday.ini</language>
-		<language tag="ru-RU">ru-RU/ru-RU.mod_sw_kbirthday.ini</language>
-		<language tag="sr-RS">sr-RS/sr-RS.mod_sw_kbirthday.ini</language>
-		<language tag="sr-YU">sr-YU/sr-YU.mod_sw_kbirthday.ini</language>
+		<language tag="nl-NL">nl-NL/nl-NL.mod_sw_kbirthday.sys.ini</language>
 	</languages>
 	<install>
 		<sql>
