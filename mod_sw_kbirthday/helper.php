@@ -122,10 +122,12 @@ abstract class ModSWKbirthdayHelper
 		$db->setQuery($query, 0, $this->params->get('limit'));
 		try {
 			$res = $db->loadAssocList();
-		} catch (Exception $e) {
-			KunenaError::checkDatabaseError();
+		} catch (JDatabaseException $e) {
+			//loadAssocList seems to not throw an exception!
+			JLog::addLogger( array() );
+			JLog::add( 'Can\'t load user birthdates!');
 			if ($this->integration === 'communitybuilder')
-				JLog::add( JText::_('SW_KBIRTHDAY_NOCBFIELD_IF'), JLog::ERROR);
+				JLog::add( JText::_('SW_KBIRTHDAY_NOCBFIELD_IF'), JLog::ERROR, 'SW KBirthday FAILURE:');
 		}
 		if (!empty($res)) {
 			//setting up the right birthdate
