@@ -168,5 +168,6 @@
 	</config>
 	<updateservers>
 		<!-- Note: No spaces or linebreaks allowed between the server tags -->
-		<server type="collection" priority="1" name="Schultschik Websolution Update Site"><![CDATA[http://www.schultschik.de/index.php?option=com_ars&view=update&task=all&format=xml&dummy=update.xml]]></server></updateservers>
+		<server type="collection" priority="1" name="Schultschik Websolution Update Site"><![CDATA[http://www.schultschik.de/index.php?option=com_ars&view=update&task=all&format=xml&dummy=update.xml]]></server>
+	</updateservers>
 </extension>
