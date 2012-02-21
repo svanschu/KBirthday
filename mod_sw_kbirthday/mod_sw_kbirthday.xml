@@ -88,8 +88,10 @@
 					<option value="text">SW_KBIRTHDAY_GRAPHICDATE_TEXT</option>
 				</field>
 				<field name="graphicgiftboxend" type="spacer" hr="true"/>
+				<field name="spacer" type="spacer" class="text"
+									   label="SW_KBIRTHDAY_CONNECTION_NOTE"/>
 				<field name="connection" type="list"
-					   description="SW_KBIRTHDAY_CONNECTION_DESC SW_KBIRTHDAY_CONNECTION_NOTE"
+					   description="SW_KBIRTHDAY_CONNECTION_DESC"
 					   label="SW_KBIRTHDAY_CONNECTION" default="Default">
 					<option value="Default">SW_KBIRTHDAY_NONE</option>
 					<option value="Profil">SW_KBIRTHDAY_PROFIL</option>
