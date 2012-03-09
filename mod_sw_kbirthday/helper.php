@@ -139,8 +139,17 @@ abstract class ModSWKbirthdayHelper
 					$res[$k]['birthdate'] = new JDate($v['year'] . '-' . $v['month'] . '-' . $v['day'], $this->soffset);
 					$res[$k]['leapcorrection'] = $res[$k]['birthdate']->format('z', true) + 1;
 					$useryear = $res[$k]['birthdate']->format('Y', true);
-					//we have NOT a leap year?
-					if (($todayyear % 400) != 0 || !(($todayyear % 4) == 0 && ($todayyear % 100) != 0)) {
+					//we have a leap year?
+					if (($todayyear % 400) == 0 || (($todayyear % 4) == 0 && ($todayyear % 100) != 0)) {
+						//Is the birthday not in a leap year?
+						if ( (($useryear % 4) == 0 && ($useryear % 100) != 0) || ($useryear % 400) == 0 ) {
+						}else{
+							//if we have leap year and birthday was not, need to increment birthdays after february
+							if ($res[$k]['birthdate']->format('m', true) > 2) {
+								$res[$k]['leapcorrection'] += 1;
+							}
+						}
+					}else{//We have not a leap year
 						//was the birthdate in a leap year?
 						if (($useryear % 400) == 0 || (($useryear % 4) == 0 && ($useryear % 100) != 0)) {
 							//if we haven't leap year and birthdate was in leapyear we have to cut yday after february
@@ -155,14 +164,6 @@ abstract class ModSWKbirthdayHelper
 								} else {
 									$res[$k]['birthdate'] = $res[$k]['birthdate']->add(new DateInterval('P1D'));
 								}
-							}
-						}
-					} else { //We have a leap year
-						//Is the birthday not in a leap year?
-						if (($useryear % 400) != 0 || !(($useryear % 4) == 0 && ($useryear % 100) != 0)) {
-							//if we have leap year and birthday was not, need to increment birthdays after february
-							if ($res[$k]['birthdate']->format('m', true) > 2) {
-								$res[$k]['leapcorrection'] += 1;
 							}
 						}
 					}
