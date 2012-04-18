@@ -33,8 +33,8 @@ class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
 		$_user = KunenaFactory::getUser($user['userid']);
 		$username = $_user->getName();
 
-		if ($user['leapcorrection'] == ($this->timeo->format('z', true) + 1)) {
-			if ($res && ($res['year'] != $this->timeo->format('Y', true))) {
+		if ( ($user['birthdate']->format('z') + $user['correction']) == ($this->time_now->format('z'))) {
+			if ($res && ($res['year'] != $this->time_now->format('Y'))) {
 				$query = $db->getQuery(true);
 				$query->delete('#__sw_kbirthday');
 				$query->where('uid=' . $db->escape($user['userid']));
