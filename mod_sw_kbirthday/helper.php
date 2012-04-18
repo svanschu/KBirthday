@@ -43,13 +43,12 @@ abstract class ModSWKbirthdayHelper
 		//get the date today
 		$config = JFactory::getConfig();
 		$this->soffset = $config->get('offset');
-		$this->timeo = new JDate('now', $this->soffset);
-		$this->btimeline = $params->get('nextxdays');
-		$this->datemaxo = new JDate('now', $this->soffset);
+		$this->time_now = new JDate('now', $this->soffset);
+		$this->till_date = new JDate('now', $this->soffset);
 		if (phpversion() < '5.3.0') {
-			$this->datemaxo->modify('+' . $this->btimeline . ' day');
+			$this->till_date->modify('+' . $this->params->get('nextxdays') . ' day');
 		} else {
-			$this->datemaxo->add(new DateInterval('P' . $this->btimeline . 'D'));
+			$this->till_date->add(new DateInterval('P' . $this->params->get('nextxdays') . 'D'));
 		}
 	}
 
@@ -67,8 +66,8 @@ abstract class ModSWKbirthdayHelper
 		  */
 	private function getBirthdayUser()
 	{
-		$from = $this->timeo->format('z', true) + 1;
-		$to = $this->datemaxo->format('z', true) + 1;
+		$from = $this->time_now->format('z');
+		$to = $this->till_date->format('z');
 		if ($this->integration == 'auto' &&
 			(class_exists('Kunena') && version_compare(Kunena::version(), '2.0.0', '<'))
 		)
@@ -107,7 +106,7 @@ abstract class ModSWKbirthdayHelper
 		$query->from($fromtable . ' AS a');
 		$query->innerJoin('#__users AS b ON a.' . $userid . ' = b.id' . $jomsocial);
 		$query->where('(DAYOFYEAR(a.' . $birthdate . ')>=' . $db->escape($from));
-		if ($from > $to || $this->btimeline >= 365) {
+		if ($from > $to || $this->params->get('nextxdays') >= 365) {
 			$query->where('DAYOFYEAR(a.' . $birthdate . ')<=366) OR (DAYOFYEAR(a.' . $birthdate . ')>=0');
 			$query->where('DAYOFYEAR(a.' . $birthdate . ')<=' . $db->escape($to) . ')');
 		} else {
@@ -131,41 +130,26 @@ abstract class ModSWKbirthdayHelper
 		}
 		if (!empty($res)) {
 			//setting up the right birthdate
-			$todayyear = $this->timeo->format('Y', true);
+			//$todayyear = $this->time_now->format('Y', true);
 			foreach ($res as $k => $v) {
 				if ($v['year'] == 1 || empty($v['year'])) {
 					unset($res[$k]);
 				} else {
 					$res[$k]['birthdate'] = new JDate($v['year'] . '-' . $v['month'] . '-' . $v['day'], $this->soffset);
-					$res[$k]['leapcorrection'] = $res[$k]['birthdate']->format('z', true) + 1;
-					$useryear = $res[$k]['birthdate']->format('Y', true);
-					//we have a leap year?
-					if (($todayyear % 400) == 0 || (($todayyear % 4) == 0 && ($todayyear % 100) != 0)) {
-						//Is the birthday not in a leap year?
-						if ( (($useryear % 4) == 0 && ($useryear % 100) != 0) || ($useryear % 400) == 0 ) {
-						}else{
-							//if we have leap year and birthday was not, need to increment birthdays after february
-							if ($res[$k]['birthdate']->format('m', true) > 2) {
-								$res[$k]['leapcorrection'] += 1;
-							}
-						}
-					}else{//We have not a leap year
-						//was the birthdate in a leap year?
-						if (($useryear % 400) == 0 || (($useryear % 4) == 0 && ($useryear % 100) != 0)) {
-							//if we haven't leap year and birthdate was in leapyear we have to cut yday after february
-							if ($res[$k]['birthdate']->format('m', true) > 2) {
-								$res[$k]['leapcorrection'] -= 1;
-								if (($this->timeo->format('z', true) + 1) > $res[$k]['leapcorrection']) unset($res[$k]);
-							}
-							//was birthday on 29 february? then show it on 1 march
-							if ($v['month'] == 2 && $v['day'] == 29) {
-								if (phpversion() < '5.3.0') {
-									$res[$k]['birthdate'] = $res[$k]['birthdate']->modify('+1 day');
-								} else {
-									$res[$k]['birthdate'] = $res[$k]['birthdate']->add(new DateInterval('P1D'));
-								}
-							}
-						}
+					$res[$k]['correction'] = 0;
+					//both are leapyears or both are not
+					if ( $this->time_now->format('L') == $res[$k]['birthdate']->format('L') ) {
+						$res[$k]['correction'] = 0;
+					} //now leap year and birthday not
+					elseif ( $this->time_now->format('L') == 1  && $res[$k]['birthdate']->format('L') == 0 &&
+								$res[$k]['birthdate']->format('m') > 2 ) {
+						//this value have to added to the birthdate!
+						$res[$k]['correction'] = 1;
+					} //now non leap year but birthday leap year
+					elseif ( $this->time_now->format('L') == 0  && $res[$k]['birthdate']->format('L') == 1 &&
+								$res[$k]['birthdate']->format('m') > 2 ) {
+						//this value have to added to the birthdate!
+						$res[$k]['correction'] = -1;
 					}
 				}
 			}

@@ -21,7 +21,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 	public function getUserLink(& $user)
 	{
 		$username = KunenaFactory::getUser($user['userid'])->getName();
-		if ($user['leapcorrection'] == ($this->timeo->format('z', true) + 1)) {
+		if ( ($user['birthdate']->format('z') + $user['correction']) == $this->time_now->format('z') ) {
 			$db = JFactory::getDBO();
 			$subject = $db->escape(self::getSubject($username));
 			if (class_exists('Kunena')) {
@@ -34,7 +34,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 			$catid = $this->params->get('bcatid');
 			$postyear = new JDate($post['year'], $this->soffset);
 			if (empty($post) && !empty($catid) ||
-				!empty($post) && !empty($catid) && $postyear->format('Y', true) < $this->timeo->format('Y', true)
+				!empty($post) && !empty($catid) && $postyear->format('Y', true) < $this->time_now->format('Y', true)
 			) {
 				$botname = $db->escape(
 					$this->params->get('swkbbotname', JText::_('SW_KBIRTHDAY_FORUMPOST_BOTNAME_DEF')));
