@@ -102,7 +102,7 @@ abstract class ModSWKbirthdayHelper
                         INTERVAL(YEAR(CURDATE()) - YEAR(a.' . $birthdate . ') + (RIGHT(CURDATE(),5)>RIGHT(DATE(a.' . $birthdate . '),5)))
                         YEAR, CURDATE()) AS till');
 		if ($this->params->get('displayage'))
-			$query->select('(YEAR(CURDATE()) - YEAR(a.' . $birthdate . ') + (DAYOFYEAR(CURDATE())>DAYOFYEAR(a.' . $birthdate . '))) AS age');
+			$query->select('(YEAR(CURDATE()) - YEAR(a.' . $birthdate . ') + (RIGHT(CURDATE(),5)>RIGHT(DATE(a.' . $birthdate . '),5))) AS age');
 		$query->from($fromtable . ' AS a');
 		$query->innerJoin('#__users AS b ON a.' . $userid . ' = b.id' . $jomsocial);
 		$query->where('(DAYOFYEAR(a.' . $birthdate . ')>=' . $db->escape($from));
