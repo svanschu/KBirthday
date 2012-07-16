@@ -135,7 +135,8 @@ abstract class ModSWKbirthdayHelper
 				if ($v['year'] == 1 || empty($v['year'])) {
 					unset($res[$k]);
 				} else {
-					$res[$k]['birthdate'] = new JDate($v['year'] . '-' . $v['month'] . '-' . $v['day'], $this->soffset);
+                    //DON'T USE OFFSET! because the birthdate is saved without time 0:00-2h is a day earlier which is wrong!
+					$res[$k]['birthdate'] = new JDate($v['year'] . '-' . $v['month'] . '-' . $v['day']);
 					$res[$k]['correction'] = 0;
 					//both are leapyears or both are not
 					if ( $this->time_now->format('L') == $res[$k]['birthdate']->format('L') ) {

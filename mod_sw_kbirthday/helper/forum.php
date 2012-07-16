@@ -21,6 +21,8 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 	public function getUserLink(& $user)
 	{
 		$username = KunenaFactory::getUser($user['userid'])->getName();
+        //DEBUG
+        //print_r($user['birthdate']->format('Y-m-d').': '.$user['birthdate']->format('z') .'+'. $user['correction'] .' == '. $this->time_now->format('z').'<br />');
 		if ( ($user['birthdate']->format('z') + $user['correction']) == $this->time_now->format('z') ) {
 			$db = JFactory::getDBO();
 			$subject = $db->escape(self::getSubject($username));
