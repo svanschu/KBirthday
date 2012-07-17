@@ -26,3 +26,6 @@ If you have a suggestion or a problem please just write an issue in here or on k
 
 #### How to show the actual name instead of the username? ####
 - Go to your Kunena configuration under the user tab and set the option "Display User Name" to NO to display the real name.
+
+#### Error - The language xx-XX don't exist ####
+- You need to install the specific language files for you language. You can download or create those files at: https://opentranslators.transifex.com/projects/p/opentranslators/language/es_ES/?project=2719
