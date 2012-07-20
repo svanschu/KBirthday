@@ -172,6 +172,6 @@
 	</config>
 	<updateservers>
 		<!-- Note: No spaces or linebreaks allowed between the server tags -->
-		<server type="collection" priority="1" name="Schultschik Websolution Update Site"><![CDATA[http://extensions.schultschik.de/index.php?option=com_ars&view=update&task=all&format=xml&dummy=update.xml]]></server>
+		<server type="extension" priority="1" name="SW KBirthday Module"><![CDATA[http://extensions.schultschik.de/component/ars/updates/modules/kunena-birthday-module?format=xml&dummy=extension.xml]]></server>
 	</updateservers>
 </extension>
