@@ -29,3 +29,6 @@ If you have a suggestion or a problem please just write an issue in here or on k
 
 #### Error - The language xx-XX don't exist ####
 - You need to install the specific language files for you language. You can download or create those files at: https://opentranslators.transifex.com/projects/p/opentranslators/language/es_ES/?project=2719
+
+#### How to position the module at the bottom of Kunena? ####
+- Go to the module configuration and choose the kunena_bottom layout on the right. And then choose the module position kunena_bottom. If it is not in the list, just type it into the field and save the module.
