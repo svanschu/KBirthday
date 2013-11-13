@@ -32,7 +32,7 @@ abstract class ModSWKbirthdayHelper
                 'kunena.timeformat.class.php');
         }
         $this->app = JFactory::getApplication();
-        $this->uri =& JURI::getInstance();
+        $this->uri = JURI::getInstance();
         $k_config = KunenaFactory::getConfig();
         if (class_exists('Kunena') && version_compare(Kunena::version(), '2.0.0', '<'))
             $this->integration = $k_config->integration_profile;
@@ -52,7 +52,7 @@ abstract class ModSWKbirthdayHelper
         }
     }
 
-    function loadHelper($params)
+    static function loadHelper($params)
     {
         //get the birthday list with connection links
         $class = "ModSWKbirthdayHelper{$params->get('connection')}";
