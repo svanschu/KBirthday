@@ -8,8 +8,8 @@
  **/
 // Dont allow direct linking
 defined('_JEXEC') or die();
-$doc = & JFactory::getDocument();
-$uri =& JURI::getInstance();
+$doc = JFactory::getDocument();
+$uri = JURI::getInstance();
 $style = '#Kunena div.sw_kbirthday td.kcol-first{width:1%;}
 			#Kunena .swkbicon{
 				background: url("' . $uri->base() . '/media/mod_sw_kbirthday/img/birthday.png") no-repeat center top transparent scroll;
