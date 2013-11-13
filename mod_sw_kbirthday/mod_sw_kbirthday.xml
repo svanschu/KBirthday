@@ -53,8 +53,8 @@
 					   description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
 				<field name="tmpl" type="filelist" default="default"
 					   label="SW_KBIRTHDAY_TEMPLATE" description="SW_KBIRTHDAY_TEMPLATE_DESC"
-					   directory="modules/mod_sw_kbirthday/tmpl" filter="\.php" stripext="TRUE"
-					   hide_default="TRUE" hide_none="TRUE"/>
+					   directory="modules/mod_sw_kbirthday/tmpl" filter="\.php" stripext="true"
+					   hide_default="true" hide_none="true"/>
 				<field type="radio" name="displayavatar" default="0"
 					   label="SW_KBIRTHDAY_DISPLAY_AVATAR" description="SW_KBIRTHDAY_DISPLAY_AVATAR_DESC">
 					<option value="0">JNO</option>
