@@ -18,38 +18,16 @@ abstract class ModSWKbirthdayHelper
            */
     function __construct($params)
     {
-        if (class_exists('Kunena') && version_compare(Kunena::version(), '2.0.0', '<')) {
-            require_once (JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_kunena' . DS .
-                'libraries' . DS . 'api.php');
-            require_once (JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_kunena' . DS .
-                'libraries' . DS . 'integration' . DS . 'integration.php');
-            require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'class.kunena.php');
-            require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'lib' . DS .
-                'kunena.link.class.php');
-            require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'lib' . DS .
-                'kunena.config.class.php');
-            require_once (JPATH_BASE . DS . 'components' . DS . 'com_kunena' . DS . 'lib' . DS .
-                'kunena.timeformat.class.php');
-        }
         $this->app = JFactory::getApplication();
         $this->uri = JURI::getInstance();
         $k_config = KunenaFactory::getConfig();
-        if (class_exists('Kunena') && version_compare(Kunena::version(), '2.0.0', '<'))
-            $this->integration = $k_config->integration_profile;
-        else
-            $this->integration = $params->get('k20integration');
+        $this->integration = $params->get('k20integration');
         $this->username = $k_config->username;
         $this->params = $params;
         //get the date today
         $config = JFactory::getConfig();
         $this->soffset = $config->get('offset');
         $this->time_now = new JDate('now', $this->soffset);
-        $this->till_date = new JDate('now', $this->soffset);
-        if (phpversion() < '5.3.0') {
-            $this->till_date->modify('+' . $this->params->get('nextxdays') . ' day');
-        } else {
-            $this->till_date->add(new DateInterval('P' . $this->params->get('nextxdays') . 'D'));
-        }
     }
 
     static function loadHelper($params)
@@ -66,14 +44,6 @@ abstract class ModSWKbirthdayHelper
            */
     private function getBirthdayUser()
     {
-        $from = $this->time_now->format('z') + $this->time_now->format('L');
-        $to = $this->till_date->format('z') + $this->time_now->format('L');
-        //DEBUG
-        //echo $from.' ==> '.$to.'<br />';
-        if ($this->integration == 'auto' &&
-            (class_exists('Kunena') && version_compare(Kunena::version(), '2.0.0', '<'))
-        )
-            $this->integration = KunenaIntegration::detectIntegration('profile', true);
         $db = JFactory::getDBO();
         $query = $db->getQuery(true);
         $query->select('b.username');
@@ -97,25 +67,20 @@ abstract class ModSWKbirthdayHelper
             $fromtable = '#__kunena_users';
             $userid = 'userid';
         }
-        $query->select('YEAR(a.' . $birthdate . ') AS year');
-        $query->select('MONTH(a.' . $birthdate . ') AS month');
-        $query->select('DAYOFMONTH(a.' . $birthdate . ') AS day');
-        $query->select('DAYOFYEAR(a.' . $birthdate . ') AS yearday');
-        $query->select('DATEDIFF(DATE(a.' . $birthdate . ') +
+        $query->select('YEAR(a.' . $birthdate . ') AS year')
+            ->select('MONTH(a.' . $birthdate . ') AS month')
+            ->select('DAYOFMONTH(a.' . $birthdate . ') AS day')
+            ->select('DAYOFYEAR(a.' . $birthdate . ') AS yearday')
+            ->select('DATEDIFF(DATE(a.' . $birthdate . ') +
                         INTERVAL(YEAR(CURDATE()) - YEAR(a.' . $birthdate . ') + (RIGHT(CURDATE(),5)>RIGHT(DATE(a.' . $birthdate . '),5)))
                         YEAR, CURDATE()) AS till');
         if ($this->params->get('displayage'))
             $query->select('(YEAR(CURDATE()) - YEAR(a.' . $birthdate . ') + (RIGHT(CURDATE(),5)>RIGHT(DATE(a.' . $birthdate . '),5))) AS age');
-        $query->from($fromtable . ' AS a');
-        $query->innerJoin('#__users AS b ON a.' . $userid . ' = b.id' . $jomsocial);
-        $query->where('(DAYOFYEAR(a.' . $birthdate . ')>=' . $db->escape($from));
-        if ($from > $to || $this->params->get('nextxdays') >= (365 + $this->time_now->format('L'))) {
-            $query->where('DAYOFYEAR(a.' . $birthdate . ')<=' . (365 + $this->time_now->format('L')) . ') OR (DAYOFYEAR(a.' . $birthdate . ')>=0');
-            $query->where('DAYOFYEAR(a.' . $birthdate . ')<=' . $db->escape($to) . ')');
-        } else {
-            $query->where('DAYOFYEAR(a.' . $birthdate . ')<=' . $db->escape($to) . ')');
-        }
-        $query->order('till');
+        $query->from($fromtable . ' AS a')
+            ->innerJoin('#__users AS b ON a.' . $userid . ' = b.id' . $jomsocial)
+            ->having('till >= 0')
+            ->having('till <= ' . $this->params->get('nextxdays'))
+            ->order('till');
         if ($this->username == 0)
             $order = 'name';
         else
@@ -306,7 +271,6 @@ abstract class ModSWKbirthdayHelper
         $dage = $this->params->get('displayage');
         $ddate = $this->params->get('displaydate');
         $avatar = $this->params->get('displayavatar');
-        $users = explode(',', $this->params->get('hideuser'));
         $graphicdate = $this->params->get('graphicdate');
         if ($graphicdate === 'graphic') {
             $doc = & JFactory::getDocument();
@@ -315,10 +279,9 @@ abstract class ModSWKbirthdayHelper
         $tgraphic = '';
         if ($this->params->get('todaygraphic') === 'graphic')
             $tgraphic = '_GRAPHIC';
-        $users = $users ? $users : array();
         if (!empty($list)) {
             foreach ($list as $k => $v) {
-                if ($this->hideUser($v, $users) === true) {
+                if ($this->hideUser($v) === true) {
                     unset($list[$k]);
                 } else {
                     $this->addDaysTill($v);
@@ -344,14 +307,27 @@ abstract class ModSWKbirthdayHelper
         return $list;
     }
 
-    private function hideUser($user, $users)
+    private function hideUser($user)
     {
+        $users = explode(',', $this->params->get('hideuser'));
+        $users = $users ? $users : array();
+
         foreach ($users as $uid) {
             if ($uid == $user['userid']) {
                 return true;
-            }
-            ;
+            };
         }
+
+        if ($this->params->get('includeAll', 1) != 1) {
+            $userGroups = JUserHelper::getUserGroups($user['userid']);
+            $includeUserGroups = $this->params->get('usergrouplist', array());
+            $res = array_diff($includeUserGroups, $userGroups);
+
+            if ( count($includeUserGroups) == count($res)) {
+                return true;
+            }
+        }
+
         return false;
     }
 }

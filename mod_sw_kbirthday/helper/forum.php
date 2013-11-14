@@ -22,7 +22,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 	{
 		$username = KunenaFactory::getUser($user['userid'])->getName();
         //DEBUG
-        //print_r($user['birthdate']->format('Y-m-d').': '.$user['birthdate']->format('z') .'+'. $user['correction'] .' == '. $this->time_now->format('z').'<br />');
+        //print_r($user['birthdate']->format('Y-m-d').': '.$user['birthdate']->format('z') .'+'. $user['correction'] .' == '. ($this->time_now->format('z')) .'<br />');
 		if ( ($user['birthdate']->format('z') + $user['correction']) == $this->time_now->format('z') ) {
 			$db = JFactory::getDBO();
 			$subject = $db->escape(self::getSubject($username));
@@ -38,38 +38,9 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 			if (empty($post) && !empty($catid) ||
 				!empty($post) && !empty($catid) && $postyear->format('Y', true) < $this->time_now->format('Y', true)
 			) {
-				$botname = $db->escape(
-					$this->params->get('swkbbotname', JText::_('SW_KBIRTHDAY_FORUMPOST_BOTNAME_DEF')));
 				$botid = $db->escape($this->params->get('swkbotid'));
 				$message = $db->escape(self::getMessage($username));
-				if (class_exists('Kunena')) {
-					$time = CKunenaTimeformat::internalTime();
-					//Insert the birthday thread into DB
-					$query = "INSERT INTO #__kunena_messages (catid,name,userid,email,subject,time, ip)
-						VALUES({$catid},'{$botname}',{$botid}, '','{$subject}', {$time}, '')";
-					$db->setQuery($query);
-					if (!$db->query()) KunenaError::checkDatabaseError();
-					//What ID get our thread?
-					$messid = (int)$db->insertID();
-					//Insert the thread message into DB
-					$query = "INSERT INTO #__kunena_messages_text (mesid,message)
-						VALUES({$messid},'{$message}')";
-					$db->setQuery($query);
-					if (!$db->query()) KunenaError::checkDatabaseError();
-					//We know the thread ID so we can update the parent thread id with it's own ID because we know it's
-					//the first post
-					$query = "UPDATE #__kunena_messages SET thread={$messid} WHERE id={$messid}";
-					$db->setQuery($query);
-					if (!$db->query()) KunenaError::checkDatabaseError();
-					// now increase the #s in categories
-					CKunenaTools::modifyCategoryStats($messid, 0, $time, $catid);
-					$user['link'] = CKunenaLink::GetViewLink('view', $messid, $catid, '', $username);
-					$uri = JFactory::getURI();
-					if ($uri->getVar('option') == 'com_kunena') {
-						$app = & JFactory::getApplication();
-						$app->redirect($uri->toString());
-					}
-				} else {
+
 					$_user = KunenaUserHelper::get($botid);
 					$fields = array(
 						'category_id' => (int)$catid,
@@ -106,7 +77,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 					}
 					//TODO alt tag
 					$user['link'] = '<a href="' . $message->getUrl($catid, true) . '">' . $username . '</a>';
-				}
+
 			} elseif (!empty($post)) {
 				if (class_exists('Kunena'))
 					$user['link'] = CKunenaLink::GetViewLink('view', $post['id'], $post['catid'], '', $username);

@@ -51,6 +51,17 @@
 				<field name="moduleclass_sfx" type="text" default=""
 					   label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
 					   description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+
+                <field name="spacer1" type="spacer" class="text" label=""/>
+
+                <field name="k20integration" type="list" label="SW_KBIRTHDAY_K20INTEGRATION" default="forum">
+                    <option value="forum">Kunena</option>
+                    <option value="jomsocial">JomSocial</option>
+                    <option value="communitybuilder">Community Builder</option>
+                </field>
+
+                <field name="spacer2" type="spacer" class="text" label=""/>
+
 				<field name="tmpl" type="filelist" default="default"
 					   label="SW_KBIRTHDAY_TEMPLATE" description="SW_KBIRTHDAY_TEMPLATE_DESC"
 					   directory="modules/mod_sw_kbirthday/tmpl" filter="\.php" stripext="true"
@@ -102,13 +113,28 @@
 				</field>
 				<field type="text" name="hideuser" default=""
 					   label="SW_KBIRTHDAY_HIDEUSER" description="SW_KBIRTHDAY_HIDEUSER_DESC"/>
+
+                <field name="spacer3" type="spacer" class="text" label=""/>
+                <field type="radio"
+                       name="includeAll"
+                       label="SW_KBIRTHDAY_INCLUDE_ALL"
+                       default="1"
+                       class="includeAll">
+                    <option value="0" onclick="$$('.usergrouplist').each(function(el){el.setProperty('disabled', '')});$$('#jformparamsusergrouplist_chzn > ul > li.search-field > input').each(function(el){el.setProperty('disabled', '')});">JNO</option>
+                    <option value="1" onclick="$$('.usergrouplist').each(function(el){el.setProperty('disabled', 'disabled')});$$('#jformparamsusergrouplist_chzn > ul > li.search-field > input').each(function(el){el.setProperty('disabled', 'disabled')});">JYES</option>
+                       </field>
+                <field type="usergroup"
+                       name="usergrouplist"
+                       label="SW_KBIRTHDAY_INCLUDE_USERGROUP"
+                       size="10"
+                       class="usergrouplist"
+                       multiple="true"
+                       disabled="true"/>
 			</fieldset>
 			<fieldset name="SW_KBIRTHDAY_FORUMPOST">
 				<field type="text" default="2" name="bcatid"
 					   label="SW_KBIRTHDAY_FORUMPOST_POSTCATID" description="SW_KBIRTHDAY_FORUMPOST_POSTCATID_DESC">
 				</field>
-				<field type="text" default="" name="swkbbotname"
-					   label="SW_KBIRTHDAY_FORUMPOST_BOTNAME_LABEL" description="SW_KBIRTHDAY_FORUMPOST_BOTNAME_DESC"/>
 				<field type="text" default="0" name="swkbotid"
 					   label="SW_KBIRTHDAY_FORUMPOST_BOTID" description="SW_KBIRTHDAY_FORUMPOST_BOTID_DESC"/>
 			</fieldset>
@@ -131,14 +157,6 @@
 					   description="SW_KBIRTHDAY_LANGUAGE_SUBJECT_DESC"/>
 				<field type="text" name="messagelanguage" default="en-GB"
 					   label="SW_KBIRTHDAY_LANGUAGE_MESSAGE" description="SW_KBIRTHDAY_LANGUAGE_MESSAGE_DESC"/>
-			</fieldset>
-			<fieldset name="SW_KBIRTHDAY_K20INTEGRATION">
-				<field name="k20integration" type="list" description="SW_KBIRTHDAY_K20INTEGRATION_DESC"
-					   label="SW_KBIRTHDAY_K20INTEGRATION" default="forum">
-					<option value="forum">Kunena</option>
-					<option value="jomsocial">JomSocial</option>
-					<option value="communitybuilder">Community Builder</option>
-				</field>
 			</fieldset>
 			<fieldset name="SW_KBIRTHDAY_CACHE">
 				<field name="cache"

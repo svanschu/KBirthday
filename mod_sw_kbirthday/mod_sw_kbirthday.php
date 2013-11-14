@@ -15,7 +15,7 @@ require_once (dirname(__FILE__) . '/helper/' . strtolower($params->get('connecti
 
 
 // Kunena detection and version check
-$minKunenaVersion = '1.6.0';
+$minKunenaVersion = '2.0.0';
 $minPHPVersion = '5.3.0';
 if (!class_exists('Kunena') || !version_compare(Kunena::version(), $minKunenaVersion, '>=')) {
 	if (!class_exists('KunenaForum') || !version_compare(KunenaForum::version(), $minKunenaVersion, '>=')) {
