@@ -5,3 +5,6 @@
 -- @link http://www.schultschik.de
 
 DROP TABLE #__sw_kbirthday;
+
+-- @since 1.9.0
+DROP TABLE #__schuweb_birthday_message;

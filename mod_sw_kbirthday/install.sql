@@ -10,3 +10,10 @@ CREATE TABLE IF NOT EXISTS `#__sw_kbirthday` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   KEY `uid` (`uid`)
 );
+
+-- @since 1.9.0
+CREATE TABLE IF NOT EXISTS `#__schuweb_birthday_message` (
+  `userid` int(11) NOT NULL DEFAULT '0',
+  `topicid` int(11) NOT NULL,
+  PRIMARY KEY (`userid`)
+);

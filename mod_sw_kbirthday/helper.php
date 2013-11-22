@@ -215,7 +215,7 @@ abstract class ModSWKbirthdayHelper
             $this->app->enqueueMessage(JText::sprintf('SW_KBIRTHDAY_LANGUAGE_NOTEXIST', $lang), 'error');
             return;
         }
-        $language = &JLanguage::getInstance($lang);
+        $language = JLanguage::getInstance($lang);
         $language->load('mod_sw_kbirthday');
         $string = $language->_($arg);
         $string = sprintf($string, $username);
