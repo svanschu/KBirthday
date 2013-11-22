@@ -2,7 +2,7 @@
 /**
  * @package SW KBirthday Module
  *
- * @Copyright (C) 2010-2012 Schultschik Websolution All rights reserved
+ * @Copyright (C) 2010-2013 Schultschik Websolution All rights reserved
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link http://www.schultschik.de
  **/

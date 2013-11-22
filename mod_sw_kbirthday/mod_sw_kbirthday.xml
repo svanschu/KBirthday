@@ -18,6 +18,7 @@
 		<folder>helper</folder>
 		<folder>img</folder>
 		<folder>tmpl</folder>
+        <folder>updates</folder>
 	</files>
 	<media destination="mod_sw_kbirthday">
 		<filename>img/birthday.png</filename>
@@ -45,6 +46,7 @@
 			<file driver="mysql" charset="utf8">uninstall.sql</file>
 		</sql>
 	</uninstall>
+    <scriptfile>install.script.php</scriptfile>
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
