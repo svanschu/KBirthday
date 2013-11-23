@@ -18,7 +18,6 @@
 		<folder>helper</folder>
 		<folder>img</folder>
 		<folder>tmpl</folder>
-        <folder>updates</folder>
 	</files>
 	<media destination="mod_sw_kbirthday">
 		<filename>img/birthday.png</filename>
