@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension type="module" version="1.6.0" client="site" method="upgrade">
-	<name>mod_sw_kbirthday</name>
-	<creationDate>sw.build.date</creationDate>
-	<author>Schultschik Websolution</author>
-	<copyright>GNU/GPL License</copyright>
-	<authorEmail>sven@schultschik.de</authorEmail>
-	<authorUrl>www.schultschik.de</authorUrl>
-	<version>sw.build.version</version>
-	<description>SW_KBIRTHDAY_DESC</description>
-	<files>
-		<filename module="mod_sw_kbirthday">mod_sw_kbirthday.php</filename>
-		<filename>install.sql</filename>
-		<filename>uninstall.sql</filename>
-		<filename>helper.php</filename>
-		<filename>index.html</filename>
-		<folder>css</folder>
-		<folder>helper</folder>
-		<folder>img</folder>
-		<folder>tmpl</folder>
-	</files>
-	<media destination="mod_sw_kbirthday">
-		<filename>img/birthday.png</filename>
-		<filename>img/birthday16x16.png</filename>
-	</media>
-	<languages folder="language">
-		<language tag="da-DK">da-DK/da-DK.mod_sw_kbirthday.ini</language>
-		<language tag="da-DK">da-DK/da-DK.mod_sw_kbirthday.sys.ini</language>
-		<language tag="de-DE">de-DE/de-DE.mod_sw_kbirthday.ini</language>
-		<language tag="de-DE">de-DE/de-DE.mod_sw_kbirthday.sys.ini</language>
-		<language tag="el-GR">el-GR/el-GR.mod_sw_kbirthday.ini</language>
-		<language tag="el-GR">el-GR/el-GR.mod_sw_kbirthday.sys.ini</language>
-		<language tag="en-GB">en-GB/en-GB.mod_sw_kbirthday.ini</language>
-		<language tag="en-GB">en-GB/en-GB.mod_sw_kbirthday.sys.ini</language>
-		<language tag="nl-NL">nl-NL/nl-NL.mod_sw_kbirthday.ini</language>
-		<language tag="nl-NL">nl-NL/nl-NL.mod_sw_kbirthday.sys.ini</language>
-	</languages>
-	<install>
-		<sql>
-			<file driver="mysql" charset="utf8">install.sql</file>
-		</sql>
-	</install>
-	<uninstall>
-		<sql>
-			<file driver="mysql" charset="utf8">uninstall.sql</file>
-		</sql>
-	</uninstall>
+    <name>mod_sw_kbirthday</name>
+    <creationDate>sw.build.date</creationDate>
+    <author>Schultschik Websolution</author>
+    <copyright>GNU/GPL License</copyright>
+    <authorEmail>sven@schultschik.de</authorEmail>
+    <authorUrl>www.schultschik.de</authorUrl>
+    <version>sw.build.version</version>
+    <description>SW_KBIRTHDAY_DESC</description>
+    <files>
+        <filename module="mod_sw_kbirthday">mod_sw_kbirthday.php</filename>
+        <filename>install.sql</filename>
+        <filename>uninstall.sql</filename>
+        <filename>helper.php</filename>
+        <filename>index.html</filename>
+        <folder>css</folder>
+        <folder>helper</folder>
+        <folder>img</folder>
+        <folder>tmpl</folder>
+    </files>
+    <media destination="mod_sw_kbirthday">
+        <filename>img/birthday.png</filename>
+        <filename>img/birthday16x16.png</filename>
+    </media>
+    <languages folder="language">
+        <language tag="da-DK">da-DK/da-DK.mod_sw_kbirthday.ini</language>
+        <language tag="da-DK">da-DK/da-DK.mod_sw_kbirthday.sys.ini</language>
+        <language tag="de-DE">de-DE/de-DE.mod_sw_kbirthday.ini</language>
+        <language tag="de-DE">de-DE/de-DE.mod_sw_kbirthday.sys.ini</language>
+        <language tag="el-GR">el-GR/el-GR.mod_sw_kbirthday.ini</language>
+        <language tag="el-GR">el-GR/el-GR.mod_sw_kbirthday.sys.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_sw_kbirthday.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_sw_kbirthday.sys.ini</language>
+        <language tag="nl-NL">nl-NL/nl-NL.mod_sw_kbirthday.ini</language>
+        <language tag="nl-NL">nl-NL/nl-NL.mod_sw_kbirthday.sys.ini</language>
+    </languages>
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">install.sql</file>
+        </sql>
+    </install>
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">uninstall.sql</file>
+        </sql>
+    </uninstall>
     <scriptfile>install.script.php</scriptfile>
-	<config>
-		<fields name="params">
-			<fieldset name="basic">
-				<field name="moduleclass_sfx" type="text" default=""
-					   label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-					   description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="moduleclass_sfx" type="text" default=""
+                       label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                       description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
 
                 <field name="spacer1" type="spacer" class="text" label=""/>
 
@@ -63,57 +63,57 @@
 
                 <field name="spacer2" type="spacer" class="text" label=""/>
 
-				<field name="tmpl" type="filelist" default="default"
-					   label="SW_KBIRTHDAY_TEMPLATE" description="SW_KBIRTHDAY_TEMPLATE_DESC"
-					   directory="modules/mod_sw_kbirthday/tmpl" filter="\.php" stripext="true"
-					   hide_default="true" hide_none="true"/>
-				<field type="radio" name="displayavatar" default="0"
-					   label="SW_KBIRTHDAY_DISPLAY_AVATAR" description="SW_KBIRTHDAY_DISPLAY_AVATAR_DESC">
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
-				</field>
-				<field name="nextxdays" type="text" default="10"
-					   description="SW_KBIRTHDAY_NEXTXDAYS_DESC" label="SW_KBIRTHDAY_NEXTXDAYS"/>
-				<field name="limit" type="text" label="SW_KBIRTHDAY_LIMIT"
-					   description="SW_KBIRTHDAY_LIMIT_DESC" default="10">
-				</field>
-				<field type="radio" name="displayage" default="1"
-					   label="SW_KBIRTHDAY_DISPLAY_AGE" description="SW_KBIRTHDAY_DISPLAY_AGE_DESC">
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
-				</field>
-				<field name="graphicdatebegin" type="spacer" hr="true"/>
-				<field type="radio" name="displaydate" default="0"
-					   label="SW_KBIRTHDAY_DISPLAY_DATE" description="SW_KBIRTHDAY_DISPLAY_DATE_DESC">
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
-				</field>
-				<field type="list" name="graphicdate" label="SW_KBIRTHDAY_GRAPHICDATE"
-					   description="SW_KBIRTHDAY_GRAPHICDATE_DESC" default="text">
-					<option value="graphic">SW_KBIRTHDAY_GRAPHICDATE_GRAPHIC</option>
-					<option value="text">SW_KBIRTHDAY_GRAPHICDATE_TEXT</option>
-				</field>
-				<field type="text" name="dateform" default="d.m.Y"
-					   label="SW_KBIRTHDAY_DATEFORMAT" description="SW_KBIRTHDAY_DATEFORMAT_DESC"/>
-				<field name="graphicdateend" type="spacer" hr="true"/>
-				<field type="radio" name="todaygraphic" default="text" label="SW_KBIRTHDAY_TODAYGRAPHIC"
-					   description="SW_KBIRTHDAY_TODAYGRAPHIC_DESC">
-					<option value="graphic">SW_KBIRTHDAY_GRAPHICDATE_GRAPHIC</option>
-					<option value="text">SW_KBIRTHDAY_GRAPHICDATE_TEXT</option>
-				</field>
-				<field name="graphicgiftboxend" type="spacer" hr="true"/>
-				<field name="spacer" type="spacer" class="text"
-									   label="SW_KBIRTHDAY_CONNECTION_NOTE"/>
-				<field name="connection" type="list"
-					   description="SW_KBIRTHDAY_CONNECTION_DESC"
-					   label="SW_KBIRTHDAY_CONNECTION" default="Default">
-					<option value="Default">SW_KBIRTHDAY_NONE</option>
-					<option value="Profil">SW_KBIRTHDAY_PROFIL</option>
-					<option value="Forum">SW_KBIRTHDAY_FORUMPOST</option>
-					<option value="Mail">SW_KBIRTHDAY_MAIL</option>
-				</field>
-				<field type="text" name="hideuser" default=""
-					   label="SW_KBIRTHDAY_HIDEUSER" description="SW_KBIRTHDAY_HIDEUSER_DESC"/>
+                <field name="tmpl" type="filelist" default="default"
+                       label="SW_KBIRTHDAY_TEMPLATE" description="SW_KBIRTHDAY_TEMPLATE_DESC"
+                       directory="modules/mod_sw_kbirthday/tmpl" filter="\.php" stripext="true"
+                       hide_default="true" hide_none="true"/>
+                <field type="radio" name="displayavatar" default="0"
+                       label="SW_KBIRTHDAY_DISPLAY_AVATAR" description="SW_KBIRTHDAY_DISPLAY_AVATAR_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="nextxdays" type="text" default="10"
+                       description="SW_KBIRTHDAY_NEXTXDAYS_DESC" label="SW_KBIRTHDAY_NEXTXDAYS"/>
+                <field name="limit" type="text" label="SW_KBIRTHDAY_LIMIT"
+                       description="SW_KBIRTHDAY_LIMIT_DESC" default="10">
+                </field>
+                <field type="radio" name="displayage" default="1"
+                       label="SW_KBIRTHDAY_DISPLAY_AGE" description="SW_KBIRTHDAY_DISPLAY_AGE_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="graphicdatebegin" type="spacer" hr="true"/>
+                <field type="radio" name="displaydate" default="0"
+                       label="SW_KBIRTHDAY_DISPLAY_DATE" description="SW_KBIRTHDAY_DISPLAY_DATE_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field type="list" name="graphicdate" label="SW_KBIRTHDAY_GRAPHICDATE"
+                       description="SW_KBIRTHDAY_GRAPHICDATE_DESC" default="text">
+                    <option value="graphic">SW_KBIRTHDAY_GRAPHICDATE_GRAPHIC</option>
+                    <option value="text">SW_KBIRTHDAY_GRAPHICDATE_TEXT</option>
+                </field>
+                <field type="text" name="dateform" default="d.m.Y"
+                       label="SW_KBIRTHDAY_DATEFORMAT" description="SW_KBIRTHDAY_DATEFORMAT_DESC"/>
+                <field name="graphicdateend" type="spacer" hr="true"/>
+                <field type="radio" name="todaygraphic" default="text" label="SW_KBIRTHDAY_TODAYGRAPHIC"
+                       description="SW_KBIRTHDAY_TODAYGRAPHIC_DESC">
+                    <option value="graphic">SW_KBIRTHDAY_GRAPHICDATE_GRAPHIC</option>
+                    <option value="text">SW_KBIRTHDAY_GRAPHICDATE_TEXT</option>
+                </field>
+                <field name="graphicgiftboxend" type="spacer" hr="true"/>
+                <field name="spacer" type="spacer" class="text"
+                       label="SW_KBIRTHDAY_CONNECTION_NOTE"/>
+                <field name="connection" type="list"
+                       description="SW_KBIRTHDAY_CONNECTION_DESC"
+                       label="SW_KBIRTHDAY_CONNECTION" default="Default">
+                    <option value="Default">SW_KBIRTHDAY_NONE</option>
+                    <option value="Profil">SW_KBIRTHDAY_PROFIL</option>
+                    <option value="Forum">SW_KBIRTHDAY_FORUMPOST</option>
+                    <option value="Mail">SW_KBIRTHDAY_MAIL</option>
+                </field>
+                <field type="text" name="hideuser" default=""
+                       label="SW_KBIRTHDAY_HIDEUSER" description="SW_KBIRTHDAY_HIDEUSER_DESC"/>
 
                 <field name="spacer3" type="spacer" class="text" label=""/>
                 <field type="radio"
@@ -121,76 +121,76 @@
                        label="SW_KBIRTHDAY_INCLUDE_ALL"
                        default="1"
                        class="includeAll">
-                    <option value="0" onclick="$$('.usergrouplist').each(function(el){el.setProperty('disabled', '')});$$('#jformparamsusergrouplist_chzn > ul > li.search-field > input').each(function(el){el.setProperty('disabled', '')});">JNO</option>
-                    <option value="1" onclick="$$('.usergrouplist').each(function(el){el.setProperty('disabled', 'disabled')});$$('#jformparamsusergrouplist_chzn > ul > li.search-field > input').each(function(el){el.setProperty('disabled', 'disabled')});">JYES</option>
-                       </field>
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
                 <field type="usergroup"
                        name="usergrouplist"
                        label="SW_KBIRTHDAY_INCLUDE_USERGROUP"
                        size="10"
                        class="usergrouplist"
-                       multiple="true"
-                       disabled="true"/>
-			</fieldset>
-			<fieldset name="SW_KBIRTHDAY_FORUMPOST">
-				<field type="text" default="2" name="bcatid"
-					   label="SW_KBIRTHDAY_FORUMPOST_POSTCATID" description="SW_KBIRTHDAY_FORUMPOST_POSTCATID_DESC">
-				</field>
-				<field type="text" default="0" name="swkbotid"
-					   label="SW_KBIRTHDAY_FORUMPOST_BOTID" description="SW_KBIRTHDAY_FORUMPOST_BOTID_DESC"/>
-			</fieldset>
-			<fieldset name="SW_KBIRTHDAY_CB">
-				<field name="spacer" type="spacer" class="text"
-					   label="SW_KBIRTHDAY_CB_NOTE"/>
-				<field type="text" default="cb_birthday" name="swkbcbfield"
-					   label="SW_KBIRTHDAY_CBFIELD" description="SW_KBIRTHDAY_CBFIELD_DESC"/>
-			</fieldset>
-			<fieldset name="SW_KBIRTHDAY_LANGUAGE">
-				<field name="space" type="spacer" class="text"
-					   label="SW_KBIRTHDAY_LANGUAGE_NOTE"/>
-				<field type="radio" name="activatelanguage" default="no"
-					   label="SW_KBIRTHDAY_LANGUAGE_ACTIVATE" description="SW_KBIRTHDAY_LANGUAGE_ACTIVATE_DESC">
-					<option value="no">JNO</option>
-					<option value="yes">JYES</option>
-				</field>
-				<field name="subjectlanguage" type="language" client="site"
-					   default="en-GB" label="SW_KBIRTHDAY_LANGUAGE_SUBJECT"
-					   description="SW_KBIRTHDAY_LANGUAGE_SUBJECT_DESC"/>
-				<field type="text" name="messagelanguage" default="en-GB"
-					   label="SW_KBIRTHDAY_LANGUAGE_MESSAGE" description="SW_KBIRTHDAY_LANGUAGE_MESSAGE_DESC"/>
-			</fieldset>
-			<fieldset name="SW_KBIRTHDAY_CACHE">
-				<field name="cache"
-					   type="list"
-					   default="1"
-					   label="COM_MODULES_FIELD_CACHING_LABEL"
-					   description="COM_MODULES_FIELD_CACHING_DESC">
-					<option
-							value="1">JGLOBAL_USE_GLOBAL
-					</option>
-					<option
-							value="0">COM_MODULES_FIELD_VALUE_NOCACHING
-					</option>
-				</field>
-				<field
-						name="cache_time"
-						type="text"
-						default="900"
-						label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
-						description="COM_MODULES_FIELD_CACHE_TIME_DESC"/>
-				<field
-						name="cachemode"
-						type="hidden"
-						default="static">
-					<option
-							value="static">
-					</option>
-				</field>
-			</fieldset>
-		</fields>
-	</config>
-	<updateservers>
-		<!-- Note: No spaces or linebreaks allowed between the server tags -->
-		<server type="extension" priority="1" name="SW KBirthday Module"><![CDATA[http://extensions.schultschik.de/component/ars/updates/modules/kunena-birthday-module?format=xml&dummy=extension.xml]]></server>
-	</updateservers>
+                       multiple="true"/>
+            </fieldset>
+            <fieldset name="SW_KBIRTHDAY_FORUMPOST">
+                <field type="text" default="2" name="bcatid"
+                       label="SW_KBIRTHDAY_FORUMPOST_POSTCATID" description="SW_KBIRTHDAY_FORUMPOST_POSTCATID_DESC">
+                </field>
+                <field type="text" default="0" name="swkbotid"
+                       label="SW_KBIRTHDAY_FORUMPOST_BOTID" description="SW_KBIRTHDAY_FORUMPOST_BOTID_DESC"/>
+            </fieldset>
+            <fieldset name="SW_KBIRTHDAY_CB">
+                <field name="spacer" type="spacer" class="text"
+                       label="SW_KBIRTHDAY_CB_NOTE"/>
+                <field type="text" default="cb_birthday" name="swkbcbfield"
+                       label="SW_KBIRTHDAY_CBFIELD" description="SW_KBIRTHDAY_CBFIELD_DESC"/>
+            </fieldset>
+            <fieldset name="SW_KBIRTHDAY_LANGUAGE">
+                <field name="space" type="spacer" class="text"
+                       label="SW_KBIRTHDAY_LANGUAGE_NOTE"/>
+                <field type="radio" name="activatelanguage" default="no"
+                       label="SW_KBIRTHDAY_LANGUAGE_ACTIVATE" description="SW_KBIRTHDAY_LANGUAGE_ACTIVATE_DESC">
+                    <option value="no">JNO</option>
+                    <option value="yes">JYES</option>
+                </field>
+                <field name="subjectlanguage" type="language" client="site"
+                       default="en-GB" label="SW_KBIRTHDAY_LANGUAGE_SUBJECT"
+                       description="SW_KBIRTHDAY_LANGUAGE_SUBJECT_DESC"/>
+                <field type="text" name="messagelanguage" default="en-GB"
+                       label="SW_KBIRTHDAY_LANGUAGE_MESSAGE" description="SW_KBIRTHDAY_LANGUAGE_MESSAGE_DESC"/>
+            </fieldset>
+            <fieldset name="SW_KBIRTHDAY_CACHE">
+                <field name="cache"
+                       type="list"
+                       default="1"
+                       label="COM_MODULES_FIELD_CACHING_LABEL"
+                       description="COM_MODULES_FIELD_CACHING_DESC">
+                    <option
+                            value="1">JGLOBAL_USE_GLOBAL
+                    </option>
+                    <option
+                            value="0">COM_MODULES_FIELD_VALUE_NOCACHING
+                    </option>
+                </field>
+                <field
+                        name="cache_time"
+                        type="text"
+                        default="900"
+                        label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+                        description="COM_MODULES_FIELD_CACHE_TIME_DESC"/>
+                <field
+                        name="cachemode"
+                        type="hidden"
+                        default="static">
+                    <option
+                            value="static">
+                    </option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+    <updateservers>
+        <!-- Note: No spaces or linebreaks allowed between the server tags -->
+        <server type="extension" priority="1" name="SW KBirthday Module">
+            <![CDATA[http://extensions.schultschik.de/component/ars/updates/modules/kunena-birthday-module?format=xml&dummy=extension.xml]]></server>
+    </updateservers>
 </extension>
