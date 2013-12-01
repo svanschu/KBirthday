@@ -65,7 +65,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                     'name' => $_user->getName(''),
                     'email' => null,
                     'subject' => $subject,
-                    'message' => $message,
+                    'message' => str_replace('\n', "\n", html_entity_decode($message, ENT_COMPAT, 'UTF-8')),
                     'icon_id' => 0,
                     'tags' => null,
                     'mytags' => null,
