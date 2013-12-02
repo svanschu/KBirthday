@@ -210,7 +210,7 @@ abstract class ModSWKbirthdayHelper
     private function getWantedLangString($lang, $arg, $username)
     {
         jimport('joomla.filesystem.file');
-        $exist = JFile::exists(JPATH_BASE . DS . 'language' . DS . $lang . DS . $lang . '.mod_sw_kbirthday.ini');
+        $exist = JFile::exists(JPATH_BASE . '/language/' . $lang . '/' . $lang . '.mod_sw_kbirthday.ini');
         if ($exist == FALSE) {
             $this->app->enqueueMessage(JText::sprintf('SW_KBIRTHDAY_LANGUAGE_NOTEXIST', $lang), 'error');
             return;
