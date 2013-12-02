@@ -27,12 +27,6 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
         //print_r($user['birthdate']->format('Y-m-d').': '.$user['birthdate']->format('z') .'+'. $user['correction'] .' == '. ($this->time_now->format('z')) .'<br />');
         if (($user['birthdate']->format('z') + $user['correction']) == $this->time_now->format('z')) {
             $db = JFactory::getDBO();
-            //TODO delete
-            /*if (class_exists('Kunena')) {
-                $query = "SELECT id,catid,subject,time as year FROM #__kunena_messages WHERE subject='{$subject}'";
-            } else {
-                $query = "SELECT id,category_id as catid,subject,first_post_time as year FROM #__kunena_topics WHERE subject='{$subject}'";
-            }*/
             $query = $db->getQuery(true);
             $query->select('a.topicid, b.first_post_time AS year, b.category_id AS catid')
                 ->from('#__schuweb_birthday_message AS a')
