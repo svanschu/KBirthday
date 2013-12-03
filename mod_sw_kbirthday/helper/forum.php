@@ -105,7 +105,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                     //TODO alt tag
                     $user['link'] = '<a href="' . $message->getUrl($catid, true) . '">' . $username . '</a>';
                 } else {
-                    JLog::add('The user ID for the bot creating Kunena threads does not exist', JLog::WARNING);
+                    JLog::add('The user ID for the bot creating Kunena threads does not exist', JLog::WARNING, 'mod_sw_kbirthday');
                     $user['link'] = $username;
                 }
 

@@ -13,6 +13,7 @@ defined('_JEXEC') or die();
 require_once (dirname(__FILE__) . '/helper.php');
 require_once (dirname(__FILE__) . '/helper/' . strtolower($params->get('connection')) . '.php');
 
+JLog::addLogger(array('text_file' => 'mod_sw_kbirthday.errors.php'), JLog::ALL, 'mod_sw_kbirthday');
 
 // Kunena detection and version check
 $minKunenaVersion = '2.0.0';

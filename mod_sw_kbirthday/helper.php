@@ -90,11 +90,9 @@ abstract class ModSWKbirthdayHelper
         try {
             $res = $db->loadAssocList();
         } catch (JDatabaseException $e) {
-            //loadAssocList seems to not throw an exception!
-            JLog::addLogger(array());
-            JLog::add('Can\'t load user birthdates!');
+            JLog::add('Can\'t load user birthdates!', JLog::ERROR, 'mod_sw_kbirthday');
             if ($this->integration === 'communitybuilder')
-                JLog::add(JText::_('SW_KBIRTHDAY_NOCBFIELD_IF'), JLog::ERROR, 'SW KBirthday FAILURE:');
+                JLog::add(JText::_('SW_KBIRTHDAY_NOCBFIELD_IF'), JLog::ERROR, 'mod_sw_kbirthday');
         }
         if (!empty($res)) {
             //setting up the right birthdate
