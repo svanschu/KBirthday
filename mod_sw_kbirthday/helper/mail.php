@@ -47,13 +47,6 @@ class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
 				$message = self::getMessage($username);
 				$config = JFactory::getConfig();
 				//Prepare mail
-				/*jimport('joomla.mail.mail');
-				$mail = JMail::getInstance()
-					->addRecipient($user['email'])
-					->setSubject($subject)
-					->setBody($message)
-					->setSender($config->get('mailfrom'));
-				$return = $mail->send();*/
                 $return = JFactory::getMailer()->sendMail($config->get('mailfrom'), $config->get('fromname'), $user['email'], $subject, $message);
 				if ($return  !== true) {
 					JLog::add(JText::_('MOD_SW_KBIRTHDAY_SEND_MAIL_FAILED'), JLog::ERROR, 'mod_sw_kbirthday');
