@@ -6,12 +6,12 @@ lang_map = ar:ar-AA, az_AZ:az-AZ, bg_BG:bg-BG, ca_ES: ca-ES,cs_CZ: cs-CZ,da_DK: 
 file_filter = mod_sw_kbirthday/language/<lang>/<lang>.mod_sw_kbirthday.ini
 source_file = mod_sw_kbirthday/language/de-DE/de-DE.mod_sw_kbirthday.ini
 source_lang = de-DE
-minimum_perc = 100
+minimum_perc = 90
 
 [mod_sw_kbirthday.mod_sw_kbirthdaysys]
 file_filter = mod_sw_kbirthday/language/<lang>/<lang>.mod_sw_kbirthday.sys.ini
 source_file = mod_sw_kbirthday/language/de-DE/de-DE.mod_sw_kbirthday.sys.ini
 source_lang = de-DE
-minimum_perc = 100
+minimum_perc = 90
 
 
