@@ -110,19 +110,12 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                 }
 
             } elseif (!empty($post)) {
-                if (class_exists('Kunena'))
-                    $user['link'] = CKunenaLink::GetViewLink('view', $post['id'], $post['catid'], '', $username);
-                else {
-                    //TODO alt tag
-                    $user['link'] = '<a href="' . KunenaForumTopicHelper::get($post['topicid'])->getUrl($post['catid'], true, 'first') . '">' . $username . '</a>';
-                }
+                //TODO alt tag
+                $user['link'] = '<a href="' . KunenaForumTopicHelper::get($post['topicid'])->getUrl($post['catid'], true, 'first') . '">' . $username . '</a>';
+
             }
         } else {
-            if (class_exists('Kunena'))
-                $user['link'] = CKunenaLink::GetProfileLink($user['userid']);
-            else {
-                $user['link'] = KunenaUserHelper::get($user['userid'])->getLink($username);
-            }
+            $user['link'] = KunenaUserHelper::get($user['userid'])->getLink($username);
         }
     }
 }
