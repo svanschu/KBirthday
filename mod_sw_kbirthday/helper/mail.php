@@ -30,8 +30,7 @@ class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
         $db->setQuery($query);
         $res = $db->loadAssoc();
 
-        $_user = KunenaFactory::getUser($user['userid']);
-        $username = $_user->getName();
+        $username = $this->integration->getUserName($user);
 
         if (($user['birthdate']->format('z') + $user['correction']) == ($this->time_now->format('z'))) {
             if ($res && ($res['year'] != $this->time_now->format('Y'))) {
@@ -59,6 +58,6 @@ class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
                 }
             }
         }
-        $user['link'] = $_user->getLink($username);
+        $user['link'] = $this->integration->getProfileLink($user);
     }
 }

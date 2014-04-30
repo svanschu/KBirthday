@@ -20,6 +20,6 @@ class ModSWKbirthdayHelperDefault extends ModSWKbirthdayHelper
 	 */
 	public function getUserLink(& $user)
 	{
-		$user['link'] = KunenaFactory::getUser($user['userid'])->getName();
+		$user['link'] = $this->integration->getUserName($user);
 	}
 }

@@ -10,24 +10,25 @@
 
 defined('_JEXEC') or die();
 
+require_once(dirname(__FILE__) . '/helper/integration/integration.php');
+
 abstract class ModSWKbirthdayHelper
 {
-    /*
-           * @since 1.7.0
-           * @param $params
-           */
+    /**
+     * @since 1.7.0
+     * @param $params
+     */
     function __construct($params)
     {
         $this->app = JFactory::getApplication();
         $this->uri = JURI::getInstance();
-        $k_config = KunenaFactory::getConfig();
-        $this->integration = $params->get('k20integration');
-        $this->username = $k_config->username;
         $this->params = $params;
         //get the date today
         $config = JFactory::getConfig();
         $this->soffset = $config->get('offset');
         $this->time_now = new JDate('now', $this->soffset);
+
+        $this->integration = SWBirthdayIntegration::getInstance($params);
     }
 
     static function loadHelper($params)
@@ -38,10 +39,10 @@ abstract class ModSWKbirthdayHelper
         return $bday->getUserBirthday();
     }
 
-    /*
-           * @since 1.6.0
-           * @return list of users
-           */
+    /**
+     * @since 1.6.0
+     * @return list of users
+     */
     private function getBirthdayUser()
     {
         $db = JFactory::getDBO();
@@ -51,7 +52,7 @@ abstract class ModSWKbirthdayHelper
         $query->select('b.id AS userid');
         $query->select('b.email');
         $jomsocial = '';
-        if ($this->integration === 'jomsocial') {
+        /*if ($this->integration === 'jomsocial') {
             $birthdate = 'value';
             $fromtable = '#__community_fields_values';
             $jomsocial = ' AND a.field_id = 3 ';
@@ -66,33 +67,34 @@ abstract class ModSWKbirthdayHelper
             $birthdate = 'birthdate';
             $fromtable = '#__kunena_users';
             $userid = 'userid';
-        }
-        $query->select('YEAR(a.' . $birthdate . ') AS year')
-            ->select('MONTH(a.' . $birthdate . ') AS month')
-            ->select('DAYOFMONTH(a.' . $birthdate . ') AS day')
-            ->select('DAYOFYEAR(a.' . $birthdate . ') AS yearday')
-            ->select('DATEDIFF(DATE(a.' . $birthdate . ') +
-                        INTERVAL(YEAR(CURDATE()) - YEAR(a.' . $birthdate . ') + (RIGHT(CURDATE(),5)>RIGHT(DATE(a.' . $birthdate . '),5)))
+        }*/
+        $birthdayFields = $this->integration->getBirthdayDatabaseFields();
+
+        $query->select('YEAR(a.' . $birthdayFields['birthdate'] . ') AS year')
+            ->select('MONTH(a.' . $birthdayFields['birthdate'] . ') AS month')
+            ->select('DAYOFMONTH(a.' . $birthdayFields['birthdate'] . ') AS day')
+            ->select('DAYOFYEAR(a.' . $birthdayFields['birthdate'] . ') AS yearday')
+            ->select('DATEDIFF(DATE(a.' . $birthdayFields['birthdate'] . ') +
+                        INTERVAL(YEAR(CURDATE()) - YEAR(a.' . $birthdayFields['birthdate'] . ') + (RIGHT(CURDATE(),5)>RIGHT(DATE(a.' . $birthdayFields['birthdate'] . '),5)))
                         YEAR, CURDATE()) AS till');
         if ($this->params->get('displayage'))
-            $query->select('(YEAR(CURDATE()) - YEAR(a.' . $birthdate . ') + (RIGHT(CURDATE(),5)>RIGHT(DATE(a.' . $birthdate . '),5))) AS age');
-        $query->from($fromtable . ' AS a')
-            ->innerJoin('#__users AS b ON a.' . $userid . ' = b.id' . $jomsocial)
+            $query->select('(YEAR(CURDATE()) - YEAR(a.' . $birthdayFields['birthdate'] . ') + (RIGHT(CURDATE(),5)>RIGHT(DATE(a.' . $birthdayFields['birthdate'] . '),5))) AS age');
+        $query->from($birthdayFields['fromtable'] . ' AS a')
+            ->innerJoin('#__users AS b ON a.' . $birthdayFields['userid'] . ' = b.id' . $jomsocial)
             ->having('till >= 0')
             ->having('till <= ' . $this->params->get('nextxdays'))
             ->order('till');
-        if ($this->username == 0)
+        /*if ($this->username == 0)
             $order = 'name';
         else
             $order = 'username';
-        $query->order($db->escape($order));
+        */
+        $query->order($db->escape($birthdayFields['$order']));
         $db->setQuery($query, 0, $this->params->get('limit'));
         try {
             $res = $db->loadAssocList();
         } catch (JDatabaseException $e) {
             JLog::add('Can\'t load user birthdates!', JLog::ERROR, 'mod_sw_kbirthday');
-            if ($this->integration === 'communitybuilder')
-                JLog::add(JText::_('SW_KBIRTHDAY_NOCBFIELD_IF'), JLog::ERROR, 'mod_sw_kbirthday');
         }
         if (!empty($res)) {
             //setting up the right birthdate
@@ -134,15 +136,6 @@ abstract class ModSWKbirthdayHelper
      */
     public abstract function getUserLink(& $user);
 
-    protected function getAvatar($user)
-    {
-        if (class_exists('KunenaForum')) {
-            return KunenaFactory::getUser($user)->getAvatarImage();
-        } else {
-            return;
-        }
-    }
-
     protected function getGraphicDate($date)
     {
         $ret = '<p class="swkb_calendar">'
@@ -153,11 +146,12 @@ abstract class ModSWKbirthdayHelper
         return $ret;
     }
 
-    /*
-           * Get the subject of/for the forum post
-           * @since 1.7.0
-           * @return string subject
-           */
+    /**
+     * Get the subject of/for the forum post
+     * @since 1.7.0
+     * @param $username
+     * @return string subject
+     */
     protected function getSubject($username)
     {
         if ($this->params->get('activatelanguage') == 'yes') {
@@ -195,14 +189,14 @@ abstract class ModSWKbirthdayHelper
         return $message;
     }
 
-    /*
-           * Get strings for multi language support
-           * @since 1.7.0
-           * @param $lang the needed language in ISO format xx-XX
-           * @param $arg which argument should be trabslated
-           * @param $username insert into translated string
-           * @return string
-           */
+    /**
+     * Get strings for multi language support
+     * @since 1.7.0
+     * @param $lang the needed language in ISO format xx-XX
+     * @param $arg which argument should be trabslated
+     * @param $username insert into translated string
+     * @return string
+     */
     private function getWantedLangString($lang, $arg, $username)
     {
         jimport('joomla.filesystem.file');
@@ -284,7 +278,7 @@ abstract class ModSWKbirthdayHelper
                     $this->getUserLink($v);
                     //Show Avatar?
                     if ($avatar)
-                        $list[$k]['avatar'] = $this->getAvatar($v['userid']);
+                        $list[$k]['avatar'] = $this->integration->getAvatar($v['userid']);
                     //Should we display the age?
                     if ($dage)
                         $v['age'] = JText::sprintf('SW_KBIRTHDAY_ADD_AGE', $v['age']);
@@ -319,7 +313,7 @@ abstract class ModSWKbirthdayHelper
             $includeUserGroups = $this->params->get('usergrouplist', array());
             $res = array_diff($includeUserGroups, $userGroups);
 
-            if ( count($includeUserGroups) == count($res)) {
+            if (count($includeUserGroups) == count($res)) {
                 return true;
             }
         }

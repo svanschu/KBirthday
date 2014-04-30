@@ -61,8 +61,8 @@
 
                 <field name="spacer1" type="spacer" class="text" label=""/>
 
-                <field name="k20integration" type="list" label="SW_KBIRTHDAY_K20INTEGRATION" default="forum">
-                    <option value="forum">Kunena</option>
+                <field name="integration" type="list" label="SW_KBIRTHDAY_K20INTEGRATION" default="forum">
+                    <option value="kunena">Kunena</option>
                     <option value="jomsocial">JomSocial</option>
                     <option value="communitybuilder">Community Builder</option>
                 </field>
@@ -138,6 +138,12 @@
                        multiple="true"/>
             </fieldset>
             <fieldset name="SW_KBIRTHDAY_FORUMPOST">
+                <field name="k20integration" type="list" label="SW_KBIRTHDAY_K20INTEGRATION" default="forum">
+                    <option value="forum">Kunena</option>
+                    <option value="jomsocial">JomSocial</option>
+                    <option value="communitybuilder">Community Builder</option>
+                </field>
+
                 <field type="text" default="2" name="bcatid"
                        label="SW_KBIRTHDAY_FORUMPOST_POSTCATID" description="SW_KBIRTHDAY_FORUMPOST_POSTCATID_DESC">
                 </field>
