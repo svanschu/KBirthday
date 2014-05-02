@@ -64,7 +64,7 @@
                 <field name="integration" type="list" label="SW_KBIRTHDAY_K20INTEGRATION" default="forum">
                     <option value="kunena">Kunena</option>
                     <option value="jomsocial">JomSocial</option>
-                    <option value="communitybuilder">Community Builder</option>
+                    <option value="comprofiler">Community Builder</option>
                 </field>
 
                 <field name="spacer2" type="spacer" class="text" label=""/>

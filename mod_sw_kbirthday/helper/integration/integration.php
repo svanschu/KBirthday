@@ -19,6 +19,7 @@ defined('_JEXEC') or die();
  */
 abstract class SWBirthdayIntegration
 {
+
     /**
      * returns an array of fields to get the birthdates
      *
@@ -51,10 +52,10 @@ abstract class SWBirthdayIntegration
      * returns the username
      *
      * @abstract
-     * @param $user
+     * @param $userId user array or userId
      * @return mixed
      */
-    abstract public function getUserName($user);
+    abstract public function getUserName($userId);
 
     /**
      * return Instance of the needed integration object

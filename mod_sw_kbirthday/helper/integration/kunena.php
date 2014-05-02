@@ -93,10 +93,15 @@ class SWBirthdayIntegrationKunena extends SWBirthdayIntegration
      * returns the username
      *
      * @abstract
-     * @param $user
+     * @param $userId user array or userId
      * @return mixed
      */
-    public function getUserName($user){
-        return KunenaFactory::getUser($user['userid'])->getName();
+    public function getUserName($userId){
+
+        if (is_array($userId)) {
+            $userId = $userId['userid'];
+        }
+
+        return KunenaFactory::getUser($userId)->getName();
     }
 }

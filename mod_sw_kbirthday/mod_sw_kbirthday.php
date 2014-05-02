@@ -21,7 +21,7 @@ $integration = $params->get('integration');
 //TODO use Exceptions instead of if else
 $fail = false;
 
-if ($integration == 'kunena') {
+if ($integration == 'kunena' || $kunenaConnection == 'forum') {
 // Kunena detection and version check
     $minKunenaVersion = '3.0.0';
     if (!class_exists('Kunena') || !version_compare(Kunena::version(), $minKunenaVersion, '>=')) {
@@ -45,12 +45,15 @@ if ($integration == 'kunena') {
     }
 }
 
-if ($integration == 'jomsocial') {
+if ($integration == 'jomsocial' || $kunenaConnection == 'jomsocial') {
     //TODO check if version is correct and installed
 }
 
-if ($integration == 'communitybuilder') {
-    //TODO check if version is correct and installed
+if ($integration == 'comprofiler' || $kunenaConnection == 'communitybuilder') {
+    if (!JComponentHelper::isEnabled("com_comprofiler", true)) {
+        $fail = true;
+        $res = JText::_("SWBIRTHDAY_CB_NOTINSTALLED_ENABLED");
+    }
 }
 
 if ($fail != true) {
