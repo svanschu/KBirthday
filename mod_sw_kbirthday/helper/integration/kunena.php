@@ -18,9 +18,11 @@ defined('_JEXEC') or die();
  */
 class SWBirthdayIntegrationKunena extends SWBirthdayIntegration
 {
-    function __construct($params) {
+    private $params = null;
 
-
+    function __construct($params)
+    {
+        $this->params = $params;
         $this->integration = $params->get('k20integration');
     }
 
@@ -70,8 +72,19 @@ class SWBirthdayIntegrationKunena extends SWBirthdayIntegration
      */
     public function getAvatar($user)
     {
+        $width = $this->params->get('avatarWidth');
+        $height = $this->params->get('avatarHeight');
+
+        if (empty($width)) {
+            $width = 'thumb';
+        }
+
+        if (empty($height)) {
+            $height = 90;
+        }
+
         if (class_exists('KunenaForum')) {
-            return KunenaFactory::getUser($user)->getAvatarImage();
+            return KunenaFactory::getUser($user)->getAvatarImage('', $width, $height);
         } else {
             return;
         }
@@ -96,7 +109,8 @@ class SWBirthdayIntegrationKunena extends SWBirthdayIntegration
      * @param $userId user array or userId
      * @return mixed
      */
-    public function getUserName($userId){
+    public function getUserName($userId)
+    {
 
         if (is_array($userId)) {
             $userId = $userId['userid'];

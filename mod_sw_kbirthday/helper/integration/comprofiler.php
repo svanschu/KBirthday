@@ -70,10 +70,29 @@ class SWBirthdayIntegrationComprofiler extends SWBirthdayIntegration
      */
     public function getAvatar($userId)
     {
+        $width = $this->params->get('avatarWidth');
+        $height = $this->params->get('avatarHeight');
+
+        $style = '';
+
+        if (!empty($width)) {
+            $style = 'width:' . $width . 'px';
+        }
+
+        if (!empty($height)) {
+            if (!empty($style)) {
+                $style .= ';';
+            }
+            $style .= 'height:' . $height . 'px';
+        }
+
+        if (!empty($style)) {
+            $style = 'style=' . $style;
+        }
 
         $user = CBuser::getInstance($userId);
         $avatar = $user->getField('avatar', null, 'csv', 'none', 'list');
-        return '<img src="'.$avatar.'" alt="'.JText::sprintf('SWBIRTHDAY_AVATAR_TITLE', $this->getUserName($userId)).'" />';
+        return '<img src="' . $avatar . '" alt="' . JText::sprintf('SWBIRTHDAY_AVATAR_TITLE', $this->getUserName($userId)) . '" ' . $style . ' />';
     }
 
     /**
@@ -87,10 +106,10 @@ class SWBirthdayIntegrationComprofiler extends SWBirthdayIntegration
     {
         $userName = $this->getUserName($user);
 
-        if ( $user['userid'] && ( $user['userid'] == CBframework::framework()->myId() ) ) {
-            $user['userid']		=	null;
+        if ($user['userid'] && ($user['userid'] == CBframework::framework()->myId())) {
+            $user['userid'] = null;
         }
-        $link = CBframework::framework()->cbSef( 'index.php?option=com_comprofiler' . ( $user['userid'] ? '&task=userprofile&user=' . (int) $user['userid'] : '' ) , true, 'html' );
+        $link = CBframework::framework()->cbSef('index.php?option=com_comprofiler' . ($user['userid'] ? '&task=userprofile&user=' . (int)$user['userid'] : ''), true, 'html');
         //API does not work ...
         //print_r(CBframework::framework()->userProfileUrl($user['userid']));
 

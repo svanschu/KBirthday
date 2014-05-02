@@ -73,11 +73,7 @@
                        label="SW_KBIRTHDAY_TEMPLATE" description="SW_KBIRTHDAY_TEMPLATE_DESC"
                        directory="modules/mod_sw_kbirthday/tmpl" filter="\.php" stripext="true"
                        hide_default="true" hide_none="true"/>
-                <field type="radio" name="displayavatar" default="0"
-                       label="SW_KBIRTHDAY_DISPLAY_AVATAR" description="SW_KBIRTHDAY_DISPLAY_AVATAR_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
+
                 <field name="nextxdays" type="text" default="10"
                        description="SW_KBIRTHDAY_NEXTXDAYS_DESC" label="SW_KBIRTHDAY_NEXTXDAYS"/>
                 <field name="limit" type="text" label="SW_KBIRTHDAY_LIMIT"
@@ -88,6 +84,20 @@
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
+
+                <field name="showavatarspacer" type="spacer" hr="true"/>
+
+                <field type="radio" name="displayavatar" default="0"
+                       label="SW_KBIRTHDAY_DISPLAY_AVATAR" description="SW_KBIRTHDAY_DISPLAY_AVATAR_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+
+                <field name="avatarWidth" type="text" filter="integer" label="SWBIRTHDAY_AVATAR_WIDTH"
+                       description="SWBIRTHDAY_AVATAR_SIZE_DESC"/>
+                <field name="avatarHeight" type="text" filter="integer" label="SWBIRTHDAY_AVATAR_HEIGHT"
+                       description="SWBIRTHDAY_AVATAR_SIZE_DESC"/>
+
                 <field name="graphicdatebegin" type="spacer" hr="true"/>
                 <field type="radio" name="displaydate" default="0"
                        label="SW_KBIRTHDAY_DISPLAY_DATE" description="SW_KBIRTHDAY_DISPLAY_DATE_DESC">
