@@ -52,22 +52,7 @@ abstract class ModSWKbirthdayHelper
         $query->select('b.id AS userid');
         $query->select('b.email');
         $jomsocial = '';
-        /*if ($this->integration === 'jomsocial') {
-            $birthdate = 'value';
-            $fromtable = '#__community_fields_values';
-            $jomsocial = ' AND a.field_id = 3 ';
-            $userid = 'user_id';
-        } elseif ($this->integration === 'communitybuilder') {
-            //get the list of user birthdays
-            $cbfield = $this->params->get('swkbcbfield', 'cb_birthday');
-            $birthdate = $db->escape($cbfield);
-            $fromtable = '#__comprofiler';
-            $userid = 'id';
-        } else {
-            $birthdate = 'birthdate';
-            $fromtable = '#__kunena_users';
-            $userid = 'userid';
-        }*/
+
         $birthdayFields = $this->integration->getBirthdayDatabaseFields();
 
         $query->select('YEAR(a.' . $birthdayFields['birthdate'] . ') AS year')
@@ -84,16 +69,12 @@ abstract class ModSWKbirthdayHelper
             ->having('till >= 0')
             ->having('till <= ' . $this->params->get('nextxdays'))
             ->order('till');
-        /*if ($this->username == 0)
-            $order = 'name';
-        else
-            $order = 'username';
-        */
+
         $query->order($db->escape($birthdayFields['$order']));
         $db->setQuery($query, 0, $this->params->get('limit'));
         try {
             $res = $db->loadAssocList();
-        } catch (JDatabaseException $e) {
+        } catch (RuntimeException $e) {
             JLog::add('Can\'t load user birthdates!', JLog::ERROR, 'mod_sw_kbirthday');
         }
         if (!empty($res)) {
