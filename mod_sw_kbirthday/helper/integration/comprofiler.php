@@ -46,7 +46,8 @@ class SWBirthdayIntegrationComprofiler extends SWBirthdayIntegration
         $birthdayFields['fromtable'] = '#__comprofiler';
         $birthdayFields['userid'] = 'id';
 
-        switch (CBframework::framework()->cbConfig("name_format")) {
+        $config = \CBLib\Application\Application::Config();
+        switch ($config["name_format"]) {
             case 1:
             case 2:
                 $birthdayFields['$order'] = 'name';
@@ -106,12 +107,10 @@ class SWBirthdayIntegrationComprofiler extends SWBirthdayIntegration
     {
         $userName = $this->getUserName($user);
 
-        if ($user['userid'] && ($user['userid'] == CBframework::framework()->myId())) {
+        if ($user['userid'] && ($user['userid'] == \CBLib\Application\Application::MyUser()->getUserId())) {
             $user['userid'] = null;
         }
-        $link = CBframework::framework()->cbSef('index.php?option=com_comprofiler' . ($user['userid'] ? '&task=userprofile&user=' . (int)$user['userid'] : ''), true, 'html');
-        //API does not work ...
-        //print_r(CBframework::framework()->userProfileUrl($user['userid']));
+        $link = \CBLib\Application\Application::CBFramework()->cbSef('index.php?option=com_comprofiler' . ($user['userid'] ? '&task=userprofile&user=' . (int)$user['userid'] : ''), true, 'html');
 
         $title = JText::sprintf('SWBIRTHDAY_USER_LINK_TITLE', $userName);
 
@@ -134,7 +133,8 @@ class SWBirthdayIntegrationComprofiler extends SWBirthdayIntegration
 
         $user = CBuser::getInstance($userId);
 
-        switch (CBframework::framework()->cbConfig("name_format")) {
+        $config = \CBLib\Application\Application::Config();
+        switch ($config["name_format"]) {
             case 1:
             case 2:
                 $name = $user->getUserData()->name;
