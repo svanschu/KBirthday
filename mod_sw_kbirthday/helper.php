@@ -72,6 +72,7 @@ abstract class ModSWKbirthdayHelper
 
         $query->order($db->escape($birthdayFields['$order']));
         $db->setQuery($query, 0, $this->params->get('limit'));
+        $res = '';
         try {
             $res = $db->loadAssocList();
         } catch (RuntimeException $e) {
@@ -244,7 +245,7 @@ abstract class ModSWKbirthdayHelper
         $avatar = $this->params->get('displayavatar');
         $graphicdate = $this->params->get('graphicdate');
         if ($graphicdate === 'graphic') {
-            $doc = & JFactory::getDocument();
+            $doc = JFactory::getDocument();
             $doc->addStyleSheet($this->uri->base() . '/modules/mod_sw_kbirthday/css/calendar.css');
         }
         $tgraphic = '';
