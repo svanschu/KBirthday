@@ -50,6 +50,7 @@ if ($integration == 'jomsocial' || $kunenaConnection == 'jomsocial') {
 }
 
 if ($integration == 'comprofiler' || $kunenaConnection == 'communitybuilder') {
+    //TODO check for min 2.0 version
     if (!JComponentHelper::isEnabled("com_comprofiler", true)) {
         $fail = true;
         $res = JText::_("SWBIRTHDAY_CB_NOTINSTALLED_ENABLED");
