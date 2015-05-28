@@ -216,7 +216,7 @@ abstract class ModSWKbirthdayHelper
     {
         if (empty($tillstring['till']) || $tillstring['till'] == 0) {
             if ($this->params->get('todaygraphic') === 'graphic') {
-                $doc = & JFactory::getDocument();
+                $doc = JFactory::getDocument();
                 $style = '.swkb_today{
 					background: url("' . $this->uri->base() . '/media/mod_sw_kbirthday/img/birthday16x16.png") no-repeat center top transparent scroll;
 					height: 16px;
