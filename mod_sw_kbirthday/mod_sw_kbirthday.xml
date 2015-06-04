@@ -85,9 +85,9 @@
                     <option value="1">JYES</option>
                 </field>
 
-                <field name="calcinterval" type="radio" default="1" label="SW_BIRTHDAY_CALCINTERVAL" description="SW_BIRTHDAY_CALCINTERVAL">
-                    <option value="eachtime">SW_BIRTHDAY_EACHTIME</option>
-                    <option value="oneperday">SW_BIRTHDAY_ONEPERDAY</option>
+                <field name="calcinterval" type="radio" default="1" label="SWBIRTHDAY_CALCINTERVAL" description="SWBIRTHDAY_CALCINTERVAL_DESC">
+                    <option value="eachtime">SWBIRTHDAY_EACHTIME</option>
+                    <option value="oneperday">SWBIRTHDAY_ONEPERDAY</option>
                 </field>
 
                 <field name="showavatarspacer" type="spacer" hr="true"/>
