@@ -1,6 +1,8 @@
-# Kunena Birthday Module #
+# SchuWeb Birthday Module #
 ## Introduction ##
-The Kunena Birthday Module shows the upcoming birthdays of your users. You can setup for example how much and to which date you want to display the birthdays. You can totally adjust the module after your wishes. Create your own template for the module, if you want or change the look of the string output over the language files or the Joomla! 2.5 build in language override.
+The SchuWeb Birthday Module is formaly known as Kunena Birthday Module. It's now independent to the Kunena API and can be used without having Kunena installed in your Joomla!. That means, that you can use the module with Community Builder or JomSocial without Kunena. This feature was asked many times and now here it is.
+
+The SchuWeb Birthday Module shows the upcoming birthdays of your users. You can setup for example how much and to which date you want to display the birthdays. You can totally adjust the module after your wishes. Create your own template for the module, if you want or change the look of the string output over the language files or the Joomla! build in language override.
 
 #### You can choose between different user linkings ####
 - Link to profile
@@ -10,12 +12,13 @@ You only need to add a Kunena category and a ID of an dummy user and the module 
 
 #### The module supports ####
 - JomSocial
-- CommunityBuilder
+- CommunityBuilder 2.0
+- Kunena 3.0.0
 
 #### Minimum Requirement ####
 - PHP 5.2
 - Joomla 1.6.0
-- Kunena 1.6.0
+- Kunena or Community Builder or JomSocial
 
 If you have a suggestion or a problem please just write an issue in here or on kunena.org, where I setup a forum thread for the module.
 
