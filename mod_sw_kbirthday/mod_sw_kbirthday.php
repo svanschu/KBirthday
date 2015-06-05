@@ -18,12 +18,14 @@ JLog::addLogger(array('text_file' => 'mod_sw_kbirthday.errors.php'), JLog::ALL, 
 $kunenaConnection = $params->get('connection');
 $integration = $params->get('integration');
 
+$minCBVersion = '2.0.0';
+$minKunenaVersion = '3.0.0';
+
 //TODO use Exceptions instead of if else
 $fail = false;
 
 if ($integration == 'kunena' || $kunenaConnection == 'forum') {
 // Kunena detection and version check
-    $minKunenaVersion = '3.0.0';
     if (!class_exists('Kunena') || !version_compare(Kunena::version(), $minKunenaVersion, '>=')) {
         if (!class_exists('KunenaForum') || !version_compare(KunenaForum::version(), $minKunenaVersion, '>=')) {
             // Kunena is not installed or enabled
@@ -35,14 +37,6 @@ if ($integration == 'kunena' || $kunenaConnection == 'forum') {
             $fail = true;
         }
     }
-
-    if ($kunenaConnection == 'jomsocial') {
-        //TODO check if version is correct and installed
-    }
-
-    if ($kunenaConnection == 'communitybuilder') {
-        //TODO check if version is correct and installed
-    }
 }
 
 if ($integration == 'jomsocial' || $kunenaConnection == 'jomsocial') {
@@ -50,10 +44,22 @@ if ($integration == 'jomsocial' || $kunenaConnection == 'jomsocial') {
 }
 
 if ($integration == 'comprofiler' || $kunenaConnection == 'communitybuilder') {
-    //TODO check for min 2.0 version
     if (!JComponentHelper::isEnabled("com_comprofiler", true)) {
         $fail = true;
         $res = JText::_("SWBIRTHDAY_CB_NOTINSTALLED_ENABLED");
+    }
+
+    $db = JFactory::getDbo();
+    $query = $db->getQuery(true);
+    $query->select('manifest_cache');
+    $query->from($db->quoteName('#__extensions'));
+    $query->where('element = "com_comprofiler"');
+    $db->setQuery($query);
+    $manifest = json_decode($db->loadResult(), true);
+
+    if (!version_compare($manifest['version'], $minCBVersion, '>=')) {
+        $fail = true;
+        $res = JText::sprintf("SWBIRTHDAY_CB_WRONG_VERSION", $minCBVersion);
     }
 }
 
