@@ -351,13 +351,15 @@ abstract class ModSWKbirthdayHelper
                     . ', ' . $birthday['correction'];
             }
 
-            $query = $db->getQuery(true);
-            $query->insert('#__schuweb_birthday')
-                ->columns('userid, daystill, age, birthdate, correction')
-                ->values($insert);
+            if (!empty($insert)) {
+                $query = $db->getQuery(true);
+                $query->insert('#__schuweb_birthday')
+                    ->columns('userid, daystill, age, birthdate, correction')
+                    ->values($insert);
 
-            $db->setQuery($query)
-                ->execute();
+                $db->setQuery($query)
+                    ->execute();
+            }
         }
 
         //return the calculated list
