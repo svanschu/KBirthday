@@ -8,6 +8,7 @@
     <authorUrl>www.schultschik.de</authorUrl>
     <version>sw.build.version</version>
     <description>SW_KBIRTHDAY_DESC</description>
+    <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
     <files>
         <filename module="mod_sw_kbirthday">mod_sw_kbirthday.php</filename>
         <filename>install.sql</filename>
