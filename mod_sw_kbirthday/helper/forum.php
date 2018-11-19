@@ -33,6 +33,8 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
             }
         }
 
+        $user['link'] = '';
+
         $integration = $this->params->get('integration');
         if ( !($integration == 'jomsocial' || $integration == 'comprofiler' || $fail )) {
             $username = KunenaFactory::getUser($user['userid'])->getName();
@@ -68,6 +70,11 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                     $message = $db->escape(self::getMessage($username));
                     $subject = $db->escape(self::getSubject($username));
 
+                    if (empty($message) || empty($subject)){
+                    	JFactory::$application->enqueueMessage("Message and or subject are empty. Are the language files for KBirthday installed proberly?", 'error');
+                    	return;
+                    }
+
                     if ($botid != 0) {
                         $_user = KunenaUserHelper::get($botid);
                         $fields = array(
@@ -86,12 +93,19 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                             $app->setUserState('com_kunena.postfields', $fields);
                             $app->enqueueMessage($category->getError(), 'notice');
                         }
-                        if (!$category->authorise('topic.create', $_user)) {
-                            $app->setUserState('com_kunena.postfields', $fields);
-                            $app->enqueueMessage($category->getError(), 'notice');
-                            //$this->redirectBack ();
-                        }
+
+                        try
+	                    {
+		                    $category->tryAuthorise('topic.create', $_user);
+	                    }
+	                    catch (Exception $exception)
+	                    {
+		                    $app->setUserState('com_kunena.postfields', $fields);
+		                    $app->enqueueMessage($exception->getMessage(), 'notice');
+	                    }
+
                         list($topic, $message) = $category->newTopic($fields, $_user);
+
                         //save message
                         $success = $message->save();
                         if (!$success) {
@@ -104,8 +118,6 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                             $app->enqueueMessage($warning, 'notice');
                         }
 
-                        //DEBUG
-                        //print_r('topic id = ' . $topic->id);die();
                         //Save the new topic to the topic user matching table
                         $query = $db->getQuery(true);
                         $query->insert('#__schuweb_birthday_message')
