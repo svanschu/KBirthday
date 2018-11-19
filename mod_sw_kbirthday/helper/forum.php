@@ -24,11 +24,8 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
     {
         $fail = false;
         if (!class_exists('Kunena')) {
-            if (!class_exists('KunenaForum')) {
+            if (!class_exists('KunenaForum') || !KunenaForum::enabled() || !KunenaForum::isCompatible('4.0')) {
                 // Kunena is not installed or enabled
-                $fail = true;
-            } elseif (!KunenaForum::enabled()) {
-                // Kunena is not online, DO NOT use Kunena!
                 $fail = true;
             }
         }
