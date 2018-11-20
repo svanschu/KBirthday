@@ -2,7 +2,7 @@
 <extension type="module" version="1.6.0" client="site" method="upgrade">
     <name>mod_sw_kbirthday</name>
     <creationDate>sw.build.date</creationDate>
-    <author>Schultschik Websolution</author>
+    <author>Sven Schultschik</author>
     <copyright>GNU/GPL License</copyright>
     <authorEmail>sven@schultschik.de</authorEmail>
     <authorUrl>www.schultschik.de</authorUrl>
