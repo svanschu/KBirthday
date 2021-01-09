@@ -32,3 +32,8 @@ If you have a suggestion or a problem please just write an issue in here or on k
 
 #### How to position the module at the bottom of Kunena? ####
 - Go to the module configuration and choose the kunena_bottom layout on the right. And then choose the module position kunena_bottom. If it is not in the list, just type it into the field and save the module.
+
+## Donation
+Want to support the project? 
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green)](https://paypal.me/SchuWeb?locale.x=de_DE)
