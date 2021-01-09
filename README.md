@@ -36,4 +36,6 @@ If you have a suggestion or a problem please just write an issue in here or on k
 ## Donation
 Want to support the project? 
 
+![GitHub Sponsors](https://img.shields.io/github/sponsors/svanschu?style=social)
+
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green)](https://paypal.me/SchuWeb?locale.x=de_DE)
