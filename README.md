@@ -17,10 +17,15 @@ You only need to add a Kunena category and a ID of an dummy user and the module 
 
 #### Minimum Requirement ####
 - PHP 5.2
-- Joomla 1.6.0
+- Joomla 3.9
 - Kunena or Community Builder or JomSocial
 
 If you have a suggestion or a problem please just write an issue in here or on kunena.org, where I setup a forum thread for the module.
+
+#### Links
+- [Demo](https://demo.schultschik.com/)
+- [Documentation](https://extensions.schultschik.com/documentation/kunena-birthday-module)
+- [Project website](https://extensions.schultschik.com/schuweb-birthday-module)
 
 ## FAQ ##
 
