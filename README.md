@@ -13,7 +13,7 @@ You only need to add a Kunena category and a ID of an dummy user and the module 
 #### The module supports ####
 - JomSocial
 - CommunityBuilder 2.0
-- Kunena 3.0.0
+- Kunena 4.0.0
 
 #### Minimum Requirement ####
 - PHP 5.2

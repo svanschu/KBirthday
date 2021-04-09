@@ -224,7 +224,6 @@
     </config>
     <updateservers>
         <!-- Note: No spaces or linebreaks allowed between the server tags -->
-        <server type="extension" priority="1" name="SW KBirthday Module">
-            <![CDATA[http://extensions.schultschik.de/component/ars/updates/modules/kunena-birthday-module?format=xml&dummy=extension.xml]]></server>
+        <server type="extension" priority="1" name="SchuWeb Birthday Module">https://raw.githubusercontent.com/svanschu/KBirthday/master/update/update.xml</server>
     </updateservers>
 </extension>
