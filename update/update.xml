@@ -3,7 +3,7 @@
     <update>
         <name>SchuWeb Birthday Module</name>
         <description>Display the birthday of your members from Kunena, Community Builder or JoomSocial.</description>
-        <element>sw_kbirthday</element>
+        <element>mod_sw_kbirthday</element>
         <type>module</type>
         <version>2.0.2</version>
         <infourl title="SchuWeb Birthday Module 2.0.2">https://extensions.schultschik.com/schuweb-birthday-module/schuweb-birthday-module-2-0-2</infourl>
@@ -22,7 +22,7 @@
     <update>
         <name>SchuWeb Birthday Module</name>
         <description>Display the birthday of your members from Kunena, Community Builder or JoomSocial.</description>
-        <element>sw_kbirthday</element>
+        <element>mod_sw_kbirthday</element>
         <type>module</type>
         <version>2.0.1</version>
         <infourl title="SchuWeb Birthday Module 2.0.1">https://extensions.schultschik.com/schuweb-birthday-module/schuweb-birthday-module-2-0-1</infourl>
