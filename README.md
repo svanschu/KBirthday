@@ -24,7 +24,7 @@ If you have a suggestion or a problem please just write an issue in here or on k
 
 #### Links
 - [Demo](https://demo.schultschik.com/)
-- [Documentation](https://extensions.schultschik.com/documentation/kunena-birthday-module)
+- [Documentation](https://extensions.schultschik.com/documentation/schuweb-birthday-module)
 - [Project website](https://extensions.schultschik.com/schuweb-birthday-module)
 
 ## FAQ ##
