@@ -17,7 +17,6 @@
         <filename>index.html</filename>
         <folder>css</folder>
         <folder>helper</folder>
-        <folder>img</folder>
         <folder>tmpl</folder>
     </files>
     <media destination="mod_sw_kbirthday">
