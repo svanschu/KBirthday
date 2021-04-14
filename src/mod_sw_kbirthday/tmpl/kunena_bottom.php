@@ -33,7 +33,10 @@ defined('_JEXEC') or die();
 				    <ul class="unstyled span3">
                         <?php for ($ii = 0; $ii < $singlecount; $ii++): ?>
                             <li>
-                                <?php echo $res[$ii+($i*$singlecount)]['link']; ?>
+	                            <?php if ($count > $ii + ($i * $singlecount))
+	                            {
+		                            echo $res[$ii + ($i * $singlecount)]['link'];
+	                            } ?>
                             </li>
                         <?php endfor; ?>
                     </ul>
