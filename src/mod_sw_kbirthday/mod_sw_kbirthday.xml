@@ -21,7 +21,6 @@
         <folder>tmpl</folder>
     </files>
     <media destination="mod_sw_kbirthday">
-        <filename>img/birthday.png</filename>
         <filename>img/birthday16x16.png</filename>
     </media>
     <languages folder="language">
