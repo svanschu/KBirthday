@@ -35,8 +35,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
         $integration = $this->params->get('integration');
         if ( !($integration == 'jomsocial' || $integration == 'comprofiler' || $fail )) {
             $username = KunenaFactory::getUser($user['userid'])->getName();
-            //DEBUG
-            //print_r($user['birthdate']->format('Y-m-d').': '.$user['birthdate']->format('z') .'+'. $user['correction'] .' == '. ($this->time_now->format('z')) .'<br />');
+
             if (($user['birthdate']->format('z') + $user['correction']) == $this->time_now->format('z')) {
                 $db = JFactory::getDBO();
                 $query = $db->getQuery(true);
@@ -47,10 +46,10 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                 $db->setQuery($query, 0, 1);
                 $post = $db->loadAssoc();
                 $catid = $this->params->get('bcatid');
-                $postyear = new JDate($post['year'], $this->soffset);
-                //DEBUG
-                //print_r($postyear->format('Y', true) .' '. $this->time_now->format('Y', true));
-                //print_r('Empty Post = ' . empty($post) . '-->' . $post);
+
+                if (!empty($post))
+                    $postyear = new JDate($post['year'], $this->soffset);
+
                 if (empty($post) && !empty($catid) ||
                     !empty($post) && !empty($catid) && $postyear->format('Y', true) < $this->time_now->format('Y', true)
                 ) {
