@@ -14,7 +14,12 @@
      <!-- Version number of build -->
     <property name="build.version" value="0.0.0" override="true" />
     <!-- get the date for build -->
-    <tstamp prefix="build.date" />
+    <tstamp prefix="build.date">
+        <format property="DATE" pattern="%d. %B %Y" locale="en_GB"/>
+    </tstamp>
+    <tstamp prefix="build.year">
+        <format property="DATE" pattern="%Y"/>
+    </tstamp>
     <!-- Set the directory where the packages should be saved. Relative to the build dir -->
     <property name="builddir" value="./../../packages/${extension_name}" override="true" />
     <!-- Declare Project src files -->
@@ -50,12 +55,13 @@
         <!-- insert version, date into the xml files -->
         <reflexive>
             <fileset dir="${builddir}/tmp/">
-                <include name="**/mod_sw_kbirthday.xml" />
+                <include name="**" />
             </fileset>
             <filterchain>
                 <replaceregexp>
                     <regexp pattern="sw\.build\.version" replace="${build.version}" />
-                    <regexp pattern="sw\.build\.date" replace="${build.date.DSTAMP}" />
+                    <regexp pattern="sw\.build\.date" replace="${build.date.DATE}" />
+                    <regexp pattern="sw\.build\.year" replace="${build.year.DATE}" />
                 </replaceregexp>
             </filterchain>
         </reflexive>
