@@ -2,7 +2,7 @@
 /**
  * @package SchuWeb Birthday Module
  *
- * @Copyright (C) 2010-sw.build.year Sven Schultschik. All rights reserved
+ * @Copyright (C) 2010-2021 Sven Schultschik. All rights reserved
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link    http://www.schultschik.de
  **/
