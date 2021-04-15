@@ -1,59 +1,51 @@
 <?php
 /**
- * @package SW KBirthday Module
+ * @package SchuWeb Birthday Module
  *
- * @Copyright (C) 2010-2013 Schultschik Websolution All rights reserved
+ * @Copyright (C) 2010-2021 Sven Schultschik. All rights reserved
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link http://www.schultschik.de
  **/
 // Dont allow direct linking
 defined('_JEXEC') or die();
-$doc = JFactory::getDocument();
-$uri = JURI::getInstance();
-$style = '#Kunena div.sw_kbirthday td.kcol-first{width:1%;}
-			#Kunena .swkbicon{
-				background: url("' . $uri->base() . '/media/mod_sw_kbirthday/img/birthday.png") no-repeat center top transparent scroll;
-				height: 32px;
-				width: 32px;}';
-$doc->addStyleDeclaration($style);
-?>
-<div class="kblock sw_kbirthday <?php echo htmlspecialchars($params->get('moduleclass_sfx', '')) ?>">
-	<div class="kheader">
-		<span class="ktoggler">
-			<a class="ktoggler close" title="<?php echo JText::_('COM_KUNENA_TOGGLER_COLLAPSE') ?>"
-			   rel="sw_kbirthday"></a>
-		</span>
 
-		<h2><span class="ktitle km">
-			<?php echo JText::_('SW_KBIRTHDAY_BIRTHDAY')?>
-		</span></h2>
-	</div>
-	<div class="kcontainer" id="sw_kbirthday">
-		<div class="kbody">
-			<table class="kblocktable">
-				<tr class="krow2">
-					<td class="kcol-first">
-						<div class="swkbicon"></div>
-					</td>
-					<td class="kcol-mid km">
-						<div class="sw_kbirthdy ks">
-							<?php
-							if (is_array($res)) {
-								$num = false;
-								foreach ($res as $v) {
-									if ($num == false) {
-										echo $v['link'];
-										$num = true;
-									}
-									else echo ', ' . $v['link'];
-								}
-							} else {
-								echo $res;
-							}?>
-						</div>
-					</td>
-				</tr>
-			</table>
+?>
+<div class="kfrontend sw_kbirthday <?php echo htmlspecialchars($params->get('moduleclass_sfx', '')) ?>">
+    <div class="btn-toolbar pull-right">
+        <div class="btn-group">
+            <div class="btn btn-small" data-toggle="collapse" data-target="#sw_kbirthday"></div>
+        </div>
+    </div>
+    <h2 class="btn-link">
+        <?php echo JText::_('SW_KBIRTHDAY_BIRTHDAY')?>
+    </h2>
+	<div class="row-fluid collapse in" id="sw_kbirthday">
+		<div class="well-small">
+            <ul class="unstyled span1 btn-link">
+                <span class="icon icon-calendar icon-big" aria-hidden="true"></span>
+            </ul>
+            <?php
+			if (is_array($res)) :
+			    $count = count($res);
+			    $singlecount = ceil($count / 3);
+
+			    for ($i = 0; $i < 3; $i++): ?>
+				    <ul class="unstyled span3">
+                        <?php for ($ii = 0; $ii < $singlecount; $ii++): ?>
+                            <li>
+	                            <?php if ($count > $ii + ($i * $singlecount))
+	                            {
+		                            echo $res[$ii + ($i * $singlecount)]['link'];
+	                            } ?>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
+                <?php endfor;
+            else: ?>
+                <ul class="unstyled span3">
+                    <li><?php echo $res; ?></li>
+                </ul>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>

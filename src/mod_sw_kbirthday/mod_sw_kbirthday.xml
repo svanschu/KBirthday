@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="module" version="1.6.0" client="site" method="upgrade">
+<extension type="module" version="3.9" client="site" method="upgrade">
     <name>mod_sw_kbirthday</name>
     <creationDate>sw.build.date</creationDate>
     <author>Sven Schultschik</author>
@@ -21,7 +21,6 @@
         <folder>tmpl</folder>
     </files>
     <media destination="mod_sw_kbirthday">
-        <filename>img/birthday.png</filename>
         <filename>img/birthday16x16.png</filename>
     </media>
     <languages folder="language">
@@ -223,7 +222,6 @@
         </fields>
     </config>
     <updateservers>
-        <!-- Note: No spaces or linebreaks allowed between the server tags -->
         <server type="extension" priority="1" name="SchuWeb Birthday Module">https://raw.githubusercontent.com/svanschu/KBirthday/master/update/update.xml</server>
     </updateservers>
 </extension>

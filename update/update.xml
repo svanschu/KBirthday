@@ -5,6 +5,25 @@
         <description>Display the birthday of your members from Kunena, Community Builder or JoomSocial.</description>
         <element>mod_sw_kbirthday</element>
         <type>module</type>
+        <version>2.0.3</version>
+        <infourl title="SchuWeb Birthday Module 2.0.3">https://extensions.schultschik.com/schuweb-birthday-module/schuweb-birthday-module-2-0-3</infourl>
+        <downloads>
+            <downloadurl type="full" format="zip">https://github.com/svanschu/KBirthday/releases/download/2.0.3/SchuWeb_Birthday_Module_v2.0.3_20210415.zip</downloadurl>
+        </downloads>
+        <tags>
+            <tag>stable</tag>
+        </tags>
+        <maintainer>Sven Schultschik</maintainer>
+        <maintainerurl>https://extensions.schultschik.com/</maintainerurl>
+        <section>Updates</section>
+        <targetplatform name="joomla" version="3.(9|10)"/>
+        <client>site</client>
+    </update>
+    <update>
+        <name>SchuWeb Birthday Module</name>
+        <description>Display the birthday of your members from Kunena, Community Builder or JoomSocial.</description>
+        <element>mod_sw_kbirthday</element>
+        <type>module</type>
         <version>2.0.2</version>
         <infourl title="SchuWeb Birthday Module 2.0.2">https://extensions.schultschik.com/schuweb-birthday-module/schuweb-birthday-module-2-0-2</infourl>
         <downloads>
