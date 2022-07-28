@@ -1,25 +1,26 @@
 <?php
 /**
- * @package SW KBirthday Module
+ * @package             SW KBirthday Module
  *
- * @Copyright (C) 2010-2021 Sven Schultschik. All rights reserved
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * @link http://www.schultschik.de
+ * @version             sw.build.version
+ * @author              Sven Schultschik
+ * @copyright (C)       2010 - 2022 Sven Schultschik. All rights reserved
+ * @license             http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @link                http://www.schultschik.de
  **/
-// Dont allow direct linking
 
 defined('_JEXEC') or die();
 
-class mod_sw_kbirthdayInstallerScript
+use Joomla\CMS\Factory;
+use Joomla\CMS\Installer\InstallerScript;
+
+class mod_sw_kbirthdayInstallerScript extends InstallerScript
 {
-    /**
-     * Constructor
-     *
-     * @param   JAdapterInstance $adapter The object responsible for running this script
-     */
     public function __construct($parent)
     {
-
+        // Define the minumum versions to be supported.
+        $this->minimumJoomla = '4.0';
+        $this->minimumPhp = '7.4';
     }
 
     /**
@@ -50,59 +51,5 @@ class mod_sw_kbirthdayInstallerScript
 );");
             $db->execute();
         }
-    }
-
-    /**
-     * Called after any type of action
-     *
-     * @param   string $route Which action is happening (install|uninstall|discover_install|update)
-     * @param   JAdapterInstance $adapter The object responsible for running this script
-     *
-     * @return  boolean  True on success
-     */
-    public function postflight($route, $parent)
-    {
-
-    }
-
-    /**
-     * Called on installation
-     *
-     * @param   JAdapterInstance $adapter The object responsible for running this script
-     *
-     * @return  boolean  True on success
-     */
-    public function install($parent)
-    {
-
-    }
-
-    /**
-     * Called on update
-     *
-     * @param   JAdapterInstance $adapter The object responsible for running this script
-     *
-     * @return  boolean  True on success
-     */
-    public function update($parent)
-    {
-    }
-
-    /**
-     * Called on uninstallation
-     *
-     * @param   JAdapterInstance $adapter The object responsible for running this script
-     */
-    public function uninstall($parent)
-    {
-
-    }
-
-    function getParam($name)
-    {
-        $db = JFactory::getDbo();
-        $db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "mod_sw_kbirthday"');
-        $manifest = json_decode($db->loadResult(), true);
-        return $manifest[$name];
     }
 }
