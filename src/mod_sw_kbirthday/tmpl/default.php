@@ -1,12 +1,13 @@
 <?php
 /**
- * @package SW KBirthday Module
+ * @package             SW KBirthday Module
  *
- * @Copyright (C) 2010-2021 Sven Schultschik. All rights reserved
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * @link http://www.schultschik.de
+ * @version             sw.build.version
+ * @author              Sven Schultschik
+ * @copyright (C)       2010 - 2022 Sven Schultschik. All rights reserved
+ * @license             http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @link                http://www.schultschik.de
  **/
-// Dont allow direct linking
 
 defined('_JEXEC') or die();
 if (is_array($res)) {
