@@ -63,7 +63,7 @@
             <fieldset name="basic" addfieldprefix="Joomla\Component\Menus\Administrator\Field">
                 <field name="moduleclass_sfx" type="text" default=""
                        label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-                       description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+                />
 
                 <field name="spacer1" type="spacer" class="text" label=""/>
 
