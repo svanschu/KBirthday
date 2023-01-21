@@ -231,13 +231,16 @@ abstract class ModSWKbirthdayHelper
 
     private function hideUser($user)
     {
-        $users = explode(',', $this->params->get('hideuser'));
-        $users = $users ? $users : array();
+        $hideUser = $this->params->get('hideuser');
+        if (!empty($hideUser)) {
+            $users = explode(',', $hideUser);
+            $users = $users ? $users : array();
 
-        foreach ($users as $uid) {
-            if ($uid == $user['userid']) {
-                return true;
-            };
+            foreach ($users as $uid) {
+                if ($uid == $user['userid']) {
+                    return true;
+                };
+            }
         }
 
         if ($this->params->get('includeAll', 1) != 1) {
