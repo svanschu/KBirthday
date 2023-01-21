@@ -9,6 +9,9 @@
  * @link                http://www.schultschik.de
  **/
 
+use Joomla\CMS\Factory;
+use Kunena\Forum\Libraries\Factory\KunenaFactory;
+
 defined('_JEXEC') or die();
 
 /**
@@ -37,7 +40,7 @@ class SWBirthdayIntegrationKunena extends SWBirthdayIntegration
     {
         $birthdayFields = array();
 
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         if ($this->integration === 'jomsocial') {
             $birthdayFields['birthdate'] = 'value';

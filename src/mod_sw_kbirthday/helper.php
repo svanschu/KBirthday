@@ -9,6 +9,8 @@
  * @link                http://www.schultschik.de
  **/
 
+use Joomla\CMS\Factory;
+
 defined('_JEXEC') or die();
 
 require_once(dirname(__FILE__) . '/helper/integration/integration.php');
@@ -258,7 +260,7 @@ abstract class ModSWKbirthdayHelper
      */
     private function getBirthdayData()
     {
-        $db = JFactory::getDBO();
+        $db = Factory::getDBO();
         $query = $db->getQuery(true);
         $query->select('b.username');
         $query->select('b.name');
