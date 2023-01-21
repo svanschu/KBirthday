@@ -1,6 +1,6 @@
 <?php
 /**
- * @package             SW KBirthday Module
+ * @package             SchuWeb Birthday
  *
  * @version             sw.build.version
  * @author              Sven Schultschik
