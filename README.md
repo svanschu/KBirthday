@@ -1,23 +1,24 @@
-# SchuWeb Birthday Module #
+# SchuWeb Birthday #
 ## Introduction ##
-The SchuWeb Birthday Module is formaly known as Kunena Birthday Module. It's now independent to the Kunena API and can be used without having Kunena installed in your Joomla!. That means, that you can use the module with Community Builder or JomSocial without Kunena. This feature was asked many times and now here it is.
+SchuWeb Birthday is a module to display the birthday of your users and creates greetings. It's independent to the Kunena API and can be used without having Kunena installed in your Joomla! site. That means, that you can use the module with Community Builder or JomSocial without Kunena.
 
-The SchuWeb Birthday Module shows the upcoming birthdays of your users. You can setup for example how much and to which date you want to display the birthdays. You can totally adjust the module after your wishes. Create your own template for the module, if you want or change the look of the string output over the language files or the Joomla! build in language override.
+SchuWeb Birthday shows the upcoming birthdays of your users. You can setup for example how much and to which date you want to display the birthdays. You can totally adjust the module after your wishes. Create your own template for the module, if you want or change the look of the string output over the language files or the Joomla! build in language override.
 
 #### You can choose between different user linkings ####
 - Link to profile
 - Link to a auto generated forum thread
+- Send a greetings e-mail once
 
 You only need to add a Kunena category and a ID of an dummy user and the module will create a thread at the birthday of the an user. Feel free to change the subject string and/or the message. There is also a possibility to display the message in different languages.
 
 #### The module supports ####
 - JomSocial
-- CommunityBuilder 2.0
-- Kunena 4.0.0
+- CommunityBuilder 2.7
+- Kunena 6.0.0
 
 #### Minimum Requirement ####
-- PHP 5.2
-- Joomla 3.9
+- PHP 8.1
+- Joomla 4.0
 - Kunena or Community Builder or JomSocial
 
 If you have a suggestion or a problem please just write an issue in here or on kunena.org, where I setup a forum thread for the module.
