@@ -220,6 +220,7 @@
                        type="radio"
                        class="btn-group btn-group-yesno"
                        default="no"
+                       showon="connection:Forum"
                        label="SW_KBIRTHDAY_LANGUAGE_ACTIVATE"
                        description="SW_KBIRTHDAY_LANGUAGE_ACTIVATE_DESC"
                 >
@@ -227,9 +228,12 @@
                     <option value="no">JNO</option>
                 </field>
                 <field name="subjectlanguage" type="language" client="site"
-                       default="en-GB" label="SW_KBIRTHDAY_LANGUAGE_SUBJECT"
+                       default="en-GB" 
+                       showon="connection:Forum"
+                       label="SW_KBIRTHDAY_LANGUAGE_SUBJECT"
                        description="SW_KBIRTHDAY_LANGUAGE_SUBJECT_DESC"/>
                 <field type="text" name="messagelanguage" default="en-GB"
+                        showon="connection:Forum"
                        label="SW_KBIRTHDAY_LANGUAGE_MESSAGE" description="SW_KBIRTHDAY_LANGUAGE_MESSAGE_DESC"/>
             </fieldset>
             <fieldset name="SW_KBIRTHDAY_CACHE">
@@ -259,6 +263,6 @@
         </fields>
     </config>
     <updateservers>
-        <server type="extension" priority="1" name="SchuWeb Birthday Module">https://raw.githubusercontent.com/svanschu/KBirthday/master/update/update.xml</server>
+        <server type="extension" priority="1" name="SchuWeb Birthday">https://raw.githubusercontent.com/svanschu/KBirthday/master/update/update.xml</server>
     </updateservers>
 </extension>
