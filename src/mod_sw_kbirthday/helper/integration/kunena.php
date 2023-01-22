@@ -1,12 +1,16 @@
 <?php
 /**
- * @package SW KBirthday Module
+ * @package             SchuWeb Birthday
  *
- * @Copyright (C) 2010-2021 Sven Schultschik. All rights reserved
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * @link http://www.schultschik.de
+ * @version             sw.build.version
+ * @author              Sven Schultschik
+ * @copyright (C)       2010 - 2023 Sven Schultschik. All rights reserved
+ * @license             http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @link                http://www.schultschik.de
  **/
-// Dont allow direct linking
+
+use Joomla\CMS\Factory;
+use Kunena\Forum\Libraries\Factory\KunenaFactory;
 
 defined('_JEXEC') or die();
 
@@ -36,7 +40,7 @@ class SWBirthdayIntegrationKunena extends SWBirthdayIntegration
     {
         $birthdayFields = array();
 
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         if ($this->integration === 'jomsocial') {
             $birthdayFields['birthdate'] = 'value';

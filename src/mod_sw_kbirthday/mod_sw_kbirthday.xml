@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="module" version="3.9" client="site" method="upgrade">
+<extension type="module" client="site" method="upgrade">
     <name>mod_sw_kbirthday</name>
     <creationDate>sw.build.date</creationDate>
     <author>Sven Schultschik</author>
@@ -60,10 +60,10 @@
     <scriptfile>install.script.php</scriptfile>
     <config>
         <fields name="params">
-            <fieldset name="basic">
+            <fieldset name="basic" addfieldprefix="Joomla\Component\Menus\Administrator\Field">
                 <field name="moduleclass_sfx" type="text" default=""
                        label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-                       description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+                />
 
                 <field name="spacer1" type="spacer" class="text" label=""/>
 
@@ -72,6 +72,14 @@
                     <option value="jomsocial">JomSocial</option>
                     <option value="comprofiler">Community Builder</option>
                 </field>
+
+                <field name="swkbcbfield"
+                       type="text"
+                       showon="integration:comprofiler"
+                       default="cb_birthday"
+                       label="SW_KBIRTHDAY_CBFIELD"
+                       description="SW_KBIRTHDAY_CBFIELD_DESC"
+                />
 
                 <field name="spacer2" type="spacer" class="text" label=""/>
 
@@ -85,23 +93,29 @@
                 <field name="limit" type="text" label="SW_KBIRTHDAY_LIMIT"
                        description="SW_KBIRTHDAY_LIMIT_DESC" default="10">
                 </field>
-                <field type="radio" name="displayage" default="1"
+                <field type="radio" name="displayage"
+                       class="btn-group btn-group-yesno"
+                       default="1"
                        label="SW_KBIRTHDAY_DISPLAY_AGE" description="SW_KBIRTHDAY_DISPLAY_AGE_DESC">
-                    <option value="0">JNO</option>
                     <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
 
-                <field name="calcinterval" type="radio" default="1" label="SWBIRTHDAY_CALCINTERVAL" description="SWBIRTHDAY_CALCINTERVAL_DESC">
+                <field name="calcinterval" type="radio"
+                       class="btn-group"
+                       default="1" label="SWBIRTHDAY_CALCINTERVAL" description="SWBIRTHDAY_CALCINTERVAL_DESC">
                     <option value="eachtime">SWBIRTHDAY_EACHTIME</option>
                     <option value="oneperday">SWBIRTHDAY_ONEPERDAY</option>
                 </field>
 
                 <field name="showavatarspacer" type="spacer" hr="true"/>
 
-                <field type="radio" name="displayavatar" default="0"
+                <field type="radio" name="displayavatar"
+                       class="btn-group btn-group-yesno"
+                       default="0"
                        label="SW_KBIRTHDAY_DISPLAY_AVATAR" description="SW_KBIRTHDAY_DISPLAY_AVATAR_DESC">
-                    <option value="0">JNO</option>
                     <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
 
                 <field name="avatarWidth" type="text" filter="integer" label="SWBIRTHDAY_AVATAR_WIDTH"
@@ -110,12 +124,15 @@
                        description="SWBIRTHDAY_AVATAR_SIZE_DESC"/>
 
                 <field name="graphicdatebegin" type="spacer" hr="true"/>
-                <field type="radio" name="displaydate" default="0"
+                <field type="radio" name="displaydate"
+                       class="btn-group btn-group-yesno"
+                       default="0"
                        label="SW_KBIRTHDAY_DISPLAY_DATE" description="SW_KBIRTHDAY_DISPLAY_DATE_DESC">
-                    <option value="0">JNO</option>
                     <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
-                <field type="list" name="graphicdate" label="SW_KBIRTHDAY_GRAPHICDATE"
+                <field type="list" name="graphicdate"
+                       label="SW_KBIRTHDAY_GRAPHICDATE"
                        description="SW_KBIRTHDAY_GRAPHICDATE_DESC" default="text">
                     <option value="graphic">SW_KBIRTHDAY_GRAPHICDATE_GRAPHIC</option>
                     <option value="text">SW_KBIRTHDAY_GRAPHICDATE_TEXT</option>
@@ -123,14 +140,21 @@
                 <field type="text" name="dateform" default="d.m.Y"
                        label="SW_KBIRTHDAY_DATEFORMAT" description="SW_KBIRTHDAY_DATEFORMAT_DESC"/>
                 <field name="graphicdateend" type="spacer" hr="true"/>
-                <field type="radio" name="todaygraphic" default="text" label="SW_KBIRTHDAY_TODAYGRAPHIC"
+                <field type="radio" name="todaygraphic"
+                       class="btn-group"
+                       default="text" label="SW_KBIRTHDAY_TODAYGRAPHIC"
                        description="SW_KBIRTHDAY_TODAYGRAPHIC_DESC">
                     <option value="graphic">SW_KBIRTHDAY_GRAPHICDATE_GRAPHIC</option>
                     <option value="text">SW_KBIRTHDAY_GRAPHICDATE_TEXT</option>
                 </field>
                 <field name="graphicgiftboxend" type="spacer" hr="true"/>
-                <field name="spacer" type="spacer" class="text"
-                       label="SW_KBIRTHDAY_CONNECTION_NOTE"/>
+                <field
+                    name="connection_note"
+                    type="note"
+                    class="alert alert-info"
+                    label="SW_KBIRTHDAY_CONNECTION_NOTE_LABEL"
+                    description="SW_KBIRTHDAY_CONNECTION_NOTE"
+                />
                 <field name="connection" type="list"
                        description="SW_KBIRTHDAY_CONNECTION_DESC"
                        label="SW_KBIRTHDAY_CONNECTION" default="Default">
@@ -139,51 +163,68 @@
                     <option value="Forum">SW_KBIRTHDAY_FORUMPOST</option>
                     <option value="Mail">SW_KBIRTHDAY_MAIL</option>
                 </field>
+                <field name="k20integration"
+                       type="list"
+                       showon="connection:Forum"
+                       default="forum"
+                       label="SW_KBIRTHDAY_K20INTEGRATION">
+                    <option value="forum">Kunena</option>
+                    <option value="jomsocial">JomSocial</option>
+                    <option value="communitybuilder">Community Builder</option>
+                </field>
+                <field name="bcatid"
+                       type="text"
+                       showon="connection:Forum"
+                       default="2"
+                       label="SW_KBIRTHDAY_FORUMPOST_POSTCATID"
+                       description="SW_KBIRTHDAY_FORUMPOST_POSTCATID_DESC">
+                </field>
+                <field name="swkbotid"
+                       type="text"
+                       showon="connection:Forum"
+                       default="0"
+                       label="SW_KBIRTHDAY_FORUMPOST_BOTID"
+                       description="SW_KBIRTHDAY_FORUMPOST_BOTID_DESC"/>
+
+                <field name="hide_user_spacer"
+                       type="spacer"
+                       class="text"
+                       label=""
+                />
+
                 <field type="text" name="hideuser" default=""
                        label="SW_KBIRTHDAY_HIDEUSER" description="SW_KBIRTHDAY_HIDEUSER_DESC"/>
 
                 <field name="spacer3" type="spacer" class="text" label=""/>
                 <field type="radio"
                        name="includeAll"
+                       class="includeAll btn-group btn-group-yesno"
                        label="SW_KBIRTHDAY_INCLUDE_ALL"
-                       default="1"
-                       class="includeAll">
-                    <option value="0">JNO</option>
+                       default="1">
                     <option value="1">JYES</option>
+                    <option value="0">JNO</option>
                 </field>
-                <field type="usergroup"
+                <field type="usergrouplist"
                        name="usergrouplist"
                        label="SW_KBIRTHDAY_INCLUDE_USERGROUP"
                        size="10"
                        class="usergrouplist"
                        multiple="true"/>
             </fieldset>
-            <fieldset name="SW_KBIRTHDAY_FORUMPOST">
-                <field name="k20integration" type="list" label="SW_KBIRTHDAY_K20INTEGRATION" default="forum">
-                    <option value="forum">Kunena</option>
-                    <option value="jomsocial">JomSocial</option>
-                    <option value="communitybuilder">Community Builder</option>
-                </field>
-
-                <field type="text" default="2" name="bcatid"
-                       label="SW_KBIRTHDAY_FORUMPOST_POSTCATID" description="SW_KBIRTHDAY_FORUMPOST_POSTCATID_DESC">
-                </field>
-                <field type="text" default="0" name="swkbotid"
-                       label="SW_KBIRTHDAY_FORUMPOST_BOTID" description="SW_KBIRTHDAY_FORUMPOST_BOTID_DESC"/>
-            </fieldset>
-            <fieldset name="SW_KBIRTHDAY_CB">
-                <field name="spacer" type="spacer" class="text"
-                       label="SW_KBIRTHDAY_CB_NOTE"/>
-                <field type="text" default="cb_birthday" name="swkbcbfield"
-                       label="SW_KBIRTHDAY_CBFIELD" description="SW_KBIRTHDAY_CBFIELD_DESC"/>
-            </fieldset>
             <fieldset name="SW_KBIRTHDAY_LANGUAGE">
-                <field name="space" type="spacer" class="text"
-                       label="SW_KBIRTHDAY_LANGUAGE_NOTE"/>
-                <field type="radio" name="activatelanguage" default="no"
-                       label="SW_KBIRTHDAY_LANGUAGE_ACTIVATE" description="SW_KBIRTHDAY_LANGUAGE_ACTIVATE_DESC">
-                    <option value="no">JNO</option>
+                <field name="space"
+                       type="note"
+                       description="SW_KBIRTHDAY_LANGUAGE_NOTE"
+                />
+                <field name="activatelanguage"
+                       type="radio"
+                       class="btn-group btn-group-yesno"
+                       default="no"
+                       label="SW_KBIRTHDAY_LANGUAGE_ACTIVATE"
+                       description="SW_KBIRTHDAY_LANGUAGE_ACTIVATE_DESC"
+                >
                     <option value="yes">JYES</option>
+                    <option value="no">JNO</option>
                 </field>
                 <field name="subjectlanguage" type="language" client="site"
                        default="en-GB" label="SW_KBIRTHDAY_LANGUAGE_SUBJECT"
@@ -197,12 +238,8 @@
                        default="1"
                        label="COM_MODULES_FIELD_CACHING_LABEL"
                        description="COM_MODULES_FIELD_CACHING_DESC">
-                    <option
-                            value="1">JGLOBAL_USE_GLOBAL
-                    </option>
-                    <option
-                            value="0">COM_MODULES_FIELD_VALUE_NOCACHING
-                    </option>
+                    <option value="1">JGLOBAL_USE_GLOBAL</option>
+                    <option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
                 </field>
                 <field
                         name="cache_time"

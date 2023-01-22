@@ -1,12 +1,19 @@
 <?php
 /**
- * @package SW KBirthday Module
+ * @package             SchuWeb Birthday
  *
- * @Copyright (C) 2010-2021 Sven Schultschik. All rights reserved
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * @link http://www.schultschik.de
+ * @version             sw.build.version
+ * @author              Sven Schultschik
+ * @copyright (C)       2010 - 2023 Sven Schultschik. All rights reserved
+ * @license             http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @link                http://www.schultschik.de
  **/
-// Dont allow direct linking
+
+use Kunena\Forum\Libraries\Factory\KunenaFactory;
+use Kunena\Forum\Libraries\User\KunenaUserHelper;
+use Kunena\Forum\Libraries\Forum\KunenaForum;
+use Kunena\Forum\Libraries\Forum\Category\KunenaCategoryHelper;
+use Kunena\Forum\Libraries\Forum\Topic\KunenaTopicHelper;
 
 defined('_JEXEC') or die();
 
@@ -23,11 +30,10 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
     public function getUserLink(& $user)
     {
         $fail = false;
-        if (!class_exists('Kunena')) {
-            if (!class_exists('KunenaForum') || !KunenaForum::enabled() || !KunenaForum::isCompatible('4.0')) {
-                // Kunena is not installed or enabled
-                $fail = true;
-            }
+
+        if (!KunenaForum::enabled() || !KunenaForum::isCompatible('6.0')) {
+            // Kunena is not installed or enabled
+            $fail = true;
         }
 
         $user['link'] = '';
@@ -74,7 +80,6 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                     if ($botid != 0) {
                         $_user = KunenaUserHelper::get($botid);
                         $fields = array(
-                            'category_id' => (int)$catid,
                             'name' => $_user->getName(''),
                             'email' => null,
                             'subject' => $subject,
@@ -82,8 +87,14 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                             'icon_id' => 0,
                             'tags' => null,
                             'mytags' => null,
-                            'subscribe' => 0,);
-                        $category = KunenaForumCategoryHelper::get((int)$catid);
+                            'subscribe' => 0,
+                        );
+
+                        $safefields = array (
+                            'category_id' => (int)$catid
+                        );
+
+                        $category = KunenaCategoryHelper::get((int)$catid);
                         $app = JFactory::getApplication();
                         if (!$category->exists()) {
                             $app->setUserState('com_kunena.postfields', $fields);
@@ -99,8 +110,8 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 		                    $app->setUserState('com_kunena.postfields', $fields);
 		                    $app->enqueueMessage($exception->getMessage(), 'notice');
 	                    }
-
-                        list($topic, $message) = $category->newTopic($fields, $_user);
+                        
+                        list($topic, $message) = $category->newTopic($fields, $_user, $safefields);
 
                         //save message
                         $success = $message->save();
@@ -132,7 +143,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
 
                 } elseif (!empty($post)) {
                     //TODO alt tag
-                    $user['link'] = '<a href="' . KunenaForumTopicHelper::get($post['topicid'])->getUrl($post['catid'], true, 'first') . '">' . $username . '</a>';
+                    $user['link'] = '<a href="' . KunenaTopicHelper::get($post['topicid'])->getUrl($post['catid'], true, 'first') . '">' . $username . '</a>';
 
                 }
             } else {

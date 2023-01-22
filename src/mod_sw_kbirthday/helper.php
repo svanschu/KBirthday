@@ -1,12 +1,15 @@
 <?php
 /**
- * @package SW KBirthday Module
+ * @package             SchuWeb Birthday
  *
- * @Copyright (C) 2010-2021 Sven Schultschik. All rights reserved
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * @link http://www.schultschik.de
+ * @version             sw.build.version
+ * @author              Sven Schultschik
+ * @copyright (C)       2010 - 2023 Sven Schultschik. All rights reserved
+ * @license             http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @link                http://www.schultschik.de
  **/
-// Dont allow direct linking
+
+use Joomla\CMS\Factory;
 
 defined('_JEXEC') or die();
 
@@ -228,13 +231,16 @@ abstract class ModSWKbirthdayHelper
 
     private function hideUser($user)
     {
-        $users = explode(',', $this->params->get('hideuser'));
-        $users = $users ? $users : array();
+        $hideUser = $this->params->get('hideuser');
+        if (!empty($hideUser)) {
+            $users = explode(',', $hideUser);
+            $users = $users ? $users : array();
 
-        foreach ($users as $uid) {
-            if ($uid == $user['userid']) {
-                return true;
-            };
+            foreach ($users as $uid) {
+                if ($uid == $user['userid']) {
+                    return true;
+                };
+            }
         }
 
         if ($this->params->get('includeAll', 1) != 1) {
@@ -257,7 +263,7 @@ abstract class ModSWKbirthdayHelper
      */
     private function getBirthdayData()
     {
-        $db = JFactory::getDBO();
+        $db = Factory::getDBO();
         $query = $db->getQuery(true);
         $query->select('b.username');
         $query->select('b.name');

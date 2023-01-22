@@ -1,12 +1,16 @@
 <?php
 /**
- * @package SW KBirthday Module
+ * @package             SchuWeb Birthday
  *
- * @Copyright (C) 2010-2021 Sven Schultschik. All rights reserved
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * @link http://www.schultschik.de
+ * @version             sw.build.version
+ * @author              Sven Schultschik
+ * @copyright (C)       2010 - 2023 Sven Schultschik. All rights reserved
+ * @license             http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @link                http://www.schultschik.de
  **/
-// Dont allow direct linking
+
+use Joomla\CMS\Component\ComponentHelper;
+use Kunena\Forum\Libraries\Forum\KunenaForum;
 
 defined('_JEXEC') or die();
 
@@ -19,23 +23,27 @@ $kunenaConnection = $params->get('connection');
 $integration = $params->get('integration');
 
 $minCBVersion = '2.0.0';
-$minKunenaVersion = '3.0.0';
+$minKunenaVersion = '6.0.0';
 
-//TODO use Exceptions instead of if else
 $fail = false;
 
 if ($integration == 'kunena' || $kunenaConnection == 'forum') {
-// Kunena detection and version check
-    if (!class_exists('Kunena') || !version_compare(Kunena::version(), $minKunenaVersion, '>=')) {
-        if (!class_exists('KunenaForum') || !version_compare(KunenaForum::version(), $minKunenaVersion, '>=')) {
-            // Kunena is not installed or enabled
-            $res = JText::sprintf('SW_KBIRTHDAY_NOT_INSTALLED', $minKunenaVersion);
-            $fail = true;
-        } elseif (!KunenaForum::enabled()) {
-            // Kunena is not online, DO NOT use Kunena!
-            $res = JText::_('SW_KBIRTHDAY_NOT_ENABLED');
-            $fail = true;
-        }
+
+    $kunenaRecord = ComponentHelper::getComponent('com_kunena');
+    if (ComponentHelper::isInstalled('com_kunena') == 0) {
+        $res = JText::sprintf('SW_KBIRTHDAY_NOT_INSTALLED', $minKunenaVersion);
+        $fail = true;
+    } elseif (!ComponentHelper::isEnabled('com_kunena')) {
+        $res = JText::_('SW_KBIRTHDAY_NOT_ENABLED');
+        $fail = true;
+    } elseif (!version_compare(KunenaForum::version(), $minKunenaVersion, '>=')) {
+        // Kunena is not installed or enabled
+        $res = JText::sprintf('SW_KBIRTHDAY_NOT_INSTALLED', $minKunenaVersion);
+        $fail = true;
+    } elseif (!KunenaForum::enabled()) {
+        // Kunena is not online, DO NOT use Kunena!
+        $res = JText::_('SW_KBIRTHDAY_NOT_ENABLED');
+        $fail = true;
     }
 }
 
