@@ -17,7 +17,7 @@ You only need to add a Kunena category and a ID of an dummy user and the module 
 - Kunena 6.0.0
 
 #### Minimum Requirement ####
-- PHP 8.1
+- PHP 7.4
 - Joomla 4.0
 - Kunena or Community Builder or JomSocial
 
