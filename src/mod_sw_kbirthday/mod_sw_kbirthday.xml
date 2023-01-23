@@ -61,6 +61,13 @@
     <config>
         <fields name="params">
             <fieldset name="basic" addfieldprefix="Joomla\Component\Menus\Administrator\Field">
+                <field
+                    name="docu_note"
+                    type="note"
+                    class="alert alert-info"
+                    label="SW_KBIRTHDAY_DOCUMENTATION_NOTE_LABEL"
+                    description="SW_KBIRTHDAY_DOCUMENTATION_NOTE"
+                />
                 <field name="moduleclass_sfx" type="text" default=""
                        label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
                 />
@@ -149,9 +156,18 @@
                 </field>
                 <field name="graphicgiftboxend" type="spacer" hr="true"/>
                 <field
+                    name="language_override_note"
+                    type="note"
+                    class="alert alert-info"
+                    showon="connection:Forum[OR]connection:Mail"
+                    label="SW_KBIRTHDAY_LANGUAGE_OVERRIDE_NOTE_LABEL"
+                    description="SW_KBIRTHDAY_LANGUAGE_OVERRIDE_CONNECTION_NOTE"
+                />
+                <field
                     name="connection_note"
                     type="note"
                     class="alert alert-info"
+                    showon="connection:Forum"
                     label="SW_KBIRTHDAY_CONNECTION_NOTE_LABEL"
                     description="SW_KBIRTHDAY_CONNECTION_NOTE"
                 />
