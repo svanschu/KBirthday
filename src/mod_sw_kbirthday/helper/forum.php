@@ -39,7 +39,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
         $user['link'] = '';
 
         $integration = $this->params->get('integration');
-        if ( !($integration == 'jomsocial' || $integration == 'comprofiler' || $fail )) {
+        if ( !($integration == 'comprofiler' || $fail )) {
             $username = KunenaFactory::getUser($user['userid'])->getName();
 
             if (($user['birthdate']->format('z') + $user['correction']) == $this->time_now->format('z')) {
