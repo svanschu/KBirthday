@@ -25,27 +25,18 @@
     </media>
     <languages folder="language">
         <language tag="da-DK">da-DK/da-DK.mod_sw_kbirthday.ini</language>
-        <language tag="da-DK">da-DK/da-DK.mod_sw_kbirthday.sys.ini</language>
         <language tag="de-DE">de-DE/de-DE.mod_sw_kbirthday.ini</language>
         <language tag="de-DE">de-DE/de-DE.mod_sw_kbirthday.sys.ini</language>
         <language tag="el-GR">el-GR/el-GR.mod_sw_kbirthday.ini</language>
-        <language tag="el-GR">el-GR/el-GR.mod_sw_kbirthday.sys.ini</language>
         <language tag="en-GB">en-GB/en-GB.mod_sw_kbirthday.ini</language>
         <language tag="en-GB">en-GB/en-GB.mod_sw_kbirthday.sys.ini</language>
         <language tag="es-ES">es-ES/es-ES.mod_sw_kbirthday.ini</language>
-        <language tag="es-ES">es-ES/es-ES.mod_sw_kbirthday.sys.ini</language>
         <language tag="fi-FI">fi-FI/fi-FI.mod_sw_kbirthday.ini</language>
-        <language tag="fi-FI">fi-FI/fi-FI.mod_sw_kbirthday.sys.ini</language>
         <language tag="nl-NL">nl-NL/nl-NL.mod_sw_kbirthday.ini</language>
-        <language tag="nl-NL">nl-NL/nl-NL.mod_sw_kbirthday.sys.ini</language>
         <language tag="pl-PL">pl-PL/pl-PL.mod_sw_kbirthday.ini</language>
-        <language tag="pl-PL">pl-PL/pl-PL.mod_sw_kbirthday.sys.ini</language>
         <language tag="pt-PT">pt-PT/pt-PT.mod_sw_kbirthday.ini</language>
-        <language tag="pt-PT">pt-PT/pt-PT.mod_sw_kbirthday.sys.ini</language>
         <language tag="ru-RU">ru-RU/ru-RU.mod_sw_kbirthday.ini</language>
-        <language tag="ru-RU">ru-RU/ru-RU.mod_sw_kbirthday.sys.ini</language>
         <language tag="sv-SE">sv-SE/sv-SE.mod_sw_kbirthday.ini</language>
-        <language tag="sv-SE">sv-SE/sv-SE.mod_sw_kbirthday.sys.ini</language>
     </languages>
     <install>
         <sql>
