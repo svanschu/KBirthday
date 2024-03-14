@@ -15,10 +15,7 @@
     <property name="build.version" value="0.0.0" override="true" />
     <!-- get the date for build -->
     <tstamp prefix="build.date">
-        <format property="DATE" pattern="%d. %B %Y" locale="en_GB"/>
-    </tstamp>
-    <tstamp prefix="build.year">
-        <format property="DATE" pattern="%Y"/>
+        <format property = "XMLDATE" pattern = "%Y-%m-%d" />
     </tstamp>
     <!-- Set the directory where the packages should be saved. Relative to the build dir -->
     <property name="builddir" value="./../../packages/${extension_name}" override="true" />
@@ -60,8 +57,7 @@
             <filterchain>
                 <replaceregexp>
                     <regexp pattern="sw\.build\.version" replace="${build.version}" />
-                    <regexp pattern="sw\.build\.date" replace="${build.date.DATE}" />
-                    <regexp pattern="sw\.build\.year" replace="${build.year.DATE}" />
+                    <regexp pattern="sw\.build\.date" replace="${build.date.XMLDATE}" />
                 </replaceregexp>
             </filterchain>
         </reflexive>
