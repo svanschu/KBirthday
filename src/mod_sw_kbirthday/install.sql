@@ -1,8 +1,8 @@
-  -- @package Joomla.Module
--- @subpackage mod_sw_kbirthday
--- @copyright Copyright (C) 2010 - 2023 Sven Schultschik. All rights reserved.
--- @license GNU General Public License version 2 or later
--- @link http://www.schultschik.de
+-- @version     sw.build.version
+-- @copyright   Copyright (C) 2010 - 2024 Sven Schultschik. All rights reserved
+-- @license     GPL-3.0-or-later
+-- @author      Sven Schultschik (extensions@schultschik.de)
+-- @link        extensions.schultschik.de
 
 
 CREATE TABLE IF NOT EXISTS `#__sw_kbirthday` (

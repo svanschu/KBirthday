@@ -1,13 +1,11 @@
 <?php
 /**
- * @package             SchuWeb Birthday
- *
- * @version             sw.build.version
- * @author              Sven Schultschik
- * @copyright (C)       2010 - 2023 Sven Schultschik. All rights reserved
- * @license             http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * @link                http://www.schultschik.de
- **/
+ * @version     sw.build.version
+ * @copyright   Copyright (C) 2010 - 2024 Sven Schultschik. All rights reserved
+ * @license     GPL-3.0-or-later
+ * @author      Sven Schultschik (extensions@schultschik.de)
+ * @link        extensions.schultschik.de
+ */
 
 use Joomla\CMS\Component\ComponentHelper;
 use Kunena\Forum\Libraries\Forum\KunenaForum;
