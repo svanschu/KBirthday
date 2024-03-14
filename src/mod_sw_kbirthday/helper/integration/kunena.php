@@ -42,7 +42,12 @@ class SWBirthdayIntegrationKunena extends SWBirthdayIntegration
 
         $db = Factory::getDbo();
 
-        if ($this->integration === 'communitybuilder') {
+        if ($this->integration === 'jomsocial') {
+            $birthdayFields['birthdate'] = 'value';
+            $birthdayFields['fromtable'] = '#__community_fields_values';
+            $birthdayFields['jomsocial'] = ' AND a.field_id = 3 ';
+            $birthdayFields['userid'] = 'user_id';
+        } elseif ($this->integration === 'communitybuilder') {
             //get the list of user birthdays
             $cbfield = $this->params->get('swkbcbfield', 'cb_birthday');
             $birthdayFields['birthdate'] = $db->escape($cbfield);

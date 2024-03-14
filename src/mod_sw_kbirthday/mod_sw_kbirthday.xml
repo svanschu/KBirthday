@@ -67,6 +67,7 @@
 
                 <field name="integration" type="list" label="SW_KBIRTHDAY_K20INTEGRATION" default="forum">
                     <option value="kunena">Kunena</option>
+                    <option value="jomsocial">JomSocial</option>
                     <option value="comprofiler">Community Builder</option>
                 </field>
 
@@ -175,6 +176,7 @@
                        default="forum"
                        label="SW_KBIRTHDAY_K20INTEGRATION">
                     <option value="forum">Kunena</option>
+                    <option value="jomsocial">JomSocial</option>
                     <option value="communitybuilder">Community Builder</option>
                 </field>
                 <field name="bcatid"

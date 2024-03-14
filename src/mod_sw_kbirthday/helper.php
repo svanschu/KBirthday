@@ -269,6 +269,7 @@ abstract class ModSWKbirthdayHelper
         $query->select('b.name');
         $query->select('b.id AS userid');
         $query->select('b.email');
+        $jomsocial = '';
 
         $birthdayFields = $this->integration->getBirthdayDatabaseFields();
 
@@ -282,7 +283,7 @@ abstract class ModSWKbirthdayHelper
         if ($this->params->get('displayage'))
             $query->select('(YEAR(CURDATE()) - YEAR(a.' . $birthdayFields['birthdate'] . ') + (RIGHT(CURDATE(),5)>RIGHT(DATE(a.' . $birthdayFields['birthdate'] . '),5))) AS age');
         $query->from($birthdayFields['fromtable'] . ' AS a')
-            ->innerJoin('#__users AS b ON a.' . $birthdayFields['userid'] . ' = b.id')
+            ->innerJoin('#__users AS b ON a.' . $birthdayFields['userid'] . ' = b.id' . $jomsocial)
             ->having('till >= 0')
             ->having('till <= ' . $this->params->get('nextxdays'))
             ->order('till');
