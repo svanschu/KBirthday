@@ -7,7 +7,7 @@
     <authorEmail>sven@schultschik.de</authorEmail>
     <authorUrl>www.schultschik.de</authorUrl>
     <version>sw.build.version</version>
-    <description>SW_KBIRTHDAY_DESC</description>
+    <description>SCHUWEB_BIRTHDAY_DESC</description>
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
     <files>
         <filename module="mod_sw_kbirthday">mod_sw_kbirthday.php</filename>
@@ -56,8 +56,8 @@
                     name="docu_note"
                     type="note"
                     class="alert alert-info"
-                    label="SW_KBIRTHDAY_DOCUMENTATION_NOTE_LABEL"
-                    description="SW_KBIRTHDAY_DOCUMENTATION_NOTE"
+                    label="SCHUWEB_BIRTHDAY_DOCUMENTATION_NOTE_LABEL"
+                    description="SCHUWEB_BIRTHDAY_DOCUMENTATION_NOTE"
                 />
                 <field name="moduleclass_sfx" type="text" default=""
                        label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
@@ -65,7 +65,7 @@
 
                 <field name="spacer1" type="spacer" class="text" label=""/>
 
-                <field name="integration" type="list" label="SW_KBIRTHDAY_K20INTEGRATION" default="forum">
+                <field name="integration" type="list" label="SCHUWEB_BIRTHDAY_K20INTEGRATION" default="forum">
                     <option value="kunena">Kunena</option>
                     <option value="jomsocial">JomSocial</option>
                     <option value="comprofiler">Community Builder</option>
@@ -75,26 +75,26 @@
                        type="text"
                        showon="integration:comprofiler"
                        default="cb_birthday"
-                       label="SW_KBIRTHDAY_CBFIELD"
-                       description="SW_KBIRTHDAY_CBFIELD_DESC"
+                       label="SCHUWEB_BIRTHDAY_CBFIELD"
+                       description="SCHUWEB_BIRTHDAY_CBFIELD_DESC"
                 />
 
                 <field name="spacer2" type="spacer" class="text" label=""/>
 
                 <field name="tmpl" type="filelist" default="default"
-                       label="SW_KBIRTHDAY_TEMPLATE" description="SW_KBIRTHDAY_TEMPLATE_DESC"
+                       label="SCHUWEB_BIRTHDAY_TEMPLATE" description="SCHUWEB_BIRTHDAY_TEMPLATE_DESC"
                        directory="modules/mod_sw_kbirthday/tmpl" filter="\.php" stripext="true"
                        hide_default="true" hide_none="true"/>
 
                 <field name="nextxdays" type="text" default="10"
-                       description="SW_KBIRTHDAY_NEXTXDAYS_DESC" label="SW_KBIRTHDAY_NEXTXDAYS"/>
-                <field name="limit" type="text" label="SW_KBIRTHDAY_LIMIT"
-                       description="SW_KBIRTHDAY_LIMIT_DESC" default="10">
+                       description="SCHUWEB_BIRTHDAY_NEXTXDAYS_DESC" label="SCHUWEB_BIRTHDAY_NEXTXDAYS"/>
+                <field name="limit" type="text" label="SCHUWEB_BIRTHDAY_LIMIT"
+                       description="SCHUWEB_BIRTHDAY_LIMIT_DESC" default="10">
                 </field>
                 <field type="radio" name="displayage"
                        class="btn-group btn-group-yesno"
                        default="1"
-                       label="SW_KBIRTHDAY_DISPLAY_AGE" description="SW_KBIRTHDAY_DISPLAY_AGE_DESC">
+                       label="SCHUWEB_BIRTHDAY_DISPLAY_AGE" description="SCHUWEB_BIRTHDAY_DISPLAY_AGE_DESC">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
@@ -111,7 +111,7 @@
                 <field type="radio" name="displayavatar"
                        class="btn-group btn-group-yesno"
                        default="0"
-                       label="SW_KBIRTHDAY_DISPLAY_AVATAR" description="SW_KBIRTHDAY_DISPLAY_AVATAR_DESC">
+                       label="SCHUWEB_BIRTHDAY_DISPLAY_AVATAR" description="SCHUWEB_BIRTHDAY_DISPLAY_AVATAR_DESC">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
@@ -125,25 +125,25 @@
                 <field type="radio" name="displaydate"
                        class="btn-group btn-group-yesno"
                        default="0"
-                       label="SW_KBIRTHDAY_DISPLAY_DATE" description="SW_KBIRTHDAY_DISPLAY_DATE_DESC">
+                       label="SCHUWEB_BIRTHDAY_DISPLAY_DATE" description="SCHUWEB_BIRTHDAY_DISPLAY_DATE_DESC">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
                 <field type="list" name="graphicdate"
-                       label="SW_KBIRTHDAY_GRAPHICDATE"
-                       description="SW_KBIRTHDAY_GRAPHICDATE_DESC" default="text">
-                    <option value="graphic">SW_KBIRTHDAY_GRAPHICDATE_GRAPHIC</option>
-                    <option value="text">SW_KBIRTHDAY_GRAPHICDATE_TEXT</option>
+                       label="SCHUWEB_BIRTHDAY_GRAPHICDATE"
+                       description="SCHUWEB_BIRTHDAY_GRAPHICDATE_DESC" default="text">
+                    <option value="graphic">SCHUWEB_BIRTHDAY_GRAPHICDATE_GRAPHIC</option>
+                    <option value="text">SCHUWEB_BIRTHDAY_GRAPHICDATE_TEXT</option>
                 </field>
                 <field type="text" name="dateform" default="d.m.Y"
-                       label="SW_KBIRTHDAY_DATEFORMAT" description="SW_KBIRTHDAY_DATEFORMAT_DESC"/>
+                       label="SCHUWEB_BIRTHDAY_DATEFORMAT" description="SCHUWEB_BIRTHDAY_DATEFORMAT_DESC"/>
                 <field name="graphicdateend" type="spacer" hr="true"/>
                 <field type="radio" name="todaygraphic"
                        class="btn-group"
-                       default="text" label="SW_KBIRTHDAY_TODAYGRAPHIC"
-                       description="SW_KBIRTHDAY_TODAYGRAPHIC_DESC">
-                    <option value="graphic">SW_KBIRTHDAY_GRAPHICDATE_GRAPHIC</option>
-                    <option value="text">SW_KBIRTHDAY_GRAPHICDATE_TEXT</option>
+                       default="text" label="SCHUWEB_BIRTHDAY_TODAYGRAPHIC"
+                       description="SCHUWEB_BIRTHDAY_TODAYGRAPHIC_DESC">
+                    <option value="graphic">SCHUWEB_BIRTHDAY_GRAPHICDATE_GRAPHIC</option>
+                    <option value="text">SCHUWEB_BIRTHDAY_GRAPHICDATE_TEXT</option>
                 </field>
                 <field name="graphicgiftboxend" type="spacer" hr="true"/>
                 <field
@@ -151,30 +151,30 @@
                     type="note"
                     class="alert alert-info"
                     showon="connection:Forum[OR]connection:Mail"
-                    label="SW_KBIRTHDAY_LANGUAGE_OVERRIDE_NOTE_LABEL"
-                    description="SW_KBIRTHDAY_LANGUAGE_OVERRIDE_CONNECTION_NOTE"
+                    label="SCHUWEB_BIRTHDAY_LANGUAGE_OVERRIDE_NOTE_LABEL"
+                    description="SCHUWEB_BIRTHDAY_LANGUAGE_OVERRIDE_CONNECTION_NOTE"
                 />
                 <field
                     name="connection_note"
                     type="note"
                     class="alert alert-info"
                     showon="connection:Forum"
-                    label="SW_KBIRTHDAY_CONNECTION_NOTE_LABEL"
-                    description="SW_KBIRTHDAY_CONNECTION_NOTE"
+                    label="SCHUWEB_BIRTHDAY_CONNECTION_NOTE_LABEL"
+                    description="SCHUWEB_BIRTHDAY_CONNECTION_NOTE"
                 />
                 <field name="connection" type="list"
-                       description="SW_KBIRTHDAY_CONNECTION_DESC"
-                       label="SW_KBIRTHDAY_CONNECTION" default="Default">
-                    <option value="Default">SW_KBIRTHDAY_NONE</option>
-                    <option value="Profil">SW_KBIRTHDAY_PROFIL</option>
-                    <option value="Forum">SW_KBIRTHDAY_FORUMPOST</option>
-                    <option value="Mail">SW_KBIRTHDAY_MAIL</option>
+                       description="SCHUWEB_BIRTHDAY_CONNECTION_DESC"
+                       label="SCHUWEB_BIRTHDAY_CONNECTION" default="Default">
+                    <option value="Default">SCHUWEB_BIRTHDAY_NONE</option>
+                    <option value="Profil">SCHUWEB_BIRTHDAY_PROFIL</option>
+                    <option value="Forum">SCHUWEB_BIRTHDAY_FORUMPOST</option>
+                    <option value="Mail">SCHUWEB_BIRTHDAY_MAIL</option>
                 </field>
                 <field name="k20integration"
                        type="list"
                        showon="connection:Forum"
                        default="forum"
-                       label="SW_KBIRTHDAY_K20INTEGRATION">
+                       label="SCHUWEB_BIRTHDAY_K20INTEGRATION">
                     <option value="forum">Kunena</option>
                     <option value="jomsocial">JomSocial</option>
                     <option value="communitybuilder">Community Builder</option>
@@ -183,15 +183,15 @@
                        type="text"
                        showon="connection:Forum"
                        default="2"
-                       label="SW_KBIRTHDAY_FORUMPOST_POSTCATID"
-                       description="SW_KBIRTHDAY_FORUMPOST_POSTCATID_DESC">
+                       label="SCHUWEB_BIRTHDAY_FORUMPOST_POSTCATID"
+                       description="SCHUWEB_BIRTHDAY_FORUMPOST_POSTCATID_DESC">
                 </field>
                 <field name="swkbotid"
                        type="text"
                        showon="connection:Forum"
                        default="0"
-                       label="SW_KBIRTHDAY_FORUMPOST_BOTID"
-                       description="SW_KBIRTHDAY_FORUMPOST_BOTID_DESC"/>
+                       label="SCHUWEB_BIRTHDAY_FORUMPOST_BOTID"
+                       description="SCHUWEB_BIRTHDAY_FORUMPOST_BOTID_DESC"/>
 
                 <field name="hide_user_spacer"
                        type="spacer"
@@ -200,36 +200,36 @@
                 />
 
                 <field type="text" name="hideuser" default=""
-                       label="SW_KBIRTHDAY_HIDEUSER" description="SW_KBIRTHDAY_HIDEUSER_DESC"/>
+                       label="SCHUWEB_BIRTHDAY_HIDEUSER" description="SCHUWEB_BIRTHDAY_HIDEUSER_DESC"/>
 
                 <field name="spacer3" type="spacer" class="text" label=""/>
                 <field type="radio"
                        name="includeAll"
                        class="includeAll btn-group btn-group-yesno"
-                       label="SW_KBIRTHDAY_INCLUDE_ALL"
+                       label="SCHUWEB_BIRTHDAY_INCLUDE_ALL"
                        default="1">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
                 <field type="usergrouplist"
                        name="usergrouplist"
-                       label="SW_KBIRTHDAY_INCLUDE_USERGROUP"
+                       label="SCHUWEB_BIRTHDAY_INCLUDE_USERGROUP"
                        size="10"
                        class="usergrouplist"
                        multiple="true"/>
             </fieldset>
-            <fieldset name="SW_KBIRTHDAY_LANGUAGE">
+            <fieldset name="SCHUWEB_BIRTHDAY_LANGUAGE">
                 <field name="space"
                        type="note"
-                       description="SW_KBIRTHDAY_LANGUAGE_NOTE"
+                       description="SCHUWEB_BIRTHDAY_LANGUAGE_NOTE"
                 />
                 <field name="activatelanguage"
                        type="radio"
                        class="btn-group btn-group-yesno"
                        default="no"
                        showon="connection:Forum"
-                       label="SW_KBIRTHDAY_LANGUAGE_ACTIVATE"
-                       description="SW_KBIRTHDAY_LANGUAGE_ACTIVATE_DESC"
+                       label="SCHUWEB_BIRTHDAY_LANGUAGE_ACTIVATE"
+                       description="SCHUWEB_BIRTHDAY_LANGUAGE_ACTIVATE_DESC"
                 >
                     <option value="yes">JYES</option>
                     <option value="no">JNO</option>
@@ -237,13 +237,13 @@
                 <field name="subjectlanguage" type="language" client="site"
                        default="en-GB" 
                        showon="connection:Forum"
-                       label="SW_KBIRTHDAY_LANGUAGE_SUBJECT"
-                       description="SW_KBIRTHDAY_LANGUAGE_SUBJECT_DESC"/>
+                       label="SCHUWEB_BIRTHDAY_LANGUAGE_SUBJECT"
+                       description="SCHUWEB_BIRTHDAY_LANGUAGE_SUBJECT_DESC"/>
                 <field type="text" name="messagelanguage" default="en-GB"
                         showon="connection:Forum"
-                       label="SW_KBIRTHDAY_LANGUAGE_MESSAGE" description="SW_KBIRTHDAY_LANGUAGE_MESSAGE_DESC"/>
+                       label="SCHUWEB_BIRTHDAY_LANGUAGE_MESSAGE" description="SCHUWEB_BIRTHDAY_LANGUAGE_MESSAGE_DESC"/>
             </fieldset>
-            <fieldset name="SW_KBIRTHDAY_CACHE">
+            <fieldset name="SCHUWEB_BIRTHDAY_CACHE">
                 <field name="cache"
                        type="list"
                        default="1"

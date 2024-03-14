@@ -49,7 +49,7 @@ class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
                 //Prepare mail
                 $return = JFactory::getMailer()->sendMail($config->get('mailfrom'), $config->get('fromname'), $user['email'], $subject, $message);
                 if ($return !== true) {
-                    JLog::add(JText::_('MOD_SW_KBIRTHDAY_SEND_MAIL_FAILED'), JLog::ERROR, 'mod_sw_kbirthday');
+                    JLog::add(JText::_('SCHUWEB_BIRTHDAY_SEND_MAIL_FAILED'), JLog::ERROR, 'mod_sw_kbirthday');
                 } else {
                     $query = $db->getQuery(true)
                         ->insert('#__sw_kbirthday')

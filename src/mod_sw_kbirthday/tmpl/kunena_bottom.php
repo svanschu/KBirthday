@@ -19,7 +19,7 @@ defined('_JEXEC') or die();
         </div>
     </div>
     <h2 class="btn-link">
-        <?php echo JText::_('SW_KBIRTHDAY_BIRTHDAY')?>
+        <?php echo JText::_('SCHUWEB_BIRTHDAY_BIRTHDAY')?>
     </h2>
 	<div class="row-fluid collapse in" id="sw_kbirthday">
 		<div class="well-small">

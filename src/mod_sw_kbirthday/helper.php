@@ -89,13 +89,13 @@ abstract class ModSWKbirthdayHelper
         if ($this->params->get('activatelanguage') == 'yes') {
             $lang = $this->params->get('subjectlanguage');
             if (empty($lang)) {
-                $this->app->enqueueMessage(JText::_('SW_KBIRTHDAY_LANGUAGE_NOSUBJECT'), 'error');
+                $this->app->enqueueMessage(JText::_('SCHUWEB_BIRTHDAY_LANGUAGE_NOSUBJECT'), 'error');
                 return;
             }
-            $subject = self::getWantedLangString($lang, 'SW_KBIRTHDAY_SUBJECT', $username);
+            $subject = self::getWantedLangString($lang, 'SCHUWEB_BIRTHDAY_SUBJECT', $username);
         } else {
             $conf = JFactory::getConfig();
-            $subject = self::getWantedLangString($conf->get('language'), 'SW_KBIRTHDAY_SUBJECT', $username);
+            $subject = self::getWantedLangString($conf->get('language'), 'SCHUWEB_BIRTHDAY_SUBJECT', $username);
         }
         return $subject;
     }
@@ -105,18 +105,18 @@ abstract class ModSWKbirthdayHelper
         if ($this->params->get('activatelanguage') == 'yes') {
             $lang = $this->params->get('messagelanguage');
             if (empty($lang)) {
-                $this->app->enqueueMessage(JText::_('SW_KBIRTHDAY_LANGUAGE_NOMESSAGE'), 'error');
+                $this->app->enqueueMessage(JText::_('SCHUWEB_BIRTHDAY_LANGUAGE_NOMESSAGE'), 'error');
                 return;
             }
             $langa = explode(",", $lang);
             foreach ($langa as $value) {
                 $value = trim($value);
-                $marray[] = self::getWantedLangString($value, 'SW_KBIRTHDAY_MESSAGE', $username);
+                $marray[] = self::getWantedLangString($value, 'SCHUWEB_BIRTHDAY_MESSAGE', $username);
             }
             $message = implode('\n\n', $marray);
         } else {
             $conf = JFactory::getConfig();
-            $message = self::getWantedLangString($conf->get('language'), 'SW_KBIRTHDAY_MESSAGE', $username);
+            $message = self::getWantedLangString($conf->get('language'), 'SCHUWEB_BIRTHDAY_MESSAGE', $username);
         }
         return $message;
     }
@@ -134,7 +134,7 @@ abstract class ModSWKbirthdayHelper
         jimport('joomla.filesystem.file');
         $exist = JFile::exists(JPATH_BASE . '/language/' . $lang . '/' . $lang . '.mod_sw_kbirthday.ini');
         if ($exist == FALSE) {
-            $this->app->enqueueMessage(JText::sprintf('SW_KBIRTHDAY_LANGUAGE_NOTEXIST', $lang), 'error');
+            $this->app->enqueueMessage(JText::sprintf('SCHUWEB_BIRTHDAY_LANGUAGE_NOTEXIST', $lang), 'error');
             return;
         }
         $language = JLanguage::getInstance($lang);
@@ -153,7 +153,7 @@ abstract class ModSWKbirthdayHelper
     private function addDate(& $user)
     {
         $bdate = $user['birthdate']->format($this->params->get('dateform'), true);
-        $user['date'] = JText::sprintf('SW_KBIRTHDAY_DATE', $bdate);
+        $user['date'] = JText::sprintf('SCHUWEB_BIRTHDAY_DATE', $bdate);
     }
 
     /**
@@ -175,11 +175,11 @@ abstract class ModSWKbirthdayHelper
                 $doc->addStyleDeclaration($style);
                 $tillstring['day_string'] = '<span class="swkb_today"> </span> ';
             } else
-                $tillstring['day_string'] = JText::_('SW_KBIRTHDAY_TODAY');
+                $tillstring['day_string'] = JText::_('SCHUWEB_BIRTHDAY_TODAY');
         } elseif ($tillstring['till'] == 1)
-            $tillstring['day_string'] = JText::sprintf('SW_KBIRTHDAY_DAY', $tillstring['till']);
+            $tillstring['day_string'] = JText::sprintf('SCHUWEB_BIRTHDAY_DAY', $tillstring['till']);
         else
-            $tillstring['day_string'] = JText::sprintf('SW_KBIRTHDAY_DAYS', $tillstring['till']);
+            $tillstring['day_string'] = JText::sprintf('SCHUWEB_BIRTHDAY_DAYS', $tillstring['till']);
     }
 
     /*
@@ -213,7 +213,7 @@ abstract class ModSWKbirthdayHelper
                         $list[$k]['avatar'] = $this->integration->getAvatar($v['userid']);
                     //Should we display the age?
                     if ($dage)
-                        $v['age'] = JText::sprintf('SW_KBIRTHDAY_ADD_AGE', $v['age']);
+                        $v['age'] = JText::sprintf('SCHUWEB_BIRTHDAY_ADD_AGE', $v['age']);
                     else
                         $v['age'] = '';
                     //Should we display the date?
@@ -222,7 +222,7 @@ abstract class ModSWKbirthdayHelper
                         self::addDate($v);
                     elseif ($ddate && $graphicdate === 'graphic')
                         $graphic = self::getGraphicDate($v['birthdate']);
-                    $list[$k]['link'] = $graphic . '<span>' . JText::sprintf('SW_KBIRTHDAY_HAVEBIRTHDAYIN' . $tgraphic, $v['link'], $v['day_string'], $v['age'], $v['date']) . '</span>';
+                    $list[$k]['link'] = $graphic . '<span>' . JText::sprintf('SCHUWEB_BIRTHDAY_HAVEBIRTHDAYIN' . $tgraphic, $v['link'], $v['day_string'], $v['age'], $v['date']) . '</span>';
                 }
             }
         }

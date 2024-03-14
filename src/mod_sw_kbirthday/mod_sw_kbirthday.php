@@ -31,18 +31,18 @@ if ($integration == 'kunena' || $kunenaConnection == 'forum') {
 
     $kunenaRecord = ComponentHelper::getComponent('com_kunena');
     if (ComponentHelper::isInstalled('com_kunena') == 0) {
-        $res = JText::sprintf('SW_KBIRTHDAY_NOT_INSTALLED', $minKunenaVersion);
+        $res = JText::sprintf('SCHUWEB_BIRTHDAY_NOT_INSTALLED', $minKunenaVersion);
         $fail = true;
     } elseif (!ComponentHelper::isEnabled('com_kunena')) {
-        $res = JText::_('SW_KBIRTHDAY_NOT_ENABLED');
+        $res = JText::_('SCHUWEB_BIRTHDAY_NOT_ENABLED');
         $fail = true;
     } elseif (!version_compare(KunenaForum::version(), $minKunenaVersion, '>=')) {
         // Kunena is not installed or enabled
-        $res = JText::sprintf('SW_KBIRTHDAY_NOT_INSTALLED', $minKunenaVersion);
+        $res = JText::sprintf('SCHUWEB_BIRTHDAY_NOT_INSTALLED', $minKunenaVersion);
         $fail = true;
     } elseif (!KunenaForum::enabled()) {
         // Kunena is not online, DO NOT use Kunena!
-        $res = JText::_('SW_KBIRTHDAY_NOT_ENABLED');
+        $res = JText::_('SCHUWEB_BIRTHDAY_NOT_ENABLED');
         $fail = true;
     }
 }
@@ -75,5 +75,5 @@ if ($fail != true) {
     $res = ModSWKbirthdayHelper::loadHelper($params);
 }
 
-if (empty($res)) $res = JText::_('SW_KBIRTHDAY_NOUPCOMING');
+if (empty($res)) $res = JText::_('SCHUWEB_BIRTHDAY_NOUPCOMING');
 require(JModuleHelper::getLayoutPath('mod_sw_kbirthday', $params->get('tmpl', 'default')));

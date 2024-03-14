@@ -21,7 +21,7 @@ defined('_JEXEC') or die();
         </div>
     </div>
     <h2 class="card-header">
-		<?php echo JText::_('SW_KBIRTHDAY_BIRTHDAY') ?>
+		<?php echo JText::_('SCHUWEB_BIRTHDAY_BIRTHDAY') ?>
     </h2>
     <div class="shadow-lg rounded collapse show" id="sw_kbirthday">
         <div class="card-body">
