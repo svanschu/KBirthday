@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension type="module" client="site" method="upgrade">
-    <name>mod_sw_kbirthday</name>
+    <name>SCHUWEB_BIRTHDAY</name>
     <creationDate>sw.build.date</creationDate>
     <author>Sven Schultschik</author>
     <copyright>GNU/GPL License</copyright>
@@ -9,15 +9,13 @@
     <version>sw.build.version</version>
     <description>SCHUWEB_BIRTHDAY_DESC</description>
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <namespace path="src">SchuWeb\Module\Birthday</namespace>
     <files>
         <filename module="mod_sw_kbirthday">mod_sw_kbirthday.php</filename>
         <filename>install.sql</filename>
         <filename>uninstall.sql</filename>
-        <filename>helper.php</filename>
-        <filename>index.html</filename>
         <folder>css</folder>
-        <folder>helper</folder>
-        <folder>img</folder>
+        <folder>src</folder>
         <folder>tmpl</folder>
     </files>
     <media destination="mod_sw_kbirthday">
@@ -66,9 +64,9 @@
                 <field name="spacer1" type="spacer" class="text" label=""/>
 
                 <field name="integration" type="list" label="SCHUWEB_BIRTHDAY_K20INTEGRATION" default="forum">
-                    <option value="kunena">Kunena</option>
-                    <option value="jomsocial">JomSocial</option>
-                    <option value="comprofiler">Community Builder</option>
+                    <option value="Kunena">Kunena</option>
+                    <option value="Jomsocial">JomSocial</option>
+                    <option value="Comprofiler">Community Builder</option>
                 </field>
 
                 <field name="swkbcbfield"
@@ -167,7 +165,7 @@
                        label="SCHUWEB_BIRTHDAY_CONNECTION" default="Default">
                     <option value="Default">SCHUWEB_BIRTHDAY_NONE</option>
                     <option value="Profil">SCHUWEB_BIRTHDAY_PROFIL</option>
-                    <option value="Forum">SCHUWEB_BIRTHDAY_FORUMPOST</option>
+                    <option value="Kunena">SCHUWEB_BIRTHDAY_FORUMPOST</option>
                     <option value="Mail">SCHUWEB_BIRTHDAY_MAIL</option>
                 </field>
                 <field name="k20integration"

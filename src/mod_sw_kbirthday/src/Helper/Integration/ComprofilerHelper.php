@@ -7,7 +7,9 @@
  * @link        extensions.schultschik.de
  */
 
-defined('_JEXEC') or die();
+namespace SchuWeb\Module\Birthday\Site\Helper\Integration;
+
+\defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
@@ -16,12 +18,12 @@ use CBLib\Application\Application as CBApplication;
 include_once(JPATH_ROOT . '/administrator/components/com_comprofiler/plugin.foundation.php');
 
 /**
- * Class SWBirthdayIntegrationKunena
- * Kunena integration class
+ * Class ComprofilerHelper
+ * CommunityBuilder integration class
  *
  * @since 2.0.0
  */
-class SWBirthdayIntegrationComprofiler extends SWBirthdayIntegration
+class ComprofilerHelper extends IntegrationHelper
 {
 
     private $params = null;
@@ -134,7 +136,7 @@ class SWBirthdayIntegrationComprofiler extends SWBirthdayIntegration
             $userId = $userId['userid'];
         }
 
-        $user = CBuser::getInstance($userId);
+        $user = \CBuser::getInstance($userId);
 
         $config = CBApplication::Config();
         switch ($config["name_format"]) {

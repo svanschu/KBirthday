@@ -7,13 +7,15 @@
  * @link        extensions.schultschik.de
  */
 
-defined('_JEXEC') or die();
+namespace SchuWeb\Module\Birthday\Site\Helper;
+
+\defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
 
-class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
+class MailHelper extends BirthdayHelper
 {
     /**
      * adds the link for the connect param

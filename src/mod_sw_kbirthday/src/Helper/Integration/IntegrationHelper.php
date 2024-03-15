@@ -7,16 +7,18 @@
  * @link        extensions.schultschik.de
  */
 
-defined('_JEXEC') or die();
+namespace SchuWeb\Module\Birthday\Site\Helper\Integration;
+
+\defined('_JEXEC') or die;
 
 /**
- * Class SWBirthdayIntegration
+ * Class IntegrationHelper
  * Abstract class for integration of different extensions
  *
  * @abstract
  * @since 2.0.0
  */
-abstract class SWBirthdayIntegration
+abstract class IntegrationHelper
 {
 
     /**
@@ -66,8 +68,7 @@ abstract class SWBirthdayIntegration
     static public function getInstance($params)
     {
         //get the birthday list with connection links
-        require_once(dirname(__FILE__) .'/' . strtolower($params->get('integration')) . '.php');
-        $class = "SWBirthdayIntegration{$params->get('integration')}";
+        $class = "SchuWeb\Module\Birthday\Site\Helper\Integration\\{$params->get('integration')}Helper";
         return new $class($params);
     }
 }

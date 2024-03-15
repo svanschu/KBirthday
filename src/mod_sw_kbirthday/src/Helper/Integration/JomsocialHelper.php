@@ -7,19 +7,21 @@
  * @link        extensions.schultschik.de
  */
 
-defined('_JEXEC') or die();
+namespace SchuWeb\Module\Birthday\Site\Helper\Integration;
+
+\defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
 
 require_once( JPATH_ROOT . '/components/com_community/libraries/core.php' );
 
 /**
- * Class SWBirthdayIntegrationKunena
- * Kunena integration class
+ * Class JomsocialHelper
+ * JomSocial integration class
  *
  * @since 2.0.0
  */
-class SWBirthdayIntegrationJomsocial extends SWBirthdayIntegration
+class JomsocialHelper extends IntegrationHelper
 {
 
     private $params = null;
@@ -79,7 +81,7 @@ class SWBirthdayIntegrationJomsocial extends SWBirthdayIntegration
             $style = 'style=' . $style;
         }
 
-        $avatar = CFactory::getUser($userId)->getThumbAvatar();
+        $avatar = \CFactory::getUser($userId)->getThumbAvatar();
 
         return '<img src="' . $avatar . '" alt="' . Text::sprintf('SWBIRTHDAY_AVATAR_TITLE', $this->getUserName($userId)) . '" ' . $style . ' />';
     }
@@ -93,9 +95,9 @@ class SWBirthdayIntegrationJomsocial extends SWBirthdayIntegration
      */
     public function getProfileLink($user)
     {
-        $userName = CFactory::getUser($user['userid'])->getDisplayName();
+        $userName = \CFactory::getUser($user['userid'])->getDisplayName();
 
-        $link = CRoute::_('index.php?option=com_community&view=profile&userid=' . (int)$user['userid']);
+        $link = \CRoute::_('index.php?option=com_community&view=profile&userid=' . (int)$user['userid']);
 
         $title = Text::sprintf('SWBIRTHDAY_USER_LINK_TITLE', $userName);
 
@@ -116,6 +118,6 @@ class SWBirthdayIntegrationJomsocial extends SWBirthdayIntegration
             $userId = $userId['userid'];
         }
 
-        return CFactory::getUser($userId)->getDisplayName();
+        return \CFactory::getUser($userId)->getDisplayName();
     }
 }

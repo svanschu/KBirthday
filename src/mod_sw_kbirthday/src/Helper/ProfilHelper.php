@@ -7,9 +7,11 @@
  * @link        extensions.schultschik.de
  */
 
-defined('_JEXEC') or die();
+namespace SchuWeb\Module\Birthday\Site\Helper;
 
-class ModSWKbirthdayHelperProfil extends ModSWKbirthdayHelper
+\defined('_JEXEC') or die;
+
+class ProfilHelper extends BirthdayHelper
 {
     /**
      * adds the link for the connect param

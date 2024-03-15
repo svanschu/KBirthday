@@ -12,11 +12,9 @@ use Joomla\CMS\Log\Log;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
 use Kunena\Forum\Libraries\Forum\KunenaForum;
+use SchuWeb\Module\Birthday\Site\Helper\BirthdayHelper;
 
 defined('_JEXEC') or die();
-
-require_once(dirname(__FILE__) . '/helper.php');
-require_once(dirname(__FILE__) . '/helper/' . strtolower($params->get('connection')) . '.php');
 
 Log::addLogger(array('text_file' => 'mod_sw_kbirthday.errors.php'), Log::ALL, 'mod_sw_kbirthday');
 
@@ -73,7 +71,7 @@ if ($integration == 'comprofiler' || $kunenaConnection == 'communitybuilder') {
 }
 
 if ($fail != true) {
-    $res = ModSWKbirthdayHelper::loadHelper($params);
+    $res = BirthdayHelper::loadHelper($params);
 }
 
 if (empty($res)) $res = Text::_('SCHUWEB_BIRTHDAY_NOUPCOMING');

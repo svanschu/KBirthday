@@ -7,17 +7,19 @@
  * @link        extensions.schultschik.de
  */
 
+namespace SchuWeb\Module\Birthday\Site\Helper;
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log;
+use SchuWeb\Module\Birthday\Site\Helper\Integration\IntegrationHelper;
+
 
 defined('_JEXEC') or die();
 
-require_once(dirname(__FILE__) . '/helper/integration/integration.php');
-
-abstract class ModSWKbirthdayHelper
+abstract class BirthdayHelper
 {
     /**
      * @since 1.7.0
@@ -33,13 +35,13 @@ abstract class ModSWKbirthdayHelper
         $this->soffset = $config->get('offset');
         $this->time_now = new Date('now', $this->soffset);
 
-        $this->integration = SWBirthdayIntegration::getInstance($params);
+        $this->integration = IntegrationHelper::getInstance($params);
     }
 
     static function loadHelper($params)
     {
         //get the birthday list with connection links
-        $class = "ModSWKbirthdayHelper{$params->get('connection')}";
+        $class = "SchuWeb\Module\Birthday\Site\Helper\\{$params->get('connection')}Helper";
         $bday = new $class($params);
         return $bday->getUserBirthday();
     }

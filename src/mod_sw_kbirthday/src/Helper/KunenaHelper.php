@@ -6,6 +6,7 @@
  * @author      Sven Schultschik (extensions@schultschik.de)
  * @link        extensions.schultschik.de
  */
+namespace SchuWeb\Module\Birthday\Site\Helper;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Log\Log;
@@ -15,11 +16,9 @@ use Kunena\Forum\Libraries\Forum\KunenaForum;
 use Kunena\Forum\Libraries\Forum\Category\KunenaCategoryHelper;
 use Kunena\Forum\Libraries\Forum\Topic\KunenaTopicHelper;
 
-defined('_JEXEC') or die();
+\defined('_JEXEC') or die;
 
-jimport('joomla.log.log');
-
-class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
+class KunenaHelper extends BirthdayHelper
 {
     /**
      * adds the link for the connect param

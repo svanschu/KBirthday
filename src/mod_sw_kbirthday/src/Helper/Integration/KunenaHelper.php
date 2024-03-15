@@ -7,18 +7,20 @@
  * @link        extensions.schultschik.de
  */
 
+namespace SchuWeb\Module\Birthday\Site\Helper\Integration;
+
 use Joomla\CMS\Factory;
 use Kunena\Forum\Libraries\Factory\KunenaFactory;
 
-defined('_JEXEC') or die();
+\defined('_JEXEC') or die;
 
 /**
- * Class SWBirthdayIntegrationKunena
+ * Class KunenaHelper
  * Kunena integration class
  *
  * @since 2.0.0
  */
-class SWBirthdayIntegrationKunena extends SWBirthdayIntegration
+class KunenaHelper extends IntegrationHelper
 {
     private $params = null;
 
