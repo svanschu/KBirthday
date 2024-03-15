@@ -8,6 +8,9 @@
  */
 
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Log\Log;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Factory;
 use Kunena\Forum\Libraries\Forum\KunenaForum;
 
 defined('_JEXEC') or die();
@@ -15,7 +18,7 @@ defined('_JEXEC') or die();
 require_once(dirname(__FILE__) . '/helper.php');
 require_once(dirname(__FILE__) . '/helper/' . strtolower($params->get('connection')) . '.php');
 
-JLog::addLogger(array('text_file' => 'mod_sw_kbirthday.errors.php'), JLog::ALL, 'mod_sw_kbirthday');
+Log::addLogger(array('text_file' => 'mod_sw_kbirthday.errors.php'), Log::ALL, 'mod_sw_kbirthday');
 
 $kunenaConnection = $params->get('connection');
 $integration = $params->get('integration');
@@ -29,18 +32,18 @@ if ($integration == 'kunena' || $kunenaConnection == 'forum') {
 
     $kunenaRecord = ComponentHelper::getComponent('com_kunena');
     if (ComponentHelper::isInstalled('com_kunena') == 0) {
-        $res = JText::sprintf('SCHUWEB_BIRTHDAY_NOT_INSTALLED', $minKunenaVersion);
+        $res = Text::sprintf('SCHUWEB_BIRTHDAY_NOT_INSTALLED', $minKunenaVersion);
         $fail = true;
     } elseif (!ComponentHelper::isEnabled('com_kunena')) {
-        $res = JText::_('SCHUWEB_BIRTHDAY_NOT_ENABLED');
+        $res = Text::_('SCHUWEB_BIRTHDAY_NOT_ENABLED');
         $fail = true;
     } elseif (!version_compare(KunenaForum::version(), $minKunenaVersion, '>=')) {
         // Kunena is not installed or enabled
-        $res = JText::sprintf('SCHUWEB_BIRTHDAY_NOT_INSTALLED', $minKunenaVersion);
+        $res = Text::sprintf('SCHUWEB_BIRTHDAY_NOT_INSTALLED', $minKunenaVersion);
         $fail = true;
     } elseif (!KunenaForum::enabled()) {
         // Kunena is not online, DO NOT use Kunena!
-        $res = JText::_('SCHUWEB_BIRTHDAY_NOT_ENABLED');
+        $res = Text::_('SCHUWEB_BIRTHDAY_NOT_ENABLED');
         $fail = true;
     }
 }
@@ -50,12 +53,12 @@ if ($integration == 'jomsocial' || $kunenaConnection == 'jomsocial') {
 }
 
 if ($integration == 'comprofiler' || $kunenaConnection == 'communitybuilder') {
-    if (!JComponentHelper::isEnabled("com_comprofiler", true)) {
+    if (!Joomla\CMS\Component\ComponentHelper::isEnabled("com_comprofiler", true)) {
         $fail = true;
-        $res = JText::_("SWBIRTHDAY_CB_NOTINSTALLED_ENABLED");
+        $res = Text::_("SWBIRTHDAY_CB_NOTINSTALLED_ENABLED");
     }
 
-    $db = JFactory::getDbo();
+    $db = Factory::getDbo();
     $query = $db->getQuery(true);
     $query->select('manifest_cache');
     $query->from($db->quoteName('#__extensions'));
@@ -65,7 +68,7 @@ if ($integration == 'comprofiler' || $kunenaConnection == 'communitybuilder') {
 
     if (!version_compare($manifest['version'], $minCBVersion, '>=')) {
         $fail = true;
-        $res = JText::sprintf("SWBIRTHDAY_CB_WRONG_VERSION", $minCBVersion);
+        $res = Text::sprintf("SWBIRTHDAY_CB_WRONG_VERSION", $minCBVersion);
     }
 }
 
@@ -73,5 +76,5 @@ if ($fail != true) {
     $res = ModSWKbirthdayHelper::loadHelper($params);
 }
 
-if (empty($res)) $res = JText::_('SCHUWEB_BIRTHDAY_NOUPCOMING');
-require(JModuleHelper::getLayoutPath('mod_sw_kbirthday', $params->get('tmpl', 'default')));
+if (empty($res)) $res = Text::_('SCHUWEB_BIRTHDAY_NOUPCOMING');
+require(Joomla\CMS\Helper\ModuleHelper::getLayoutPath('mod_sw_kbirthday', $params->get('tmpl', 'default')));

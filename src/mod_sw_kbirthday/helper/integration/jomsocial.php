@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+
 require_once( JPATH_ROOT . '/components/com_community/libraries/core.php' );
 
 /**
@@ -79,7 +81,7 @@ class SWBirthdayIntegrationJomsocial extends SWBirthdayIntegration
 
         $avatar = CFactory::getUser($userId)->getThumbAvatar();
 
-        return '<img src="' . $avatar . '" alt="' . JText::sprintf('SWBIRTHDAY_AVATAR_TITLE', $this->getUserName($userId)) . '" ' . $style . ' />';
+        return '<img src="' . $avatar . '" alt="' . Text::sprintf('SWBIRTHDAY_AVATAR_TITLE', $this->getUserName($userId)) . '" ' . $style . ' />';
     }
 
     /**
@@ -95,7 +97,7 @@ class SWBirthdayIntegrationJomsocial extends SWBirthdayIntegration
 
         $link = CRoute::_('index.php?option=com_community&view=profile&userid=' . (int)$user['userid']);
 
-        $title = JText::sprintf('SWBIRTHDAY_USER_LINK_TITLE', $userName);
+        $title = Text::sprintf('SWBIRTHDAY_USER_LINK_TITLE', $userName);
 
         return "<a href=\"{$link}\" title=\"{$title}\" rel=\"nofollow\">{$userName}</a>";
     }

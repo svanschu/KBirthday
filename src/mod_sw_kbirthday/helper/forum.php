@@ -7,6 +7,8 @@
  * @link        extensions.schultschik.de
  */
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Log\Log;
 use Kunena\Forum\Libraries\Factory\KunenaFactory;
 use Kunena\Forum\Libraries\User\KunenaUserHelper;
 use Kunena\Forum\Libraries\Forum\KunenaForum;
@@ -41,7 +43,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
             $username = KunenaFactory::getUser($user['userid'])->getName();
 
             if (($user['birthdate']->format('z') + $user['correction']) == $this->time_now->format('z')) {
-                $db = JFactory::getDBO();
+                $db = Factory::getDBO();
                 $query = $db->getQuery(true);
                 $query->select('a.topicid, b.first_post_time AS year, b.category_id AS catid')
                     ->from('#__schuweb_birthday_message AS a')
@@ -71,7 +73,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                     $subject = $db->escape(self::getSubject($username));
 
                     if (empty($message) || empty($subject)){
-                    	JFactory::$application->enqueueMessage("Message and or subject are empty. Are the language files for KBirthday installed proberly?", 'error');
+                    	Factory::$application->enqueueMessage("Message and or subject are empty. Are the language files for KBirthday installed proberly?", 'error');
                     	return;
                     }
 
@@ -93,7 +95,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                         );
 
                         $category = KunenaCategoryHelper::get((int)$catid);
-                        $app = JFactory::getApplication();
+                        $app = Factory::getApplication();
                         if (!$category->exists()) {
                             $app->setUserState('com_kunena.postfields', $fields);
                             $app->enqueueMessage($category->getError(), 'notice');
@@ -135,7 +137,7 @@ class ModSWKbirthdayHelperForum extends ModSWKbirthdayHelper
                         //TODO alt tag
                         $user['link'] = '<a href="' . $message->getUrl($catid, true) . '">' . $username . '</a>';
                     } else {
-                        JLog::add('The user ID for the bot creating Kunena threads does not exist', JLog::WARNING, 'mod_sw_kbirthday');
+                        Log::add('The user ID for the bot creating Kunena threads does not exist', Log::WARNING, 'mod_sw_kbirthday');
                         $user['link'] = $username;
                     }
 

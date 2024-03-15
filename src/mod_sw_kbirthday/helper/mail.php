@@ -9,6 +9,10 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Log\Log;
+
 class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
 {
     /**
@@ -20,7 +24,7 @@ class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
     public function getUserLink(& $user)
     {
         //Did the user already get an e-mail?
-        $db = JFactory::getDBO();
+        $db = Factory::getDBO();
         $query = $db->getQuery(true);
         $query->select('uid');
         $query->select('YEAR(date) AS year');
@@ -43,11 +47,11 @@ class ModSWKbirthdayHelperMail extends ModSWKbirthdayHelper
             if (!isset($res)) {
                 $subject = self::getSubject($username);
                 $message = self::getMessage($username);
-                $config = JFactory::getConfig();
+                $config = Factory::getConfig();
                 //Prepare mail
-                $return = JFactory::getMailer()->sendMail($config->get('mailfrom'), $config->get('fromname'), $user['email'], $subject, $message);
+                $return = Factory::getMailer()->sendMail($config->get('mailfrom'), $config->get('fromname'), $user['email'], $subject, $message);
                 if ($return !== true) {
-                    JLog::add(JText::_('SCHUWEB_BIRTHDAY_SEND_MAIL_FAILED'), JLog::ERROR, 'mod_sw_kbirthday');
+                    Log::add(Text::_('SCHUWEB_BIRTHDAY_SEND_MAIL_FAILED'), Log::ERROR, 'mod_sw_kbirthday');
                 } else {
                     $query = $db->getQuery(true)
                         ->insert('#__sw_kbirthday')

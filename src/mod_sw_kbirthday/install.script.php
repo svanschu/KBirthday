@@ -31,7 +31,7 @@ class mod_sw_kbirthdayInstallerScript extends InstallerScript
      */
     public function preflight($route, $parent)
     {
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         if (version_compare($this->getParam('version'), '1.9.0') < 0) {
             $db->setQuery("CREATE TABLE IF NOT EXISTS `#__schuweb_birthday_message` ( `userid` int(11) NOT NULL DEFAULT '0', `topicid` int(11) NOT NULL, PRIMARY KEY (`userid`));");

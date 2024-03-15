@@ -9,6 +9,10 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use CBLib\Application\Application as CBApplication;
+
 include_once(JPATH_ROOT . '/administrator/components/com_comprofiler/plugin.foundation.php');
 
 /**
@@ -37,7 +41,7 @@ class SWBirthdayIntegrationComprofiler extends SWBirthdayIntegration
     {
         $birthdayFields = array();
 
-        $db = JFactory::getDbo();
+        $db = Factory::getDbo();
 
         //get the list of user birthdays
         $cbfield = $this->params->get('swkbcbfield', 'cb_birthday');
@@ -45,7 +49,7 @@ class SWBirthdayIntegrationComprofiler extends SWBirthdayIntegration
         $birthdayFields['fromtable'] = '#__comprofiler';
         $birthdayFields['userid'] = 'id';
 
-        $config = \CBLib\Application\Application::Config();
+        $config = CBApplication::Config();
         switch ($config["name_format"]) {
             case 1:
             case 2:
@@ -92,7 +96,7 @@ class SWBirthdayIntegrationComprofiler extends SWBirthdayIntegration
 
         $user = CBuser::getInstance($userId);
         $avatar = $user->getField('avatar', null, 'csv', 'none', 'list');
-        return '<img src="' . $avatar . '" alt="' . JText::sprintf('SWBIRTHDAY_AVATAR_TITLE', $this->getUserName($userId)) . '" ' . $style . ' />';
+        return '<img src="' . $avatar . '" alt="' . Text::sprintf('SWBIRTHDAY_AVATAR_TITLE', $this->getUserName($userId)) . '" ' . $style . ' />';
     }
 
     /**
@@ -106,12 +110,12 @@ class SWBirthdayIntegrationComprofiler extends SWBirthdayIntegration
     {
         $userName = $this->getUserName($user);
 
-        if ($user['userid'] && ($user['userid'] == \CBLib\Application\Application::MyUser()->getUserId())) {
+        if ($user['userid'] && ($user['userid'] == CBApplication::MyUser()->getUserId())) {
             $user['userid'] = null;
         }
-        $link = \CBLib\Application\Application::CBFramework()->cbSef('index.php?option=com_comprofiler' . ($user['userid'] ? '&task=userprofile&user=' . (int)$user['userid'] : ''), true, 'html');
+        $link = CBApplication::CBFramework()->cbSef('index.php?option=com_comprofiler' . ($user['userid'] ? '&task=userprofile&user=' . (int)$user['userid'] : ''), true, 'html');
 
-        $title = JText::sprintf('SWBIRTHDAY_USER_LINK_TITLE', $userName);
+        $title = Text::sprintf('SWBIRTHDAY_USER_LINK_TITLE', $userName);
 
         return "<a href=\"{$link}\" title=\"{$title}\" rel=\"nofollow\">{$userName}</a>";
     }
@@ -132,7 +136,7 @@ class SWBirthdayIntegrationComprofiler extends SWBirthdayIntegration
 
         $user = CBuser::getInstance($userId);
 
-        $config = \CBLib\Application\Application::Config();
+        $config = CBApplication::Config();
         switch ($config["name_format"]) {
             case 1:
             case 2:
