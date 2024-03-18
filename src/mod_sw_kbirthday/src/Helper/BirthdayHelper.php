@@ -14,6 +14,7 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log;
+use Joomla\Registry\Registry;
 use SchuWeb\Module\Birthday\Site\Helper\Integration\IntegrationHelper;
 
 
@@ -29,21 +30,13 @@ abstract class BirthdayHelper
     {
         $this->app = Factory::getApplication();
         $this->uri = Uri::getInstance();
-        $this->params = $params;
+        $this->params = new Registry($params);
         //get the date today
-        $config = Factory::getConfig();
+        $config = $this->app->getConfig();
         $this->soffset = $config->get('offset');
         $this->time_now = new Date('now', $this->soffset);
 
-        $this->integration = IntegrationHelper::getInstance($params);
-    }
-
-    static function loadHelper($params)
-    {
-        //get the birthday list with connection links
-        $class = "SchuWeb\Module\Birthday\Site\Helper\\{$params->get('connection')}Helper";
-        $bday = new $class($params);
-        return $bday->getUserBirthday();
+        $this->integration = IntegrationHelper::getInstance($this->params);
     }
 
     /**
@@ -191,7 +184,7 @@ abstract class BirthdayHelper
            * @since 1.6.0
            * @return Array
            */
-    function getUserBirthday()
+    function getUserBirthday($params)
     {
         $list = self::getBirthdayUser();
         $dage = $this->params->get('displayage');

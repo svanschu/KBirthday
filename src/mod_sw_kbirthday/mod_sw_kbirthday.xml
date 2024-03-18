@@ -79,7 +79,7 @@
 
                 <field name="spacer2" type="spacer" class="text" label=""/>
 
-                <field name="tmpl" type="filelist" default="default"
+                <field name="layout" type="filelist" default="default"
                        label="SCHUWEB_BIRTHDAY_TEMPLATE" description="SCHUWEB_BIRTHDAY_TEMPLATE_DESC"
                        directory="modules/mod_sw_kbirthday/tmpl" filter="\.php" stripext="true"
                        hide_default="true" hide_none="true"/>
