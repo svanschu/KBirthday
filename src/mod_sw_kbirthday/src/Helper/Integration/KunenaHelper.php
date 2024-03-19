@@ -10,6 +10,7 @@
 namespace SchuWeb\Module\Birthday\Site\Helper\Integration;
 
 use Joomla\CMS\Factory;
+use Joomla\Registry\Registry;
 use Kunena\Forum\Libraries\Factory\KunenaFactory;
 
 \defined('_JEXEC') or die;
@@ -26,8 +27,8 @@ class KunenaHelper extends IntegrationHelper
 
     function __construct($params)
     {
-        $this->params = $params;
-        $this->integration = $params->get('k20integration');
+        $this->params = new Registry($params);
+        $this->integration = $this->params->get('k20integration');
     }
 
     /**

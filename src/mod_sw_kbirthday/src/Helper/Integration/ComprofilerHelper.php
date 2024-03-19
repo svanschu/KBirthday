@@ -13,6 +13,7 @@ namespace SchuWeb\Module\Birthday\Site\Helper\Integration;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\Registry\Registry;
 use CBLib\Application\Application as CBApplication;
 
 include_once(JPATH_ROOT . '/administrator/components/com_comprofiler/plugin.foundation.php');
@@ -30,7 +31,7 @@ class ComprofilerHelper extends IntegrationHelper
 
     function __construct($params)
     {
-        $this->params = $params;
+        $this->params = new Registry($params);
     }
 
     /**

@@ -93,8 +93,13 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
         }
 
         #$res = BirthdayHelper::loadHelper($data['params']);
-        $res = $this->getHelperFactory()
-            ->getHelper($data['params']->get('connection').'Helper', $data['params']->toArray())
+        $birthdayHelper = $this->getHelperFactory()
+            ->getHelper($data['params']->get('connection').'Helper', $data['params']->toArray());
+        $birthdayHelper->setIntegration(
+            $this->getHelperFactory()
+                ->getHelper('Integration\\'.$data['params']->get('integration').'Helper', $data['params']->toArray())
+        );
+        $res = $birthdayHelper
             ->getUserBirthday($data['params']);
 
         if (empty ($res))

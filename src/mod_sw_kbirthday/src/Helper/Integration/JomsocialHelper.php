@@ -12,6 +12,7 @@ namespace SchuWeb\Module\Birthday\Site\Helper\Integration;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
+use Joomla\Registry\Registry;
 
 require_once( JPATH_ROOT . '/components/com_community/libraries/core.php' );
 
@@ -28,7 +29,7 @@ class JomsocialHelper extends IntegrationHelper
 
     function __construct($params)
     {
-        $this->params = $params;
+        $this->params = new Registry($params);
     }
 
     /**

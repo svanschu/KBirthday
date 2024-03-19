@@ -15,7 +15,6 @@ use Joomla\CMS\Date\Date;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log;
 use Joomla\Registry\Registry;
-use SchuWeb\Module\Birthday\Site\Helper\Integration\IntegrationHelper;
 
 
 defined('_JEXEC') or die();
@@ -35,8 +34,10 @@ abstract class BirthdayHelper
         $config = $this->app->getConfig();
         $this->soffset = $config->get('offset');
         $this->time_now = new Date('now', $this->soffset);
+    }
 
-        $this->integration = IntegrationHelper::getInstance($this->params);
+    function setIntegration($integration) {
+        $this->integration = $integration;
     }
 
     /**
