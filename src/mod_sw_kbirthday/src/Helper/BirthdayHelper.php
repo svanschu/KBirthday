@@ -15,12 +15,30 @@ use Joomla\CMS\Date\Date;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log;
 use Joomla\Registry\Registry;
+use Joomla\CMS\Application\CMSApplicationInterface;
 
 
 defined('_JEXEC') or die();
 
 abstract class BirthdayHelper
 {
+
+    /**
+     * The application instance
+     *
+     * @var    CMSApplicationInterface
+     * @since  __BUMP_VERSION__
+     */
+    protected $app;
+
+    /**
+     * Module parameter
+     * 
+     * @var     Registry
+     * @since  __BUMP_VERSION__
+     */
+    protected $params;
+
     /**
      * @since 1.7.0
      * @param $params
@@ -36,6 +54,11 @@ abstract class BirthdayHelper
         $this->time_now = new Date('now', $this->soffset);
     }
 
+    /**
+     * Set the helper class for integration
+     * 
+     * @since   _BUMP_VERSION_
+     */
     function setIntegration($integration) {
         $this->integration = $integration;
     }
@@ -49,11 +72,9 @@ abstract class BirthdayHelper
         switch ($this->params->get('calcinterval')) {
             case 'oneperday':
                 return $this->calcBirthdays();
-                break;
             case 'eachtime':
             default:
                 return $this->getBirthdayData();
-                break;
         }
 
     }
@@ -88,7 +109,7 @@ abstract class BirthdayHelper
             $lang = $this->params->get('subjectlanguage');
             if (empty($lang)) {
                 $this->app->enqueueMessage(Text::_('SCHUWEB_BIRTHDAY_LANGUAGE_NOSUBJECT'), 'error');
-                return;
+                return null;
             }
             $subject = self::getWantedLangString($lang, 'SCHUWEB_BIRTHDAY_SUBJECT', $username);
         } else {
@@ -133,7 +154,7 @@ abstract class BirthdayHelper
         $exist = file_exists(JPATH_BASE . '/language/' . $lang . '/' . $lang . '.mod_sw_kbirthday.ini');
         if ($exist == FALSE) {
             $this->app->enqueueMessage(Text::sprintf('SCHUWEB_BIRTHDAY_LANGUAGE_NOTEXIST', $lang), 'error');
-            return;
+            return null;
         }
         $language = Factory::getContainer()->get(Joomla\CMS\Language\LanguageFactoryInterface::class)->createLanguage($lang);
         $language->load('mod_sw_kbirthday');
@@ -291,7 +312,7 @@ abstract class BirthdayHelper
         $res = '';
         try {
             $res = $db->loadAssocList();
-        } catch (RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             Log::add('Can\'t load user birthdates!', Log::ERROR, 'mod_sw_kbirthday');
         }
         if (!empty($res)) {
