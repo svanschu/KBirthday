@@ -92,7 +92,7 @@ abstract class BirthdayHelper
             }
             $subject = self::getWantedLangString($lang, 'SCHUWEB_BIRTHDAY_SUBJECT', $username);
         } else {
-            $conf = Factory::getConfig();
+            $conf = $this->app->getConfig();
             $subject = self::getWantedLangString($conf->get('language'), 'SCHUWEB_BIRTHDAY_SUBJECT', $username);
         }
         return $subject;
@@ -113,7 +113,7 @@ abstract class BirthdayHelper
             }
             $message = implode('\n\n', $marray);
         } else {
-            $conf = Factory::getConfig();
+            $conf = $this->app->getConfig();
             $message = self::getWantedLangString($conf->get('language'), 'SCHUWEB_BIRTHDAY_MESSAGE', $username);
         }
         return $message;
@@ -164,7 +164,7 @@ abstract class BirthdayHelper
     {
         if (empty($tillstring['till']) || $tillstring['till'] == 0) {
             if ($this->params->get('todaygraphic') === 'graphic') {
-                $doc = Factory::getDocument();
+                $doc = $this->app->getDocument();
                 $style = '.swkb_today{
 					background: url("' . $this->uri->base() . '/media/mod_sw_kbirthday/img/birthday16x16.png") no-repeat center top transparent scroll;
 					height: 16px;
@@ -193,7 +193,7 @@ abstract class BirthdayHelper
         $avatar = $this->params->get('displayavatar');
         $graphicdate = $this->params->get('graphicdate');
         if ($graphicdate === 'graphic') {
-            $doc = Factory::getDocument();
+            $doc = $this->app->getDocument();
             $doc->addStyleSheet($this->uri->base() . '/modules/mod_sw_kbirthday/css/calendar.css');
         }
         $tgraphic = '';
