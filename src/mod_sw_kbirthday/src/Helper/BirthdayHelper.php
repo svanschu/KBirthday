@@ -80,7 +80,6 @@ abstract class BirthdayHelper
     {
         $this->app    = Factory::getApplication();
         $this->db     = Factory::getContainer()->get(DatabaseInterface::class);
-        $this->uri    = Uri::getInstance();
         $this->params = new Registry($params);
         //get the date today
         $config         = $this->app->getConfig();
@@ -221,7 +220,7 @@ abstract class BirthdayHelper
             if ($this->params->get('todaygraphic') === 'graphic') {
                 $doc   = $this->app->getDocument();
                 $style = '.swkb_today{
-					background: url("' . $this->uri->base() . '/media/mod_sw_kbirthday/img/birthday16x16.png") no-repeat center top transparent scroll;
+					background: url("' . URI::base() . '/media/mod_sw_kbirthday/img/birthday16x16.png") no-repeat center top transparent scroll;
 					height: 16px;
 					width: 16px;
 					display: inline-block;}';
@@ -249,7 +248,7 @@ abstract class BirthdayHelper
         $graphicdate = $this->params->get('graphicdate');
         if ($graphicdate === 'graphic') {
             $doc = $this->app->getDocument();
-            $doc->addStyleSheet($this->uri->base() . '/modules/mod_sw_kbirthday/css/calendar.css');
+            $doc->addStyleSheet(URI::base() . '/modules/mod_sw_kbirthday/css/calendar.css');
         }
         $tgraphic = '';
         if ($this->params->get('todaygraphic') === 'graphic')
