@@ -299,7 +299,7 @@ abstract class BirthdayHelper
             ->select([
                 $this->db->quoteName('b.username'),
                 $this->db->quoteName('b.name'),
-                $this->db->quoteName('b.id AS userid'),
+                $this->db->quoteName('b.id') . ' AS ' . $this->db->quoteName('userid'),
                 $this->db->quoteName('b.email')
             ]);
         $jomsocial = '';
