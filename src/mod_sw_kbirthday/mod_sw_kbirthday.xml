@@ -14,12 +14,12 @@
         <filename module="mod_sw_kbirthday">mod_sw_kbirthday.php</filename>
         <filename>install.sql</filename>
         <filename>uninstall.sql</filename>
-        <folder>css</folder>
         <folder>src</folder>
         <folder>tmpl</folder>
     </files>
-    <media destination="mod_sw_kbirthday">
-        <filename>img/birthday16x16.png</filename>
+    <media folder="media/mod_sw_kbirthday" destination="mod_sw_kbirthday">
+        <folder>css</folder>
+        <folder>img</folder>
     </media>
     <languages folder="language">
         <language tag="da-DK">da-DK/mod_sw_kbirthday.ini</language>

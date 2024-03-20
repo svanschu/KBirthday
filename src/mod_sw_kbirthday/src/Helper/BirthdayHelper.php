@@ -14,6 +14,7 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log;
+use Joomla\CMS\WebAsset\WebAssetItem;
 use Joomla\Registry\Registry;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseInterface;
@@ -218,13 +219,13 @@ abstract class BirthdayHelper
     {
         if (empty ($tillstring['till']) || $tillstring['till'] == 0) {
             if ($this->params->get('todaygraphic') === 'graphic') {
-                $doc   = $this->app->getDocument();
+                $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
                 $style = '.swkb_today{
 					background: url("' . URI::base() . '/media/mod_sw_kbirthday/img/birthday16x16.png") no-repeat center top transparent scroll;
 					height: 16px;
 					width: 16px;
 					display: inline-block;}';
-                $doc->addStyleDeclaration($style);
+                $wa->addInlineStyle($style);
                 $tillstring['day_string'] = '<span class="swkb_today"> </span> ';
             } else
                 $tillstring['day_string'] = Text::_('SCHUWEB_BIRTHDAY_TODAY');
@@ -247,8 +248,9 @@ abstract class BirthdayHelper
         $avatar      = $this->params->get('displayavatar');
         $graphicdate = $this->params->get('graphicdate');
         if ($graphicdate === 'graphic') {
-            $doc = $this->app->getDocument();
-            $doc->addStyleSheet(URI::base() . '/modules/mod_sw_kbirthday/css/calendar.css');
+            $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+            $wai = new WebAssetItem('schuweb_birthday.calendar.css', 'media/mod_sw_kbirthday/css/calendar.css');
+            $wa->registerAndUseStyle($wai);
         }
         $tgraphic = '';
         if ($this->params->get('todaygraphic') === 'graphic')
