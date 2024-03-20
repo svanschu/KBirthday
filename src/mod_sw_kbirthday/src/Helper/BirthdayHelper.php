@@ -15,6 +15,8 @@ use Joomla\CMS\Date\Date;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log;
 use Joomla\Registry\Registry;
+use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
 use Joomla\CMS\Application\CMSApplicationInterface;
 
 
@@ -40,17 +42,26 @@ abstract class BirthdayHelper
     protected $params;
 
     /**
+     * Database Object
+     * 
+     * @var     DatabaseDriver
+     * @since  __BUMP_VERSION__
+     */
+    protected $db;
+
+    /**
      * @since 1.7.0
      * @param $params
      */
     function __construct($params)
     {
-        $this->app = Factory::getApplication();
-        $this->uri = Uri::getInstance();
+        $this->app    = Factory::getApplication();
+        $this->db     = Factory::getContainer()->get(DatabaseInterface::class);
+        $this->uri    = Uri::getInstance();
         $this->params = new Registry($params);
         //get the date today
-        $config = $this->app->getConfig();
-        $this->soffset = $config->get('offset');
+        $config         = $this->app->getConfig();
+        $this->soffset  = $config->get('offset');
         $this->time_now = new Date('now', $this->soffset);
     }
 
@@ -282,12 +293,13 @@ abstract class BirthdayHelper
      */
     private function getBirthdayData()
     {
-        $db = Factory::getDBO();
-        $query = $db->getQuery(true);
-        $query->select('b.username');
-        $query->select('b.name');
-        $query->select('b.id AS userid');
-        $query->select('b.email');
+        $query     = $this->db->getQuery(true)
+            ->select([
+                $this->db->quoteName('b.username'),
+                $this->db->quoteName('b.name'),
+                $this->db->quoteName('b.id AS userid'),
+                $this->db->quoteName('b.email')
+            ]);
         $jomsocial = '';
 
         $birthdayFields = $this->integration->getBirthdayDatabaseFields();
@@ -307,11 +319,11 @@ abstract class BirthdayHelper
             ->having('till <= ' . $this->params->get('nextxdays'))
             ->order('till');
 
-        $query->order($db->escape($birthdayFields['$order']));
-        $db->setQuery($query, 0, $this->params->get('limit'));
+        $query->order($this->db->escape($birthdayFields['$order']));
+        $this->db->setQuery($query, 0, $this->params->get('limit'));
         $res = '';
         try {
-            $res = $db->loadAssocList();
+            $res = $this->db->loadAssocList();
         } catch (\RuntimeException $e) {
             Log::add('Can\'t load user birthdates!', Log::ERROR, 'mod_sw_kbirthday');
         }
@@ -349,12 +361,11 @@ abstract class BirthdayHelper
 
     private function calcBirthdays()
     {
-        $db = Factory::getDbo();
-        $query = $db->getQuery(true);
+        $query = $this->db->getQuery(true);
 
         $query->select('calcdate')
             ->from('#__schuweb_birthday');
-        $timestamp = $db->setQuery($query)->loadResult();
+        $timestamp = $this->db->setQuery($query)->loadResult();
 
         $calcDate = new Date($timestamp);
         $todayDate = new Date();
@@ -362,7 +373,7 @@ abstract class BirthdayHelper
 
         if (empty($timestamp) || $diff->format('%a') != 0) {
 
-            $db->truncateTable('#__schuweb_birthday');
+            $this->db->truncateTable('#__schuweb_birthday');
 
             $listOfBirthdays = $this->getBirthdayData();
 
@@ -372,26 +383,26 @@ abstract class BirthdayHelper
                 $insert[] = $birthday['userid']
                     . ', ' . $birthday['till']
                     . ', ' . $birthday['age']
-                    . ', ' . $db->q($birthday['birthdate']->format('Y-m-d'))
+                    . ', ' . $this->db->q($birthday['birthdate']->format('Y-m-d'))
                     . ', ' . $birthday['correction'];
             }
 
             if (!empty($insert)) {
-                $query = $db->getQuery(true);
+                $query = $this->db->getQuery(true);
                 $query->insert('#__schuweb_birthday')
                     ->columns('userid, daystill, age, birthdate, correction')
                     ->values($insert);
 
-                $db->setQuery($query)
+                $this->db->setQuery($query)
                     ->execute();
             }
         }
 
         //return the calculated list
-        $query = $db->getQuery(true);
+        $query = $this->db->getQuery(true);
         $query->select('*')
             ->from('#__schuweb_birthday');
-        $res = $db->setQuery($query)
+        $res = $this->db->setQuery($query)
             ->loadAssocList();
 
         foreach ($res as $k => $v) {

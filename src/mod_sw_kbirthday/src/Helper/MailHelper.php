@@ -26,24 +26,23 @@ class MailHelper extends BirthdayHelper
     public function getUserLink(& $user)
     {
         //Did the user already get an e-mail?
-        $db = Factory::getDBO();
-        $query = $db->getQuery(true);
+        $query = $this->db->getQuery(true);
         $query->select('uid');
         $query->select('YEAR(date) AS year');
         $query->from('#__sw_kbirthday');
-        $query->where('uid=' . $db->escape($user['userid']));
-        $db->setQuery($query);
-        $res = $db->loadAssoc();
+        $query->where('uid=' . $this->db->escape($user['userid']));
+        $this->db->setQuery($query);
+        $res = $this->db->loadAssoc();
 
         $username = $this->integration->getUserName($user);
 
         if (($user['birthdate']->format('z') + $user['correction']) == ($this->time_now->format('z'))) {
             if ($res && ($res['year'] != $this->time_now->format('Y'))) {
-                $query = $db->getQuery(true);
+                $query = $this->db->getQuery(true);
                 $query->delete('#__sw_kbirthday');
-                $query->where('uid=' . $db->escape($user['userid']));
-                $db->setQuery($query);
-                $db->query();
+                $query->where('uid=' . $this->db->escape($user['userid']));
+                $this->db->setQuery($query);
+                $this->db->query();
                 unset($res);
             }
             if (!isset($res)) {
@@ -55,10 +54,10 @@ class MailHelper extends BirthdayHelper
                 if ($return !== true) {
                     Log::add(Text::_('SCHUWEB_BIRTHDAY_SEND_MAIL_FAILED'), Log::ERROR, 'mod_sw_kbirthday');
                 } else {
-                    $query = $db->getQuery(true)
+                    $query = $this->db->getQuery(true)
                         ->insert('#__sw_kbirthday')
-                        ->set('uid=' . $db->escape($user['userid']));
-                    $db->setQuery($query)
+                        ->set('uid=' . $this->db->escape($user['userid']));
+                    $this->db->setQuery($query)
                         ->query();
                 }
             }

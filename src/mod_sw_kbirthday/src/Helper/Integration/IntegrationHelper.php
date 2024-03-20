@@ -11,6 +11,11 @@ namespace SchuWeb\Module\Birthday\Site\Helper\Integration;
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\Registry\Registry;
+use Joomla\Database\DatabaseDriver;
+use Joomla\Database\DatabaseInterface;
+
 /**
  * Class IntegrationHelper
  * Abstract class for integration of different extensions
@@ -20,6 +25,22 @@ namespace SchuWeb\Module\Birthday\Site\Helper\Integration;
  */
 abstract class IntegrationHelper
 {
+    protected $params = null;
+
+    /**
+     * Database Object
+     * 
+     * @var     DatabaseDriver
+     * @since  __BUMP_VERSION__
+     */
+    protected $db;
+
+    function __construct($params)
+    {
+        $this->params = new Registry($params);
+
+        $this->db = Factory::getContainer()->get(DatabaseInterface::class);
+    }
 
     /**
      * returns an array of fields to get the birthdates

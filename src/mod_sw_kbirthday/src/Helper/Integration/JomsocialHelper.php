@@ -12,7 +12,6 @@ namespace SchuWeb\Module\Birthday\Site\Helper\Integration;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
-use Joomla\Registry\Registry;
 
 require_once( JPATH_ROOT . '/components/com_community/libraries/core.php' );
 
@@ -24,14 +23,6 @@ require_once( JPATH_ROOT . '/components/com_community/libraries/core.php' );
  */
 class JomsocialHelper extends IntegrationHelper
 {
-
-    private $params = null;
-
-    function __construct($params)
-    {
-        $this->params = new Registry($params);
-    }
-
     /**
      * returns an array of fields to get the birthdates
      *

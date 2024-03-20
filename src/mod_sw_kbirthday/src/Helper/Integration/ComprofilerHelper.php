@@ -11,9 +11,7 @@ namespace SchuWeb\Module\Birthday\Site\Helper\Integration;
 
 \defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\Registry\Registry;
 use CBLib\Application\Application as CBApplication;
 
 include_once(JPATH_ROOT . '/administrator/components/com_comprofiler/plugin.foundation.php');
@@ -26,14 +24,6 @@ include_once(JPATH_ROOT . '/administrator/components/com_comprofiler/plugin.foun
  */
 class ComprofilerHelper extends IntegrationHelper
 {
-
-    private $params = null;
-
-    function __construct($params)
-    {
-        $this->params = new Registry($params);
-    }
-
     /**
      * returns an array of fields to get the birthdates
      *
@@ -44,11 +34,9 @@ class ComprofilerHelper extends IntegrationHelper
     {
         $birthdayFields = array();
 
-        $db = Factory::getDbo();
-
         //get the list of user birthdays
         $cbfield = $this->params->get('swkbcbfield', 'cb_birthday');
-        $birthdayFields['birthdate'] = $db->escape($cbfield);
+        $birthdayFields['birthdate'] = $this->db->escape($cbfield);
         $birthdayFields['fromtable'] = '#__comprofiler';
         $birthdayFields['userid'] = 'id';
 

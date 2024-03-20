@@ -9,8 +9,6 @@
 
 namespace SchuWeb\Module\Birthday\Site\Helper\Integration;
 
-use Joomla\CMS\Factory;
-use Joomla\Registry\Registry;
 use Kunena\Forum\Libraries\Factory\KunenaFactory;
 
 \defined('_JEXEC') or die;
@@ -23,14 +21,6 @@ use Kunena\Forum\Libraries\Factory\KunenaFactory;
  */
 class KunenaHelper extends IntegrationHelper
 {
-    private $params = null;
-
-    function __construct($params)
-    {
-        $this->params = new Registry($params);
-        $this->integration = $this->params->get('k20integration');
-    }
-
     /**
      * returns an array of fields to get the birthdates
      *
@@ -41,17 +31,17 @@ class KunenaHelper extends IntegrationHelper
     {
         $birthdayFields = array();
 
-        $db = Factory::getDbo();
+        $integration = $this->params->get('k20integration');
 
-        if ($this->integration === 'jomsocial') {
+        if ($integration === 'jomsocial') {
             $birthdayFields['birthdate'] = 'value';
             $birthdayFields['fromtable'] = '#__community_fields_values';
             $birthdayFields['jomsocial'] = ' AND a.field_id = 3 ';
             $birthdayFields['userid'] = 'user_id';
-        } elseif ($this->integration === 'communitybuilder') {
+        } elseif ($integration === 'communitybuilder') {
             //get the list of user birthdays
             $cbfield = $this->params->get('swkbcbfield', 'cb_birthday');
-            $birthdayFields['birthdate'] = $db->escape($cbfield);
+            $birthdayFields['birthdate'] = $this->db->escape($cbfield);
             $birthdayFields['fromtable'] = '#__comprofiler';
             $birthdayFields['userid'] = 'id';
         } else {

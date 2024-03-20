@@ -42,14 +42,14 @@ class KunenaHelper extends BirthdayHelper
             $username = KunenaFactory::getUser($user['userid'])->getName();
 
             if (($user['birthdate']->format('z') + $user['correction']) == $this->time_now->format('z')) {
-                $db = Factory::getDBO();
-                $query = $db->getQuery(true);
+                
+                $query = $this->db->getQuery(true);
                 $query->select('a.topicid, b.first_post_time AS year, b.category_id AS catid')
                     ->from('#__schuweb_birthday_message AS a')
                     ->leftJoin('#__kunena_topics AS b ON b.id = a.topicid')
-                    ->where("a.userid=" . $db->escape($user['userid']));
-                $db->setQuery($query, 0, 1);
-                $post = $db->loadAssoc();
+                    ->where("a.userid=" . $this->db->escape($user['userid']));
+                $this->db->setQuery($query, 0, 1);
+                $post = $this->db->loadAssoc();
                 $catid = $this->params->get('bcatid');
 
                 if (!empty($post))
@@ -59,17 +59,17 @@ class KunenaHelper extends BirthdayHelper
                     !empty($post) && !empty($catid) && $postyear->format('Y', true) < $this->time_now->format('Y', true)
                 ) {
                     if (!empty($post)) {
-                        $query = $db->getQuery(true);
+                        $query = $this->db->getQuery(true);
                         $query->delete('#__schuweb_birthday_message')
-                            ->where('userid=' . $db->escape($user['userid']))
-                            ->where('topicid=' . $db->escape($post['topicid']));
-                        $db->setQuery($query);
-                        $db->execute();
+                            ->where('userid=' . $this->db->escape($user['userid']))
+                            ->where('topicid=' . $this->db->escape($post['topicid']));
+                        $this->db->setQuery($query);
+                        $this->db->execute();
                     }
 
-                    $botid = $db->escape($this->params->get('swkbotid'));
-                    $message = $db->escape(self::getMessage($username));
-                    $subject = $db->escape(self::getSubject($username));
+                    $botid = $this->db->escape($this->params->get('swkbotid'));
+                    $message = $this->db->escape(self::getMessage($username));
+                    $subject = $this->db->escape(self::getSubject($username));
 
                     if (empty($message) || empty($subject)){
                     	Factory::$application->enqueueMessage("Message and or subject are empty. Are the language files for KBirthday installed proberly?", 'error');
@@ -125,12 +125,12 @@ class KunenaHelper extends BirthdayHelper
                         }
 
                         //Save the new topic to the topic user matching table
-                        $query = $db->getQuery(true);
+                        $query = $this->db->getQuery(true);
                         $query->insert('#__schuweb_birthday_message')
                             ->set('userid = ' . $user['userid'])
                             ->set('topicid = ' . $topic->id);
-                        $db->setQuery($query);
-                        $db->execute();
+                        $this->db->setQuery($query);
+                        $this->db->execute();
 
 
                         //TODO alt tag
