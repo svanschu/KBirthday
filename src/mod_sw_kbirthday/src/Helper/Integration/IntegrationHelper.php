@@ -78,18 +78,4 @@ abstract class IntegrationHelper
      * @return mixed
      */
     abstract public function getUserName($userId);
-
-    /**
-     * return Instance of the needed integration object
-     *
-     * @param $params
-     * @return mixed
-     * @since 2.0.0
-     */
-    static public function getInstance($params)
-    {
-        //get the birthday list with connection links
-        $class = "SchuWeb\Module\Birthday\Site\Helper\Integration\\{$params->get('integration')}Helper";
-        return new $class($params);
-    }
 }
