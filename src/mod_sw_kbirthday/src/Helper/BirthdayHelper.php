@@ -162,13 +162,12 @@ abstract class BirthdayHelper
      */
     private function getWantedLangString($lang, $arg, $username)
     {
-        jimport('joomla.filesystem.file');
-        $exist = file_exists(JPATH_BASE . '/language/' . $lang . '/' . $lang . '.mod_sw_kbirthday.ini');
+        $exist = file_exists(JPATH_BASE . '/language/' . $lang . '/' . 'mod_sw_kbirthday.ini');
         if ($exist == FALSE) {
             $this->app->enqueueMessage(Text::sprintf('SCHUWEB_BIRTHDAY_LANGUAGE_NOTEXIST', $lang), 'error');
             return null;
         }
-        $language = Factory::getContainer()->get(Joomla\CMS\Language\LanguageFactoryInterface::class)->createLanguage($lang);
+        $language = Factory::getContainer()->get(\Joomla\CMS\Language\LanguageFactoryInterface::class)->createLanguage($lang);
         $language->load('mod_sw_kbirthday');
         $string = $language->_($arg);
         $string = sprintf($string, $username);
