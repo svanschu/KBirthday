@@ -20,7 +20,7 @@ use Joomla\Database\DatabaseInterface;
 use Joomla\CMS\Application\CMSApplicationInterface;
 
 
-defined('_JEXEC') or die();
+\defined('_JEXEC') or die;
 
 abstract class BirthdayHelper
 {
@@ -70,7 +70,8 @@ abstract class BirthdayHelper
      * 
      * @since   _BUMP_VERSION_
      */
-    function setIntegration($integration) {
+    function setIntegration($integration)
+    {
         $this->integration = $integration;
     }
 
@@ -96,7 +97,7 @@ abstract class BirthdayHelper
      * @param  $user pass-by-reference
      * @return void
      */
-    public abstract function getUserLink(& $user);
+    public abstract function getUserLink(&$user);
 
     protected function getGraphicDate($date)
     {
@@ -118,13 +119,13 @@ abstract class BirthdayHelper
     {
         if ($this->params->get('activatelanguage') == 'yes') {
             $lang = $this->params->get('subjectlanguage');
-            if (empty($lang)) {
+            if (empty ($lang)) {
                 $this->app->enqueueMessage(Text::_('SCHUWEB_BIRTHDAY_LANGUAGE_NOSUBJECT'), 'error');
                 return null;
             }
             $subject = self::getWantedLangString($lang, 'SCHUWEB_BIRTHDAY_SUBJECT', $username);
         } else {
-            $conf = $this->app->getConfig();
+            $conf    = $this->app->getConfig();
             $subject = self::getWantedLangString($conf->get('language'), 'SCHUWEB_BIRTHDAY_SUBJECT', $username);
         }
         return $subject;
@@ -134,18 +135,18 @@ abstract class BirthdayHelper
     {
         if ($this->params->get('activatelanguage') == 'yes') {
             $lang = $this->params->get('messagelanguage');
-            if (empty($lang)) {
+            if (empty ($lang)) {
                 $this->app->enqueueMessage(Text::_('SCHUWEB_BIRTHDAY_LANGUAGE_NOMESSAGE'), 'error');
                 return;
             }
             $langa = explode(",", $lang);
             foreach ($langa as $value) {
-                $value = trim($value);
+                $value    = trim($value);
                 $marray[] = self::getWantedLangString($value, 'SCHUWEB_BIRTHDAY_MESSAGE', $username);
             }
             $message = implode('\n\n', $marray);
         } else {
-            $conf = $this->app->getConfig();
+            $conf    = $this->app->getConfig();
             $message = self::getWantedLangString($conf->get('language'), 'SCHUWEB_BIRTHDAY_MESSAGE', $username);
         }
         return $message;
@@ -180,9 +181,9 @@ abstract class BirthdayHelper
      * @return void
      * @since 1.7.0
      */
-    private function addDate(& $user)
+    private function addDate(&$user)
     {
-        $bdate = $user['birthdate']->format($this->params->get('dateform'), true);
+        $bdate        = $user['birthdate']->format($this->params->get('dateform'), true);
         $user['date'] = Text::sprintf('SCHUWEB_BIRTHDAY_DATE', $bdate);
     }
 
@@ -192,11 +193,11 @@ abstract class BirthdayHelper
      * @return void
      * @since 1.6.0
      */
-    private function addDaysTill(& $tillstring)
+    private function addDaysTill(&$tillstring)
     {
-        if (empty($tillstring['till']) || $tillstring['till'] == 0) {
+        if (empty ($tillstring['till']) || $tillstring['till'] == 0) {
             if ($this->params->get('todaygraphic') === 'graphic') {
-                $doc = $this->app->getDocument();
+                $doc   = $this->app->getDocument();
                 $style = '.swkb_today{
 					background: url("' . $this->uri->base() . '/media/mod_sw_kbirthday/img/birthday16x16.png") no-repeat center top transparent scroll;
 					height: 16px;
@@ -213,16 +214,16 @@ abstract class BirthdayHelper
     }
 
     /*
-           * Get the list of the user who have birthday in next days
-           * @since 1.6.0
-           * @return Array
-           */
+     * Get the list of the user who have birthday in next days
+     * @since 1.6.0
+     * @return Array
+     */
     function getUserBirthday($params)
     {
-        $list = self::getBirthdayUser();
-        $dage = $this->params->get('displayage');
-        $ddate = $this->params->get('displaydate');
-        $avatar = $this->params->get('displayavatar');
+        $list        = self::getBirthdayUser();
+        $dage        = $this->params->get('displayage');
+        $ddate       = $this->params->get('displaydate');
+        $avatar      = $this->params->get('displayavatar');
         $graphicdate = $this->params->get('graphicdate');
         if ($graphicdate === 'graphic') {
             $doc = $this->app->getDocument();
@@ -231,7 +232,7 @@ abstract class BirthdayHelper
         $tgraphic = '';
         if ($this->params->get('todaygraphic') === 'graphic')
             $tgraphic = '_GRAPHIC';
-        if (!empty($list)) {
+        if (!empty ($list)) {
             foreach ($list as $k => $v) {
                 if ($this->hideUser($v) === true) {
                     unset($list[$k]);
@@ -262,21 +263,22 @@ abstract class BirthdayHelper
     private function hideUser($user)
     {
         $hideUser = $this->params->get('hideuser');
-        if (!empty($hideUser)) {
+        if (!empty ($hideUser)) {
             $users = explode(',', $hideUser);
             $users = $users ? $users : array();
 
             foreach ($users as $uid) {
                 if ($uid == $user['userid']) {
                     return true;
-                };
+                }
+                ;
             }
         }
 
         if ($this->params->get('includeAll', 1) != 1) {
-            $userGroups = Joomla\CMS\User\UserHelper::getUserGroups($user['userid']);
+            $userGroups        = Joomla\CMS\User\UserHelper::getUserGroups($user['userid']);
             $includeUserGroups = $this->params->get('usergrouplist', array());
-            $res = array_diff($includeUserGroups, $userGroups);
+            $res               = array_diff($includeUserGroups, $userGroups);
 
             if (count($includeUserGroups) == count($res)) {
                 return true;
@@ -327,27 +329,29 @@ abstract class BirthdayHelper
         } catch (\RuntimeException $e) {
             Log::add('Can\'t load user birthdates!', Log::ERROR, 'mod_sw_kbirthday');
         }
-        if (!empty($res)) {
+        if (!empty ($res)) {
             //setting up the right birthdate
             //$todayyear = $this->time_now->format('Y', true);
             foreach ($res as $k => $v) {
-                if ($v['year'] == 1 || empty($v['year'])) {
+                if ($v['year'] == 1 || empty ($v['year'])) {
                     unset($res[$k]);
                 } else {
                     //DON'T USE OFFSET! because the birthdate is saved without time 0:00-2h is a day earlier which is wrong!
-                    $res[$k]['birthdate'] = new Date($v['year'] . '-' . $v['month'] . '-' . $v['day']);
+                    $res[$k]['birthdate']  = new Date($v['year'] . '-' . $v['month'] . '-' . $v['day']);
                     $res[$k]['correction'] = 0;
                     //both are leapyears or both are not
                     if ($this->time_now->format('L') == $res[$k]['birthdate']->format('L')) {
                         $res[$k]['correction'] = 0;
                     } //now leap year and birthday not
-                    elseif ($this->time_now->format('L') == 1 && $res[$k]['birthdate']->format('L') == 0 &&
+                    elseif (
+                        $this->time_now->format('L') == 1 && $res[$k]['birthdate']->format('L') == 0 &&
                         $res[$k]['birthdate']->format('m') > 2
                     ) {
                         //this value have to added to the birthdate!
                         $res[$k]['correction'] = 1;
                     } //now non leap year but birthday leap year
-                    elseif ($this->time_now->format('L') == 0 && $res[$k]['birthdate']->format('L') == 1 &&
+                    elseif (
+                        $this->time_now->format('L') == 0 && $res[$k]['birthdate']->format('L') == 1 &&
                         $res[$k]['birthdate']->format('m') > 2
                     ) {
                         //this value have to added to the birthdate!
@@ -367,11 +371,11 @@ abstract class BirthdayHelper
             ->from('#__schuweb_birthday');
         $timestamp = $this->db->setQuery($query)->loadResult();
 
-        $calcDate = new Date($timestamp);
+        $calcDate  = new Date($timestamp);
         $todayDate = new Date();
-        $diff = $calcDate->diff($todayDate);
+        $diff      = $calcDate->diff($todayDate);
 
-        if (empty($timestamp) || $diff->format('%a') != 0) {
+        if (empty ($timestamp) || $diff->format('%a') != 0) {
 
             $this->db->truncateTable('#__schuweb_birthday');
 
@@ -387,7 +391,7 @@ abstract class BirthdayHelper
                     . ', ' . $birthday['correction'];
             }
 
-            if (!empty($insert)) {
+            if (!empty ($insert)) {
                 $query = $this->db->getQuery(true);
                 $query->insert('#__schuweb_birthday')
                     ->columns('userid, daystill, age, birthdate, correction')

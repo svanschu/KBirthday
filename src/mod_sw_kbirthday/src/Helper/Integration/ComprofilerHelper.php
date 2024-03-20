@@ -85,7 +85,7 @@ class ComprofilerHelper extends IntegrationHelper
             $style = 'style=' . $style;
         }
 
-        $user = CBuser::getInstance($userId);
+        $user = \CBuser::getInstance($userId);
         $avatar = $user->getField('avatar', null, 'csv', 'none', 'list');
         return '<img src="' . $avatar . '" alt="' . Text::sprintf('SWBIRTHDAY_AVATAR_TITLE', $this->getUserName($userId)) . '" ' . $style . ' />';
     }
