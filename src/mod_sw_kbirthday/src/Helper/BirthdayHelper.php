@@ -50,6 +50,29 @@ abstract class BirthdayHelper
     protected $db;
 
     /**
+     * Integration Object
+     * 
+     * @since  __BUMP_VERSION__
+     */
+    protected $integration;
+
+    /**
+     * Website Time Zone
+     * 
+     * @var string
+     * @since  __BUMP_VERSION__
+     */
+    protected $soffset;
+
+    /**
+     * Time now with the configured Website Time Zone
+     * 
+     * @var Date
+     * @since  __BUMP_VERSION__
+     */
+    protected $time_now;
+
+    /**
      * @since 1.7.0
      * @param $params
      */
