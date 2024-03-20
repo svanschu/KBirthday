@@ -148,7 +148,7 @@
                     name="language_override_note"
                     type="note"
                     class="alert alert-info"
-                    showon="connection:Forum[OR]connection:Mail"
+                    showon="connection:Kunena[OR]connection:Mail"
                     label="SCHUWEB_BIRTHDAY_LANGUAGE_OVERRIDE_NOTE_LABEL"
                     description="SCHUWEB_BIRTHDAY_LANGUAGE_OVERRIDE_CONNECTION_NOTE"
                 />
@@ -156,7 +156,7 @@
                     name="connection_note"
                     type="note"
                     class="alert alert-info"
-                    showon="connection:Forum"
+                    showon="connection:Kunena"
                     label="SCHUWEB_BIRTHDAY_CONNECTION_NOTE_LABEL"
                     description="SCHUWEB_BIRTHDAY_CONNECTION_NOTE"
                 />
@@ -170,7 +170,7 @@
                 </field>
                 <field name="k20integration"
                        type="list"
-                       showon="connection:Forum"
+                       showon="connection:Kunena"
                        default="forum"
                        label="SCHUWEB_BIRTHDAY_K20INTEGRATION">
                     <option value="forum">Kunena</option>
@@ -179,14 +179,14 @@
                 </field>
                 <field name="bcatid"
                        type="text"
-                       showon="connection:Forum"
+                       showon="connection:Kunena"
                        default="2"
                        label="SCHUWEB_BIRTHDAY_FORUMPOST_POSTCATID"
                        description="SCHUWEB_BIRTHDAY_FORUMPOST_POSTCATID_DESC">
                 </field>
                 <field name="swkbotid"
                        type="text"
-                       showon="connection:Forum"
+                       showon="connection:Kunena"
                        default="0"
                        label="SCHUWEB_BIRTHDAY_FORUMPOST_BOTID"
                        description="SCHUWEB_BIRTHDAY_FORUMPOST_BOTID_DESC"/>
@@ -225,7 +225,7 @@
                        type="radio"
                        class="btn-group btn-group-yesno"
                        default="no"
-                       showon="connection:Forum"
+                       showon="connection:Kunena"
                        label="SCHUWEB_BIRTHDAY_LANGUAGE_ACTIVATE"
                        description="SCHUWEB_BIRTHDAY_LANGUAGE_ACTIVATE_DESC"
                 >
@@ -234,11 +234,11 @@
                 </field>
                 <field name="subjectlanguage" type="language" client="site"
                        default="en-GB" 
-                       showon="connection:Forum"
+                       showon="connection:Kunena"
                        label="SCHUWEB_BIRTHDAY_LANGUAGE_SUBJECT"
                        description="SCHUWEB_BIRTHDAY_LANGUAGE_SUBJECT_DESC"/>
                 <field type="text" name="messagelanguage" default="en-GB"
-                        showon="connection:Forum"
+                        showon="connection:Kunena"
                        label="SCHUWEB_BIRTHDAY_LANGUAGE_MESSAGE" description="SCHUWEB_BIRTHDAY_LANGUAGE_MESSAGE_DESC"/>
             </fieldset>
             <fieldset name="SCHUWEB_BIRTHDAY_CACHE">
