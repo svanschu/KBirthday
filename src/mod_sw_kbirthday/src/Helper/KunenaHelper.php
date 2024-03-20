@@ -10,6 +10,7 @@ namespace SchuWeb\Module\Birthday\Site\Helper;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Log\Log;
+use Joomla\CMS\Date\Date;
 use Kunena\Forum\Libraries\Factory\KunenaFactory;
 use Kunena\Forum\Libraries\User\KunenaUserHelper;
 use Kunena\Forum\Libraries\Forum\KunenaForum;
@@ -53,7 +54,7 @@ class KunenaHelper extends BirthdayHelper
                 $catid = $this->params->get('bcatid');
 
                 if (!empty($post))
-                    $postyear = new JDate($post['year'], $this->soffset);
+                    $postyear = new Date($post['year'], $this->soffset);
 
                 if (empty($post) && !empty($catid) ||
                     !empty($post) && !empty($catid) && $postyear->format('Y', true) < $this->time_now->format('Y', true)
@@ -104,7 +105,7 @@ class KunenaHelper extends BirthdayHelper
 	                    {
 		                    $category->tryAuthorise('topic.create', $_user);
 	                    }
-	                    catch (Exception $exception)
+	                    catch (\Exception $exception)
 	                    {
 		                    $app->setUserState('com_kunena.postfields', $fields);
 		                    $app->enqueueMessage($exception->getMessage(), 'notice');
