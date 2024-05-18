@@ -95,6 +95,10 @@
 	right: 6.5px;
 }
 
+.swkb {
+    padding-left: 0;
+}
+
 .swkb,
 .swkb li {
 	overflow: auto;
