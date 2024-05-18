@@ -14,6 +14,7 @@ namespace SchuWeb\Module\Birthday\Site\Helper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
+use Joomla\CMS\Mail\MailerFactoryInterface;
 
 class MailHelper extends BirthdayHelper
 {
@@ -41,16 +42,19 @@ class MailHelper extends BirthdayHelper
                 $query = $this->db->getQuery(true);
                 $query->delete('#__sw_kbirthday');
                 $query->where('uid=' . $this->db->escape($user['userid']));
-                $this->db->setQuery($query);
-                $this->db->query();
+                $this->db->setQuery($query)
+                    ->execute();
                 unset($res);
             }
             if (!isset($res)) {
                 $subject = self::getSubject($username);
                 $message = self::getMessage($username);
-                $config = Factory::getConfig();
+                $config = $this->app->getConfig();
                 //Prepare mail
-                $return = Factory::getMailer()->sendMail($config->get('mailfrom'), $config->get('fromname'), $user['email'], $subject, $message);
+                $return = Factory::getContainer()
+                    ->get(MailerFactoryInterface::class)
+                    ->createMailer()
+                    ->sendMail($config->get('mailfrom'), $config->get('fromname'), $user['email'], $subject, $message);
                 if ($return !== true) {
                     Log::add(Text::_('SCHUWEB_BIRTHDAY_SEND_MAIL_FAILED'), Log::ERROR, 'mod_sw_kbirthday');
                 } else {
@@ -58,7 +62,7 @@ class MailHelper extends BirthdayHelper
                         ->insert('#__sw_kbirthday')
                         ->set('uid=' . $this->db->escape($user['userid']));
                     $this->db->setQuery($query)
-                        ->query();
+                        ->execute();
                 }
             }
         }

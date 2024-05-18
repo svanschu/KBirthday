@@ -14,9 +14,11 @@ use Joomla\CMS\Helper\HelperFactoryAwareInterface;
 use Joomla\CMS\Helper\HelperFactoryAwareTrait;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Log\Log;
+use Joomla\Database\DatabaseInterface;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
 use Kunena\Forum\Libraries\Forum\KunenaForum;
+use SchuWeb\Module\Birthday\Site\Helper\BirthdayHelper;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -42,7 +44,7 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
     {
         $data = parent::getLayoutData();
 
-        Log::addLogger(array('text_file' => 'mod_sw_kbirthday.errors.php'), Log::ALL, 'mod_sw_kbirthday');
+        Log::addLogger(array('text_file' => 'mod_sw_kbirthday.errors.php'), Log::ALL, ['mod_sw_kbirthday']);
 
         $kunenaConnection = $data['params']->get('connection');
         $integration      = $data['params']->get('integration');
@@ -78,7 +80,7 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
                 return $data;
             }
 
-            $db    = Factory::getDbo();
+            $db    = Factory::getContainer()->get(DatabaseInterface::class);
             $query = $db->getQuery(true);
             $query->select('manifest_cache');
             $query->from($db->quoteName('#__extensions'));
@@ -92,7 +94,7 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
             }
         }
 
-        #$res = BirthdayHelper::loadHelper($data['params']);
+        /** @var Birthdayhelper */
         $birthdayHelper = $this->getHelperFactory()
             ->getHelper($data['params']->get('connection').'Helper', $data['params']->toArray());
         $birthdayHelper->setIntegration(

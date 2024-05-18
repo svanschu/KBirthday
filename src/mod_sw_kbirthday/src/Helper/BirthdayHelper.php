@@ -13,7 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Log;
+use Joomla\CMS\Log\Log;
 use Joomla\CMS\WebAsset\WebAssetItem;
 use Joomla\Registry\Registry;
 use Joomla\Database\DatabaseDriver;
@@ -299,7 +299,7 @@ abstract class BirthdayHelper
         }
 
         if ($this->params->get('includeAll', 1) != 1) {
-            $userGroups        = Joomla\CMS\User\UserHelper::getUserGroups($user['userid']);
+            $userGroups        = \Joomla\CMS\User\UserHelper::getUserGroups($user['userid']);
             $includeUserGroups = $this->params->get('usergrouplist', array());
             $res               = array_diff($includeUserGroups, $userGroups);
 
