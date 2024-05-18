@@ -11,11 +11,12 @@
     <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
     <namespace path="src">SchuWeb\Module\Birthday</namespace>
     <files>
-        <filename module="mod_sw_kbirthday">mod_sw_kbirthday.php</filename>
-        <filename>install.sql</filename>
-        <filename>uninstall.sql</filename>
+        <folder>services</folder>
         <folder>src</folder>
         <folder>tmpl</folder>
+        <filename>install.sql</filename>
+        <filename module="mod_sw_kbirthday">mod_sw_kbirthday.xml</filename>
+        <filename>uninstall.sql</filename>
     </files>
     <media folder="media/mod_sw_kbirthday" destination="mod_sw_kbirthday">
         <folder>css</folder>
