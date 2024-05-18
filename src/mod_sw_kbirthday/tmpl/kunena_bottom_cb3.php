@@ -9,16 +9,19 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+use Kunena\Forum\Libraries\Icons\KunenaIcons;
+
 ?>
 <div class="kfrontend sw_kbirthday <?php echo htmlspecialchars($params->get('moduleclass_sfx', '')) ?>">
-    <div class="btn-toolbar pull-right">
+<div class="btn-toolbar float-end">
         <div class="btn-group">
-            <div class="btn btn-default btn-sm" data-toggle="collapse" data-target="#sw_kbirthday"><span
-                        class="glyphicon glyphicon-sort" aria-hidden="true"></span></div>
+            <div class="btn btn-outline-primary border btn-sm" data-bs-toggle="collapse"
+                 data-bs-target="#sw_kbirthday"><?php echo KunenaIcons::collapse(); ?></div>
         </div>
     </div>
     <h2 class="btn-link">
-		<?php echo JText::_('SCHUWEB_BIRTHDAY_BIRTHDAY') ?>
+		<?php echo Text::_('SCHUWEB_BIRTHDAY_BIRTHDAY') ?>
     </h2>
     <div class="collapse in" id="sw_kbirthday">
         <div class="well well-sm">
@@ -27,7 +30,7 @@ defined('_JEXEC') or die();
                     <div class="col-md-1">
                         <ul class="list-unstyled">
                             <li class="btn-link text-center">
-                                <span class="glyphicon glyphicon-gift glyphicon-super" aria-hidden="true"></span>
+                                <?php echo KunenaIcons::birthdate(); ?>
                             </li>
                         </ul>
                     </div>

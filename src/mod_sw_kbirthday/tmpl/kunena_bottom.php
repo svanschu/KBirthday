@@ -9,15 +9,19 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Language\Text;
+use Kunena\Forum\Libraries\Icons\KunenaIcons;
+
 ?>
 <div class="kfrontend sw_kbirthday <?php echo htmlspecialchars($params->get('moduleclass_sfx', '')) ?>">
-    <div class="btn-toolbar pull-right">
+<div class="btn-toolbar float-end">
         <div class="btn-group">
-            <div class="btn btn-small" data-toggle="collapse" data-target="#sw_kbirthday"></div>
+            <div class="btn btn-outline-primary border btn-sm" data-bs-toggle="collapse"
+                 data-bs-target="#sw_kbirthday"><?php echo KunenaIcons::collapse(); ?></div>
         </div>
     </div>
     <h2 class="btn-link">
-        <?php echo JText::_('SCHUWEB_BIRTHDAY_BIRTHDAY')?>
+        <?php echo Text::_('SCHUWEB_BIRTHDAY_BIRTHDAY')?>
     </h2>
 	<div class="row-fluid collapse in" id="sw_kbirthday">
 		<div class="well-small">
