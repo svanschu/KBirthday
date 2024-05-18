@@ -41,9 +41,16 @@ class ComprofilerHelper extends IntegrationHelper
         $birthdayFields['userid'] = 'id';
 
         $config = CBApplication::Config();
-        switch ($config["name_format"]) {
+        switch ($config->get('name_format')) {
             case 1:
             case 2:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
                 $birthdayFields['$order'] = 'name';
                 break;
             case 3:
@@ -125,19 +132,8 @@ class ComprofilerHelper extends IntegrationHelper
             $userId = $userId['userid'];
         }
 
-        $user = \CBuser::getInstance($userId);
-
-        $config = CBApplication::Config();
-        switch ($config["name_format"]) {
-            case 1:
-            case 2:
-                $name = $user->getUserData()->name;
-                break;
-            case 3:
-            case 4:
-            default:
-                $name = $user->getUserData()->username;
-        }
-        return $name;
+        $user = \CBuser::getUserDataInstance($userId);
+        
+        return $user->getFormattedName();
     }
 }
