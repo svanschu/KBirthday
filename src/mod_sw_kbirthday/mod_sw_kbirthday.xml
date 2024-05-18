@@ -268,6 +268,7 @@
         </fields>
     </config>
     <updateservers>
-        <server type="extension" priority="1" name="SchuWeb Birthday">https://raw.githubusercontent.com/svanschu/KBirthday/master/update/update.xml</server>
+        <server type="extension" priority="1" name="SchuWeb Birthday">https://birthdaymoduleupdate.schultschik.de</server>
     </updateservers>
+    <changelogurl>https://birthdaymodulechangelog.schultschik.de</changelogurl>
 </extension>

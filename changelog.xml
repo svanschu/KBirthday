@@ -1,0 +1,25 @@
+<changelogs>
+    <changelog>
+        <element>mod_sw_kbirthday</element>
+        <type>module</type>
+        <version>3.1.0</version>
+        <fix>
+            <item>Displaying Name Field Community Builder</item>
+            <item>fix deprecated warnings</item>
+            <item>fix styling module and kbottom</item>
+            <item>fix parameter display in admin</item>
+        </fix>
+        <addition>
+            <item>native Joomla 5 compatibility</item>
+            <item>Language override button or link</item>
+            <item>add changelog</item>
+        </addition>
+        <change>
+            <item>overall code improvements</item>
+        </change>
+        <remove>
+        </remove>
+        <note>
+        </note>
+    </changelog>
+</changelogs>
