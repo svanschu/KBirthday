@@ -2,6 +2,25 @@
     <changelog>
         <element>mod_sw_kbirthday</element>
         <type>module</type>
+        <version>3.1.1</version>
+        <fix>
+            <item>fix #62 module name must be prefixed with mod_</item>
+            <item>fix installer script ignore parent preflight</item>
+            <item>fix #61 missing migrate script for changed module option values</item>
+        </fix>
+        <addition>
+        </addition>
+        <change>
+        </change>
+        <remove>
+            <item>remove pre 1.9.0 migrate script</item>
+        </remove>
+        <note>
+        </note>
+    </changelog>
+    <changelog>
+        <element>mod_sw_kbirthday</element>
+        <type>module</type>
         <version>3.1.0</version>
         <fix>
             <item>Displaying Name Field Community Builder</item>
