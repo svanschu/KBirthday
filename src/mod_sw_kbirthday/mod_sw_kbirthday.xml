@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension type="module" client="site" method="upgrade">
-    <name>SCHUWEB_BIRTHDAY</name>
+    <name>mod_SCHUWEB_BIRTHDAY</name>
     <creationDate>sw.build.date</creationDate>
     <author>Sven Schultschik</author>
     <copyright>GNU/GPL License</copyright>
