@@ -31,6 +31,8 @@ class mod_sw_kbirthdayInstallerScript extends InstallerScript
      */
     public function preflight($route, $parent)
     {
+        if (!parent::preflight($route, $parent)) return false;
+
         $db = Factory::getDbo();
 
         if (version_compare($this->getParam('version'), '1.9.0') < 0) {
