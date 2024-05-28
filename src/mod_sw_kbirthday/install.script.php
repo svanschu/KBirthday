@@ -35,7 +35,28 @@ class mod_sw_kbirthdayInstallerScript extends InstallerScript
 
         $db = Factory::getDbo();
 
-        if (version_compare($this->getParam('version'), '2.0.0') < 0) {
+        $manifest = $this->getItemArray('manifest_cache', '#__extensions', 'name', $this->extension);
+
+        // Check whether we have an old release installed and skip this check when this here is the initial install.
+        if (!isset($manifest['version'])) {
+            $manifest = $this->getItemArray('manifest_cache', '#__extensions', 'name', 'mod_sw_kbirthday');
+            if (!isset($manifest['version'])) {
+                $manifest = $this->getItemArray('manifest_cache', '#__extensions', 'name', 'SCHUWEB_BIRTHDAY');
+                if (!isset($manifest['version'])) {
+                    return true;
+                } else {
+                    // not needed if foldername and extension name are the same
+                   $this->extension = 'mod_sw_kbirthday';
+                }
+            } else {
+                // not needed if foldername and extension name are the same
+                $this->extension = 'mod_sw_kbirthday';
+            }
+        }
+
+        $oldRelease = $manifest['version'];
+
+        if (version_compare($oldRelease, '2.0.0') < 0) {
             $db->setQuery("CREATE TABLE IF NOT EXISTS `#__schuweb_birthday` (
   `userid` int(11) NOT NULL,
   `daystill` smallint(11) unsigned NOT NULL,
@@ -46,5 +67,20 @@ class mod_sw_kbirthdayInstallerScript extends InstallerScript
 );");
             $db->execute();
         }
+
+        if (version_compare($oldRelease, '3.1.0') <= 0) {
+            $ids = $this->getInstances(true);
+
+            foreach ($ids as $id) {
+                $connection = $this->getParam('connection', $id);
+                
+                if (strcmp($connection, 'Forum') == 0) {
+                    $param = array( 'connection' => 'Kunena');
+                    $this->setParams($param, 'edit', $id);
+                }
+            }
+        }
+
+        $this->extension = 'mod_SCHUWEB_BIRTHDAY';
     }
 }
