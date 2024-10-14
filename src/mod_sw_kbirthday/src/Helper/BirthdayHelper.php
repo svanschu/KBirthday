@@ -388,11 +388,12 @@ abstract class BirthdayHelper
 
     private function calcBirthdays()
     {
-        $query = $this->db->getQuery(true);
+        $db = Factory::getContainer()->get('DatabaseDriver');
+        $query = $db->getQuery(true);
 
         $query->select('calcdate')
             ->from('#__schuweb_birthday');
-        $timestamp = $this->db->setQuery($query)->loadResult();
+        $timestamp = $db->setQuery($query)->loadResult();
 
         $calcDate  = new Date($timestamp);
         $todayDate = new Date();
@@ -400,7 +401,7 @@ abstract class BirthdayHelper
 
         if (empty ($timestamp) || $diff->format('%a') != 0) {
 
-            $this->db->truncateTable('#__schuweb_birthday');
+            $db->truncateTable('#__schuweb_birthday');
 
             $listOfBirthdays = $this->getBirthdayData();
 
@@ -410,26 +411,32 @@ abstract class BirthdayHelper
                 $insert[] = $birthday['userid']
                     . ', ' . $birthday['till']
                     . ', ' . $birthday['age']
-                    . ', ' . $this->db->q($birthday['birthdate']->format('Y-m-d'))
+                    . ', ' . $db->q($birthday['birthdate']->format('Y-m-d'))
                     . ', ' . $birthday['correction'];
             }
 
             if (!empty ($insert)) {
-                $query = $this->db->getQuery(true);
+                $query = $db->getQuery(true);
                 $query->insert('#__schuweb_birthday')
                     ->columns('userid, daystill, age, birthdate, correction')
                     ->values($insert);
 
-                $this->db->setQuery($query)
+                $db->setQuery($query)
                     ->execute();
             }
         }
 
         //return the calculated list
-        $query = $this->db->getQuery(true);
-        $query->select('*')
-            ->from('#__schuweb_birthday');
-        $res = $this->db->setQuery($query)
+        $query = $db->getQuery(true);
+        $query->select([
+            $db->quoteName('userid'),
+            $db->quoteName('daystill') . 'as till',
+            $db->quoteName('age'),
+            $db->quoteName('birthdate'),
+            $db->quoteName('correction')
+             ])
+            ->from($db->quoteName('#__schuweb_birthday'));
+        $res = $db->setQuery($query)
             ->loadAssocList();
 
         foreach ($res as $k => $v) {
