@@ -72,7 +72,7 @@
 
                 <field name="swkbcbfield"
                        type="text"
-                       showon="integration:comprofiler"
+                       showon="integration:Comprofiler"
                        default="cb_birthday"
                        label="SCHUWEB_BIRTHDAY_CBFIELD"
                        description="SCHUWEB_BIRTHDAY_CBFIELD_DESC"
