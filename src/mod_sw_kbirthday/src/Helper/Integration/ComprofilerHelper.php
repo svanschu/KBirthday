@@ -111,7 +111,10 @@ class ComprofilerHelper extends IntegrationHelper
         if ($user['userid'] && ($user['userid'] == CBApplication::MyUser()->getUserId())) {
             $user['userid'] = null;
         }
-        $link = CBApplication::CBFramework()->cbSef('index.php?option=com_comprofiler' . ($user['userid'] ? '&task=userprofile&user=' . (int)$user['userid'] : ''), true, 'html');
+
+        global $_CB_framework;
+
+        $link = $_CB_framework->userProfileUrl((int) $user['userid']);
 
         $title = Text::sprintf('SWBIRTHDAY_USER_LINK_TITLE', $userName);
 
