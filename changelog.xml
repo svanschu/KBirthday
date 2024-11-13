@@ -2,6 +2,25 @@
     <changelog>
         <element>mod_sw_kbirthday</element>
         <type>module</type>
+        <version>3.1.2</version>
+        <fix>
+            <item>fix warning for invalid Date usage</item>
+            <item>fix not displayed config option</item>
+            <item>fix till time was not displayed if clac once per day</item>
+            <item>use better CB profile link creation</item>
+        </fix>
+        <addition>
+        </addition>
+        <change>
+        </change>
+        <remove>
+        </remove>
+        <note>
+        </note>
+    </changelog>
+    <changelog>
+        <element>mod_sw_kbirthday</element>
+        <type>module</type>
         <version>3.1.1</version>
         <fix>
             <item>fix #62 module name must be prefixed with mod_</item>
