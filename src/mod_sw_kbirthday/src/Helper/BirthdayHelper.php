@@ -395,11 +395,13 @@ abstract class BirthdayHelper
             ->from('#__schuweb_birthday');
         $timestamp = $db->setQuery($query)->loadResult();
 
-        $calcDate  = new Date($timestamp);
-        $todayDate = new Date();
-        $diff      = $calcDate->diff($todayDate);
 
-        if (empty ($timestamp) || $diff->format('%a') != 0) {
+        if (!empty($timestamp)) {
+            $diff      = (new Date($timestamp))->diff(new Date());
+            $oldCalc   = $diff->format('%a') != 0;
+        }
+
+        if (empty ($timestamp) || $oldCalc) {
 
             $db->truncateTable('#__schuweb_birthday');
 
